@@ -13,7 +13,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import {LoaderService} from '../../core/services/loader.service';
-import { EventDto } from "../shared/event-dto";
+import { EventDto } from '../shared/event-dto';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'edit-event',
@@ -90,7 +91,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
           : this.getSaveEventObservable(dto);
       observable.subscribe(result => {
         this.eventCopy = EventViewModel.fromEventDto(result);
-        this.event.copyFrom(this.eventCopy);
+        Object.assign(this.event, _.cloneDeep(this.eventCopy));
         if (isNewEvent) {
           this.schedulerSvc.addNewEvent(this.event);
         }
@@ -111,7 +112,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
             const value = <EventViewModel> changes.event.currentValue;
             if (value) {
               if (value.id <= 0) {
-                this.eventCopy.copyFrom(value);
+                Object.assign(this.eventCopy, _.cloneDeep(value));
               } else if (!value.address.latitude) {
                 this.eventCopy = EventViewModel.newEvent(null);
                 this.disabled = true;
@@ -120,7 +121,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
                   this.disabled = false;
                 });
               } else {
-                this.eventCopy.copyFrom(value);
+                Object.assign(this.eventCopy, _.cloneDeep(value));
               }
             } else {
               this.eventCopy = EventViewModel.newEvent(null);

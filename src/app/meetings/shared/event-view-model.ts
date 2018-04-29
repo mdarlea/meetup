@@ -1,6 +1,7 @@
 import { Address } from '../../core/models/address';
 import { EventDto } from './event-dto';
 import { EventInfo } from '../minical/event-info';
+import * as _ from 'lodash';
 
 export class EventViewModel {
     constructor(public id: number,
@@ -22,7 +23,7 @@ export class EventViewModel {
     readOnly: boolean;
     repeatedEventId: number;
 
-    static newEvent(groupId: string): EventViewModel {
+    static newEvent(groupId?: string): EventViewModel {
       const startTime = new Date();
       startTime.setHours(startTime.getHours() + 1);
 
@@ -100,53 +101,11 @@ export class EventViewModel {
         return event;
     }
 
-    private _copyAddress(target: Address, source: Address) {
-        if (source) {
-            for (const property in source) {
-                if (source.hasOwnProperty(property)) {
-                    target[property] = source[property];
-                }
-            }
-        }
-
-    }
-    copyFrom(eventVm: EventViewModel) {
-        this.id = eventVm.id;
-        this.name = eventVm.name;
-        this.description = eventVm.description;
-        this.instructor = eventVm.instructor;
-        this.location = eventVm.location;
-        this.startTime = eventVm.startTime;
-        this.endTime = eventVm.endTime;
-        this.groupId = eventVm.groupId;
-        this.allDay = eventVm.allDay;
-        this.repeatEvent = eventVm.repeatEvent;
-        this.addressId = eventVm.addressId;
-        this.userId = eventVm.userId;
-        this._copyAddress(this.address, eventVm.address);
-    }
     clone(): EventViewModel {
-        const address = new Address();
+        return _.cloneDeep(this);
+    }
 
-        this._copyAddress(address, this.address);
-
-        const event = new EventViewModel(this.id,
-            this.name,
-            this.instructor,
-            this.startTime,
-            this.endTime,
-            this.description,
-            this.allDay,
-            this.repeatEvent,
-            this.groupId,
-            this.userId,
-            this.location,
-            this.addressId,
-            address,
-            this.repeat);
-
-        event.readOnly = this.readOnly;
-        event.repeatedEventId = this.repeatedEventId;
-        return event;
+    private _copyAddress(target: Address, source: Address) {
+        Object.assign(target, _.cloneDeep(source));
     }
 }

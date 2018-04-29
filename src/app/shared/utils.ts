@@ -21,3 +21,13 @@ export function functionName(fun:Function): string {
     ret = ret.substr(0, ret.indexOf('('));
     return ret;
 }
+
+export function clone<T>(array: Array<T>,type: new (obj:T) => T): Array<T> {
+  const items = new Array<T>();
+
+  for(let elem of array) {
+    items.push(new type(elem));
+  }
+
+  return items;
+}
