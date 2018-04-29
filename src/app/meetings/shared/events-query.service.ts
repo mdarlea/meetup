@@ -28,6 +28,7 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
         let found = false;
         for(const group of groups) {
           if (group.id === event.userId) {
+            eventVM.group = group;
             group.events.push(eventVM);
             found = true;
             break;
@@ -35,6 +36,7 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
         }
         if (!found) {
           const newGroup = new EventGroup(event.userId, event.instructor, true);
+          eventVM.group = newGroup;
           newGroup.events.push(eventVM);
           groups.push(newGroup);
         }

@@ -16,16 +16,16 @@ export function copyObject<T>(object: T): T {
 }
 
 export function functionName(fun:Function): string {
-    var ret = fun.toString();
+    let ret = fun.toString();
     ret = ret.substr('function '.length);
     ret = ret.substr(0, ret.indexOf('('));
     return ret;
 }
 
-export function clone<T>(array: Array<T>,type: new (obj:T) => T): Array<T> {
+export function clone<T>(array: Array<T>, type: new (obj: T) => T): Array<T> {
   const items = new Array<T>();
 
-  for(let elem of array) {
+  for (const elem of array) {
     items.push(new type(elem));
   }
 

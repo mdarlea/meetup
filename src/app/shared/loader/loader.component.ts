@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { LoaderService } from '../../core/services/loader.service';
 
 @Component({
   selector: 'loader',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loader.component.css']
 })
 export class LoaderComponent implements OnInit {
+  loading = false;
 
-  constructor() { }
+  constructor(private loaderSvc: LoaderService, ref: ChangeDetectorRef) {
+    this.loaderSvc.loading$.subscribe(loading => {
+      this.loading = loading;
+      ref.detectChanges();
+    });
+   }
 
   ngOnInit() {
   }

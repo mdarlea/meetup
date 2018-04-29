@@ -12,7 +12,7 @@ import { Subscription} from 'rxjs/Subscription';
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
-  activeEvent = EventViewModel.newEvent(null);
+  activeEvent = EventViewModel.newEvent();
   loading = false;
   private loadersubscription: Subscription;
 

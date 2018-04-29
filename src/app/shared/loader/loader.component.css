@@ -1,8 +1,11 @@
-body{margin-top:80px}
+loader{
+  position:absolute;
+  margin-top:80px;
+}
 .circle{
   width:100px;
   height:100px;
-  position:relative;
+  position:absolute;
   margin:0 auto;
       cursor:pointer;
     -webkit-touch-callout: none;
@@ -13,6 +16,8 @@ body{margin-top:80px}
     user-select: none;
   border-radius:110px;
 margin-top:25%;
+margin-left:50%;
+z-index: 10000000;
 }
 .borderCircle2{
   position:absolute;

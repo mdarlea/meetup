@@ -8,62 +8,42 @@ export class JqxEventDirective implements OnChanges, OnInit, OnDestroy {
     @Input() id: number;
     @Input() description: string;
     @Input() location: string;
-    @Input() name: string;
-    @Input() startTime: Date;
-    @Input() endTime: Date;
+    @Input() subject: string;
+    @Input() start: Date;
+    @Input() end: Date;
     @Input() instructor: string;
     @Input() repeat: boolean;
     @Input() repeatDay: number;
     @Input() calendar: string;
     @Input() calendarId: string;
 
-    private _event: Jqx.Appointment;
+    private event: Jqx.Appointment;
 
-    constructor(@Host() private service: JqxMinicalService) {
+    constructor(@Host() private minicalSvc: JqxMinicalService) {
     }
 
     ngOnChanges(changes: any) {
         // tslint:disable-next-line:curly
-        if (!this._event) return;
+        if (!this.event) return;
         let isChanged = false;
 
-        if (changes && 'id' in changes) {
-            this._event.id = changes.id.currentValue;
+        for (const property in changes) {
+          if (changes.hasOwnProperty(property)) {
+            const value = changes[property].currentValue;
+            this.event[property] = value;
             isChanged = true;
-        }
-        if (changes && 'name' in changes) {
-            const name = <string> changes.name.currentValue;
-            this._event.subject = name;
-            isChanged = true;
-        }
-        if (changes && 'description' in changes) {
-            this._event.description = <string>changes.description.currentValue;
-            isChanged = true;
-        }
-        if (changes && 'startTime' in changes) {
-            this._event.start = <Date>changes.startTime.currentValue;
-            isChanged = true;
-        }
-        if (changes && 'endTime' in changes) {
-            this._event.end = <Date>changes.endTime.currentValue;
-            isChanged = true;
-        }
-        if (changes && 'instructor' in changes) {
-            this._event.instructor = <string>changes.instructor.currentValue;
-            isChanged = true;
+          }
         }
         if (changes && 'repeat' in changes) {
             const repeat = <boolean>changes.repeat.currentValue;
             this.setRepeat(repeat, this.repeatDay);
-            isChanged = true;
         }
         if (changes && 'repeatDay' in changes) {
             const repeatDay = <number>changes.repeatDay.currentValue;
             this.setRepeat(this.repeat, repeatDay);
-            isChanged = true;
         }
         if (isChanged) {
-            this.service.updateEvent(this._event);
+            this.minicalSvc.updateEvent(this.event);
         }
     }
 
@@ -80,23 +60,23 @@ export class JqxEventDirective implements OnChanges, OnInit, OnDestroy {
         // }
     }
     ngOnInit() {
-        this._event = {
+        this.event = {
             id: this.id,
-            subject: this.name,
+            subject: this.subject,
             location: this.location,
             description: this.description,
             instructor: this.instructor,
             calendarId: this.calendarId,
             calendar: this.calendar,
-            start: this.startTime,
-            end: this.endTime
+            start: this.start,
+            end: this.end
         };
         this.setRepeat(this.repeat, this.repeatDay);
 
-        this.service.addEvent(this._event);
+        this.minicalSvc.addEvent(this.event);
     }
 
     ngOnDestroy() {
-        this.service.deleteEvent(this._event.id);
+        this.minicalSvc.deleteEvent(this.event.id);
     }
 }

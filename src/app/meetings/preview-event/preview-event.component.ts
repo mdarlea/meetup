@@ -8,7 +8,7 @@ import { AddressService} from '../../core/services/address.service';
   styleUrls: ['./preview-event.component.css']
 })
 export class PreviewEventComponent implements OnInit, OnChanges {
-  @Input() event: EventViewModel = EventViewModel.newEvent(null);
+  @Input() event: EventViewModel = EventViewModel.newEvent();
 
   constructor(private addressSvc: AddressService) { }
 

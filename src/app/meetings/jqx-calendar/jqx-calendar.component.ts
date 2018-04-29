@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventsQueryService} from '../shared/events-query.service';
 
 @Component({
   selector: 'jqx-calendar',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JqxCalendarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventsQuerySvc: EventsQueryService) { }
 
   ngOnInit() {
+    this.eventsQuerySvc.queryWeeklyEventsForCurrentUser();
   }
 
 }

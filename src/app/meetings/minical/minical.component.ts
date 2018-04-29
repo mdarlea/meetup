@@ -125,34 +125,34 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
 
     @ViewChild('calendarContainer') calendarContainer;
 
-    constructor(private _renderer: Renderer, private _schedulerService: MinicalService, loaderSvc: LoaderService) {
-        this._schedulerService.closeAddEvent$.subscribe(() => {
+    constructor(private renderer: Renderer, private minicalSvc: MinicalService, loaderSvc: LoaderService) {
+        this.minicalSvc.closeAddEvent$.subscribe(() => {
             this.closeAddEvent();
         });
-        this._schedulerService.addGroup$.subscribe((group: web2cal.GroupData) => {
+        this.minicalSvc.addGroup$.subscribe((group: web2cal.GroupData) => {
             this.addGroupOnCalendar(group);
         });
-        this._schedulerService.removeGroup$.subscribe((groupId: string) => {
+        this.minicalSvc.removeGroup$.subscribe((groupId: string) => {
             this.removeGroupFromCalendar(groupId);
         });
-        this._schedulerService.addEvent$.subscribe((event: web2cal.EventData) => {
+        this.minicalSvc.addEvent$.subscribe((event: web2cal.EventData) => {
             this.addEventOnCalendar(event);
         });
-        this._schedulerService.updateEvent$.subscribe((event: web2cal.EventData) => {
+        this.minicalSvc.updateEvent$.subscribe((event: web2cal.EventData) => {
             this.updateEventOnCalendar(event);
         });
-        this._schedulerService.deleteEvent$.subscribe((eventId: number) => {
+        this.minicalSvc.deleteEvent$.subscribe((eventId: number) => {
             this.deleteEventFromCalendar(eventId);
         });
-        this._schedulerService.render$.subscribe(() => {
+        this.minicalSvc.render$.subscribe(() => {
             this.render();
         });
         this.loaderSubscription = loaderSvc.loading$.subscribe(value => {
           if (this._calendarIsInitialized) {
             if (value) {
-              this._ical.showStatusMsg();
+              // this._ical.showStatusMsg();
             } else {
-              this._ical.hideStatusMsg();
+              // this._ical.hideStatusMsg();
             }
           }
         });
@@ -228,35 +228,35 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
             this.selectionChanged = true;
         });
         const monthTab = el.querySelector("#calNavmonth");
-        this._renderer.listen(monthTab, 'click',
+        this.renderer.listen(monthTab, 'click',
             (event: Event) => {
                 this.view = 'month';
                 this._changed = false;
                 this._onCalendarTabChanged();
             });
         const weekTab = el.querySelector("#calNavweek");
-        this._renderer.listen(weekTab, 'click',
+        this.renderer.listen(weekTab, 'click',
             (event: Event) => {
                 this.view = 'week';
                 this._changed = false;
                 this._onCalendarTabChanged();
             });
         const dayTab = el.querySelector("#calNavday");
-        this._renderer.listen(dayTab, 'click',
+        this.renderer.listen(dayTab, 'click',
             (event: Event) => {
                 this.view = 'day';
                 this._changed = false;
                 this._onCalendarTabChanged();
             });
         const agendaTab = el.querySelector("#calNavagenda");
-        this._renderer.listen(agendaTab, 'click',
+        this.renderer.listen(agendaTab, 'click',
             (event: Event) => {
                 this.view = 'agenda';
                 this._changed = false;
                 this._onCalendarTabChanged();
             });
         const workTab = el.querySelector("#calNavworkweek");
-        this._renderer.listen(workTab, 'click',
+        this.renderer.listen(workTab, 'click',
             (event: Event) => {
                 this.view = 'workweek';
                 this._changed = false;
@@ -264,12 +264,12 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
             });
 
         const nextBtn = <HTMLDivElement> el.querySelector(".nextButton");
-        this._renderer.listen(nextBtn, 'click',
+        this.renderer.listen(nextBtn, 'click',
             (event: Event) => {
                 this._onCalendarTabChanged();
             });
         const prevBtn = <HTMLDivElement>el.querySelector(".prevButton");
-        this._renderer.listen(prevBtn, 'click',
+        this.renderer.listen(prevBtn, 'click',
             (event: Event) => {
                 this._onCalendarTabChanged();
             });

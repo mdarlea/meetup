@@ -1,6 +1,7 @@
 import { Address } from '../../core/models/address';
 import { EventDto } from './event-dto';
 import { EventInfo } from '../minical/event-info';
+import { EventGroup } from './event-group';
 import * as _ from 'lodash';
 
 export class EventViewModel {
@@ -22,15 +23,16 @@ export class EventViewModel {
 
     readOnly: boolean;
     repeatedEventId: number;
+    group: EventGroup;
 
-    static newEvent(groupId?: string): EventViewModel {
+    static newEvent(): EventViewModel {
       const startTime = new Date();
       startTime.setHours(startTime.getHours() + 1);
 
       const endTime = new Date();
       endTime.setHours(endTime.getHours() + 2);
 
-      return new EventViewModel(-1, null, null, startTime, endTime, null, false, null, groupId, groupId, null, -1, new Address(), false);
+      return new EventViewModel(-1, null, null, startTime, endTime, null, false, null, null, null, null, -1, new Address(), false);
     }
 
     static fromEventInfo(eventInfo: EventInfo): EventViewModel {

@@ -4,28 +4,33 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class JqxMinicalService {
-    private _closeAddEventSource = new Subject<any>();
-    private _addEventSource = new Subject<Jqx.Appointment>();
-    private _updateEventSource = new Subject<Jqx.Appointment>();
-    private _deleteEventSource = new Subject<number>();
+    private closeAddEventSource = new Subject<any>();
+    private addEventSource = new Subject<Jqx.Appointment>();
+    private updateEventSource = new Subject<Jqx.Appointment>();
+    private deleteEventSource = new Subject<number>();
+    private createAppointmentTemplateSource = new Subject<boolean>();
 
-    closeAddEvent$: Observable<any> = this._closeAddEventSource.asObservable();
+    closeAddEvent$: Observable<any> = this.closeAddEventSource.asObservable();
 
-    addEvent$ = this._addEventSource.asObservable();
-    updateEvent$ = this._updateEventSource.asObservable();
-    deleteEvent$ = this._deleteEventSource.asObservable();
+    addEvent$ = this.addEventSource.asObservable();
+    updateEvent$ = this.updateEventSource.asObservable();
+    deleteEvent$ = this.deleteEventSource.asObservable();
+    createAppointmentTemplate$ = this.createAppointmentTemplateSource.asObservable();
 
     closeAddEvent(): void {
-        this._closeAddEventSource.next({});
+        this.closeAddEventSource.next({});
     }
 
     updateEvent(event: Jqx.Appointment): void {
-        this._updateEventSource.next(event);
+        this.updateEventSource.next(event);
     }
     deleteEvent(eventId: number): void {
-        this._deleteEventSource.next(eventId);
+        this.deleteEventSource.next(eventId);
     }
     addEvent(event: Jqx.Appointment): void {
-        this._addEventSource.next(event);
+        this.addEventSource.next(event);
+    }
+    createAppointmentTemplate(value: boolean) {
+      this.createAppointmentTemplateSource.next(value);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { EventViewModel} from '../shared/event-view-model';
 import { AddressComponent} from '../../shared/address/address.component';
 import { UserAddressService} from '../../core/services/user-address.service';
@@ -23,7 +23,7 @@ import * as _ from 'lodash';
 })
 export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     @Input() event: EventViewModel;
-    eventCopy: EventViewModel = EventViewModel.newEvent(null);
+    eventCopy: EventViewModel = EventViewModel.newEvent();
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
 
@@ -42,7 +42,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       private addressSvc: UserAddressService,
       private eventSvc: EventService,
       private schedulerSvc: SchedulerService,
-      loaderSvc: LoaderService) {
+      private loaderSvc: LoaderService) {
       this.loaderSubscription = loaderSvc.loading$.subscribe(value => this.disabled = value);
     }
 
@@ -114,7 +114,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
               if (value.id <= 0) {
                 Object.assign(this.eventCopy, _.cloneDeep(value));
               } else if (!value.address.latitude) {
-                this.eventCopy = EventViewModel.newEvent(null);
+                this.eventCopy = EventViewModel.newEvent();
                 this.disabled = true;
                 this.eventSvc.findEvent(value.id).subscribe(result => {
                   this.eventCopy = EventViewModel.fromEventDto(result);
@@ -124,7 +124,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
                 Object.assign(this.eventCopy, _.cloneDeep(value));
               }
             } else {
-              this.eventCopy = EventViewModel.newEvent(null);
+              this.eventCopy = EventViewModel.newEvent();
             }
         }
     }

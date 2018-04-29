@@ -15,7 +15,7 @@ import { Subscription} from 'rxjs/Subscription';
   styleUrls: ['./calendar-edit.component.css']
 })
 export class CalendarEditComponent implements OnInit, AfterViewInit, OnDestroy {
-  activeEvent = EventViewModel.newEvent(null);
+  activeEvent = EventViewModel.newEvent();
   modelState: any;
   editMode = false;
   readOnly = false;
@@ -102,7 +102,7 @@ export class CalendarEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventSvc.removeEvent(this.activeEvent.id).subscribe(
       () => {
         this.schedulerSvc.deleteEvent(this.activeEvent);
-        this.activeEvent = EventViewModel.newEvent(null);
+        this.activeEvent = EventViewModel.newEvent();
         this.loaderSvc.load(false);
         this.hideModal();
       },
