@@ -1,0 +1,23 @@
+<minical   (previewEvent)="onPreviewEvent($event)"
+           (newEvent)="onNewEvent($event)"
+           (updateEvent)="onUpdateEvent($event)"
+           (calendarViewChanged)="onCalendarViewChanged($event)"
+           [readOnly]="readOnly"
+           [(view)]="view">
+    <group *ngFor="let group of groups"
+           [id]="group.id"
+           [name]="group.name"
+           [(show)]="group.show">
+        <event *ngFor="let event of group.events"
+           [id]="event.id"
+           [name]="event.name"
+           [description]="event.description"
+           [startTime]="event.startTime"
+           [endTime]="event.endTime"
+           [instructor]="event.instructor"
+           [repeat]="event.repeat"
+           [repeatDay]="event.repeatDay">
+        </event>
+    </group>
+</minical>
+<validation-errors [model-state]="modelState"></validation-errors>

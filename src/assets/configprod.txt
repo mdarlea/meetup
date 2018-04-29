@@ -1,0 +1,4 @@
+{
+  "apiBaseUrl" : "/services",
+  "baseUrl" : "http://www.swaksoft.com/meetup"
+}

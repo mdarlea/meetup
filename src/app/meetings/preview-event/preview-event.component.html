@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-xs-6">
+        <label class="pull-right">Hosted By</label>
+    </div>
+    <div class="col-xs-6">
+        <span class="text-info">{{event.instructor}}</span>
+    </div>
+</div>
+<div class="row">
+        <div class="col-xs-6">
+            <label class="pull-right">Start Time</label>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-info">{{event.startTime | format:"LLLL"}}</span>
+        </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <label class="pull-right">End Time</label>
+    </div>
+    <div class="col-xs-6">
+        <span class="text-info">{{event.endTime  | format:"LLLL"}}</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <label class="pull-right">Description</label>
+    </div>
+    <div class="col-xs-6">
+        <span class="text-info">{{event.description}}</span>
+    </div>
+</div>
+    <div class="panel panel-info info-box" *ngIf="event.allDay">
+        <div class="info-tab"></div>
+        <div class="panel-body">
+            <p class="text-center"> This is an all-day event</p>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-xs-6">
+        <label class="pull-right">Location</label>
+    </div>
+    <div class="col-xs-6">
+        <address-read-only [address]="event.address"></address-read-only>
+    </div>
+</div>
+<div class="panel panel-info info-box" *ngIf="event.repeat">
+    <div class="info-tab"></div>
+    <div class="panel-body">
+        <p class="text-center"> This event repeats every week</p>
+    </div>
+</div>
+

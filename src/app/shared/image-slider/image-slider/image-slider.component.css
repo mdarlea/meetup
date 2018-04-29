@@ -1,0 +1,13 @@
+﻿.img-container {
+  position:relative;
+  margin:0 auto;
+}
+.img-container img {
+  position:absolute;
+  left:0;
+  top: 0;
+  -ms-transition: opacity 2s ease-in-out;
+  -o-transition: opacity 2s ease-in-out;
+  -webkit-transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
+}

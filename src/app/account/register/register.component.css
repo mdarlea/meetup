@@ -1,0 +1,15 @@
+﻿section {
+    padding-top: 0;
+}
+hr {
+   max-width: 100%;
+   border-width: 1px;
+}
+#verse {
+    display: none;
+}
+@media (min-width: 992px) {
+    #verse {
+        display: block;
+    }
+}

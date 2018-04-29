@@ -1,0 +1,91 @@
+﻿#loader {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: 0;
+    margin-top: -60px;
+    margin-left: -40px;
+    color: white;
+    font-weight: bold;
+}
+
+#blokkolowait {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 99998;
+  top: 50%;
+  left: 50%;
+  margin-left: -80px;
+  margin-top: -75px;
+}
+#blokkolowait li {
+    display: inline-block;
+  background-color: #7f2c1a;
+  border: 1px solid #000;
+  width: 10px;
+  height: 10px;
+  margin: 0px;
+  padding: 0px;
+  margin-left: 3px;
+  margin-right: 3px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  animation-duration: 1600ms;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in;
+  animation-name: animbelso;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    -ms-transform-origin: 5px 5px;
+    -o-transform-origin: 5px 5px;
+    -webkit-transform-origin: 5px 5px;
+    transform-origin: 5px 5px;
+}
+
+#blokkolowait li:nth-child(1) {
+  animation-delay: 0ms;
+}
+#blokkolowait li:nth-child(2) {
+  animation-delay: 150ms;
+}
+#blokkolowait li:nth-child(3) {
+  animation-delay: 300ms;
+}
+#blokkolowait li:nth-child(4) {
+  animation-delay: 450ms;
+}
+#blokkolowait li:nth-child(5) {
+  animation-delay: 600ms;
+}
+#blokkolowait li:nth-child(6) {
+  animation-delay: 750ms;
+}
+#blokkolowait li:nth-child(7) {
+  animation-delay: 900ms;
+}
+#blokkolowait li:nth-child(8) {
+  animation-delay: 1050ms;
+}
+@keyframes animbelso {
+  0% {
+    transform: translate3d(0, 0, 0);
+    background-color: #ededed;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  }
+  20% {
+    transform: translate3d(0, -2px, 0);
+    background-color: #F05F40;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  60% {
+    transform: translate3d(0, 0, 0);
+    background-color: #ee4b28;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  }
+}
+

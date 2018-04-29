@@ -1,0 +1,82 @@
+﻿<section>
+    <div class="container">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Register</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="container-page">
+            <div class="row">
+                <div class="col-md-6 col-sm-10 col-xs-12">
+                    <form class="form-group" #form="ngForm" (ngSubmit)="onSubmit($event)">
+                        <input-group name="email"
+                                     [(ngModel)]="user.email"
+                                     fa-icon="envelope"
+                                     label="E-mail"
+                                     placeholder="Your e-mail address"
+                                     required email>
+                            <err-required message="The e-mail address is required"></err-required>
+                            <err-email message="Invalid e-mail address"></err-email>
+                        </input-group>
+                        <input-group name="userName" *ngIf="!isExternal"
+                                     [(ngModel)]="user.userName"
+                                     fa-icon="user"
+                                     label="User Name"
+                                     placeholder="User name if different than e-mail">
+                        </input-group>
+                        <input-group name="password" *ngIf="!isExternal"
+                                     type="password"
+                                     [(ngModel)]="user.password"
+                                     fa-icon="lock"
+                                     label="Password"
+                                     placeholder="Your password"
+                                     required minlength="10">
+                            <err-required message="Password is required"></err-required>
+                            <err-minlength message="Password must have at least 10 characters"></err-minlength>
+                        </input-group>
+                        <div class="row">
+                            <input-simple name="firstName"
+                                          [(ngModel)]="user.firstName"
+                                          class="col-sm-6 col-xs-12"
+                                          fa-icon="users"
+                                          label="First Name"
+                                          placeholder="Your first name"
+                                          required>
+                                <err-required message="First name is required"></err-required>
+                            </input-simple>
+                            <input-simple name="lastName"
+                                          [(ngModel)]="user.lastName"
+                                          class="col-sm-6 col-xs-12"
+                                          label="Last Name"
+                                          placeholder="Your last name"
+                                          required>
+                                <err-required message="Last name is required"></err-required>
+                            </input-simple>
+                        </div>
+                        <address [address]="user.address"></address>
+                        <validation-errors [model-state]="modelState"></validation-errors>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button type="submit"
+                                        [disabled]="!form.form.valid || registering"
+                                        value="Register" class="btn btn-primary sr-button btn-xl">
+                                    Register
+                                </button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-xl btn-success sr-button pull-right" routerLink="/login" routerLinkActive="active">Sign In</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="verse" class="col-md-6 col-sm-2">
+                    <image-slider width="370" [height]="600" interval="5"
+                                  filter="assets/images/{0}.jpg"
+                                  [source]='["verse1","verse2","verse3","verse4","verse5"]'>
+                    </image-slider>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

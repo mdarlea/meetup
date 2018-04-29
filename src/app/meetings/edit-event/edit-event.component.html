@@ -1,0 +1,73 @@
+    <input-group name="name"
+                 [(ngModel)]="eventCopy.name"
+                 fa-icon="calendar"
+                 label="Event Name"
+                 placeholder="The event name"
+                 [disabled]="disabled"
+                 required>
+        <err-required message="The event name is required"></err-required>
+    </input-group>
+    <!-- <input-group name="instructor"
+                 [(ngModel)]="eventCopy.instructor"
+                 fa-icon="user"
+                 label="Leader"
+                 [disabled]="disabled"
+                 placeholder="The person hosting this event">
+    </input-group> -->
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <label>Start Time</label>
+            <time-picker name="startTime"
+                         [(ngModel)]="eventCopy.startTime"
+                         required
+                         time-range
+                         format="{momentFormat:'lll'}">
+                <err-required message="The start time is required"></err-required>
+                <err-time-range message="Start time must be in the future"></err-time-range>
+            </time-picker>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <label>End Time</label>
+            <time-picker name="endTime"
+                         [(ngModel)]="eventCopy.endTime"
+                         required
+                         time-range="startTime"
+                         format="{momentFormat:'lll'}">
+                <err-required message="The end time is required"></err-required>
+                <err-time-range message="End time must be greater than the start time"></err-time-range>
+            </time-picker>
+        </div>
+    </div>
+    <input-simple name="description" type="textarea"
+                  [(ngModel)]="eventCopy.description"
+                  label="Description"
+                  [disabled]="disabled"
+                  placeholder="The event description">
+    </input-simple>
+
+<div class="panel panel-info">
+    <div class="panel-body">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" [(ngModel)]="eventCopy.repeat">
+                Repeat this event every week
+            </label>
+        </div>
+    </div>
+</div>
+    <div class="panel panel-info">
+        <div class="panel-heading">Event Location</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-info" [disabled]="disabled"
+                           [value]="buttonText"
+                           (click)="eventAtMainAddress()" />
+                </div>
+                <div class="col-sm-6">
+                    <address-read-only *ngIf="isAtMainAddress" [address]="eventCopy.address"></address-read-only>
+                </div>
+            </div>
+            <address *ngIf="!isAtMainAddress" [address]="eventCopy.address" [showCountry]="showCountry" class="address" [disabled]="disabled"></address>
+        </div>
+    </div>

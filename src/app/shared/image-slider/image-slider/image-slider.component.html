@@ -1,0 +1,8 @@
+﻿<div class="img-container" [style.width.px]="width" [style.height.px]="height">
+    <img *ngFor="let info of imagesInfo"
+         [style.opacity]="info.opacity"
+         [style.width.px]="width"
+         [style.height.px]="height"
+         [attr.src]="srcForName(info.name)"
+         class="img-rounded img-responsive" />
+</div>
