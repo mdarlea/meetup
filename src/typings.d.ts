@@ -6,6 +6,7 @@
 /// <reference path="../typings/amplifyjs/index.d.ts" />
 /// <reference path="../typings/web2cal/index.d.ts" />
 /// <reference path="../typings/jqx/index.d.ts" />
+/// <reference path="../typings/moment/index.d.ts" />
 /// <reference path="../node_modules/jqwidgets-framework/jqwidgets-ts/jqwidgets.d.ts" />
 
 declare var module: NodeModule;
