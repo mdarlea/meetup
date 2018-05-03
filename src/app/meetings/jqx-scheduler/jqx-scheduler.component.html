@@ -1,6 +1,7 @@
+<button (click)="setTemplate()">Set Template</button>
 <jqx-minical>
-  <ng-template let-event="event" jqxEventTemplate *ngIf="enabled">
-    <div>{{event.name}}</div>
+  <ng-template let-data="data" jqxEventTemplate *ngIf="enabled">
+    <div>{{data.appointment.subject}}</div>
   </ng-template>
   <jqx-event *ngFor="let event of events"
            [id]="event.id"

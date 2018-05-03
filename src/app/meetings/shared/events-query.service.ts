@@ -45,6 +45,10 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
       this.loaderSvc.load(false);
     }
 
+    reset() {
+      super.next([]);
+    }
+
     queryWeeklyEventsForCurrentUser() {
       this.loaderSvc.load(true);
       this.findWeeklyEventsForCurrentUser().subscribe(events => this.query(events));

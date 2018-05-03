@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Subscription} from 'rxjs/Subscription';
 
 import { EventsQueryService} from '../shared/events-query.service';
 import { EventViewModel} from '../shared/event-view-model';
+import { JqxMinicalComponent} from '../jqx-minical/jqx-minical.component';
+import {EventInfo} from '../shared/event-info';
+import { UserService} from '../../core/services/user.service';
 
 @Component({
   selector: 'jqx-scheduler',
@@ -14,10 +17,18 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
   modelState: any = null;
   enabled = true;
 
+  @Output() newEvent = new EventEmitter<EventViewModel>();
+
   private subscription: Subscription;
 
-  constructor(private eventsQuerySvc: EventsQueryService) {
-    this.subscription = eventsQuerySvc.subscribe(groups => {
+  @ViewChild(JqxMinicalComponent) minicalComponent: JqxMinicalComponent;
+
+  constructor(private eventsQuerySvc: EventsQueryService,
+              private userSvc: UserService) {
+  }
+
+  ngOnInit() {
+    this.subscription = this.eventsQuerySvc.subscribe(groups => {
         this.events = new Array<EventViewModel>();
         for (const group of groups) {
           for (const event of group.events) {
@@ -27,12 +38,23 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
-  }
-
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  onNewEvent(event: EventInfo) {
+    this.modelState = null;
+    const user = this.userSvc.getUser();
+    const newEvent = EventViewModel.fromEventInfo(event);
+    newEvent.groupId = user.userId;
+    newEvent.userId = user.userId;
+    this.newEvent.emit(newEvent);
+  }
+
+
+  setTemplate() {
+    this.enabled = !this.enabled;
   }
 }

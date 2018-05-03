@@ -3,7 +3,7 @@ import { EventsQueryService} from '../shared/events-query.service';
 import {EventGroup} from '../shared/event-group';
 import { EventViewModel} from '../shared/event-view-model';
 import { Subscription} from 'rxjs/Subscription';
-import {EventInfo} from '../minical/event-info';
+import {EventInfo} from '../shared/event-info';
 import { TimeRange} from '../minical/time-range';
 import { EventService} from '../shared/event.service';
 import {MinicalComponent} from '../minical/minical.component';

@@ -23,7 +23,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
    }
 
   ngOnInit() {
-
+    this.eventsQuerySvc.reset();
   }
 
   ngAfterViewInit() {

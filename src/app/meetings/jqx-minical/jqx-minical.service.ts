@@ -2,20 +2,26 @@
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
+export enum AppointmentTemplate {
+  NoAction,
+  Create,
+  Delete
+}
+
 @Injectable()
 export class JqxMinicalService {
     private closeAddEventSource = new Subject<any>();
     private addEventSource = new Subject<Jqx.Appointment>();
     private updateEventSource = new Subject<Jqx.Appointment>();
     private deleteEventSource = new Subject<number>();
-    private createAppointmentTemplateSource = new Subject<boolean>();
+    private appointmentTemplateSource = new Subject<AppointmentTemplate>();
 
     closeAddEvent$: Observable<any> = this.closeAddEventSource.asObservable();
 
     addEvent$ = this.addEventSource.asObservable();
     updateEvent$ = this.updateEventSource.asObservable();
     deleteEvent$ = this.deleteEventSource.asObservable();
-    createAppointmentTemplate$ = this.createAppointmentTemplateSource.asObservable();
+    appointmentTemplate$ = this.appointmentTemplateSource.asObservable();
 
     closeAddEvent(): void {
         this.closeAddEventSource.next({});
@@ -30,7 +36,7 @@ export class JqxMinicalService {
     addEvent(event: Jqx.Appointment): void {
         this.addEventSource.next(event);
     }
-    createAppointmentTemplate(value: boolean) {
-      this.createAppointmentTemplateSource.next(value);
+    appointmentTemplate(action: AppointmentTemplate) {
+      this.appointmentTemplateSource.next(action);
     }
 }

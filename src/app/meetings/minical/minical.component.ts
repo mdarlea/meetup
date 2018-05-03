@@ -7,7 +7,7 @@
 // tslint:disable-next-line:max-line-length
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ContentChild, AfterContentInit, AfterViewInit, ElementRef, Renderer,  ViewChild, OnDestroy} from '@angular/core';
 import { TimeRange } from "./time-range";
-import { EventInfo } from "./event-info";
+import { EventInfo } from "../shared/event-info";
 import { MinicalService } from './minical.service';
 import { Observable } from 'rxjs/Observable';
 import { LoaderService} from '../../core/services/loader.service';
@@ -87,7 +87,7 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
     private _calendarIsInitialized = false;
 
     private _isNewEvent = false;
-    private _changed = false;
+    private changed = false;
     private loaderSubscription: Subscription;
     private selectionChanged = false;
 
@@ -97,30 +97,30 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
     @Output() dateChange = new EventEmitter<Date>();
     @Output() viewChange = new EventEmitter<string>();
 
-    private _date: Date;
+    private dateValue: Date;
     @Input()
     set date(value: Date) {
-      if (value !== this._date) {
-        this._date = value;
-        this._changed = true;
+      if (value !== this.dateValue) {
+        this.dateValue = value;
+        this.changed = true;
         this.dateChange.emit(value);
       }
     }
     get date() {
-      return this._date;
+      return this.dateValue;
     }
 
-    private _view: string;
+    private viewValue: string;
     @Input()
     set view(value: string) {
-      if (value !== this._view) {
-        this._view = value;
-        this._changed = true;
+      if (value !== this.viewValue) {
+        this.viewValue = value;
+        this.changed = true;
         this.viewChange.emit(value);
       }
     }
     get view() {
-      return this._view;
+      return this.viewValue;
     }
 
     @ViewChild('calendarContainer') calendarContainer;
@@ -161,23 +161,23 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
    ngOnChanges(changes: any): void {
     if (changes && 'startTime' in changes) {
       if (this._calendarIsInitialized) {
-        this._instantiateICal();
+        this.instantiateICal();
       }
     }
-    if (this._changed) {
+    if (this.changed) {
       if (this._calendarIsInitialized) {
         if (changes && 'view' in changes) {
           const view = <string> changes.view.currentValue;
           this._ical.showView(view, (this.date) ? this.date.toDateString() : (new Date()).toDateString());
-          this._onCalendarTabChanged();
+          this.onViewChanged();
         }
         if (changes && 'date' in changes) {
           const date = <Date> changes.date.currentValue;
           this._ical.showView((this.view) ? this.view : 'week', (date) ? date.toDateString() : (new Date()).toDateString());
-          this._onCalendarTabChanged();
+          this.onViewChanged();
         }
       }
-      this._changed = false;
+      this.changed = false;
     }
    }
 
@@ -189,7 +189,7 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
     }
 
     ngAfterViewInit() {
-        this._instantiateICal();
+        this.instantiateICal();
         this._calendarIsInitialized = true;
 
         const el = this.calendarContainer.nativeElement;
@@ -231,47 +231,47 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
         this.renderer.listen(monthTab, 'click',
             (event: Event) => {
                 this.view = 'month';
-                this._changed = false;
-                this._onCalendarTabChanged();
+                this.changed = false;
+                this.onViewChanged();
             });
         const weekTab = el.querySelector("#calNavweek");
         this.renderer.listen(weekTab, 'click',
             (event: Event) => {
                 this.view = 'week';
-                this._changed = false;
-                this._onCalendarTabChanged();
+                this.changed = false;
+                this.onViewChanged();
             });
         const dayTab = el.querySelector("#calNavday");
         this.renderer.listen(dayTab, 'click',
             (event: Event) => {
                 this.view = 'day';
-                this._changed = false;
-                this._onCalendarTabChanged();
+                this.changed = false;
+                this.onViewChanged();
             });
         const agendaTab = el.querySelector("#calNavagenda");
         this.renderer.listen(agendaTab, 'click',
             (event: Event) => {
                 this.view = 'agenda';
-                this._changed = false;
-                this._onCalendarTabChanged();
+                this.changed = false;
+                this.onViewChanged();
             });
         const workTab = el.querySelector("#calNavworkweek");
         this.renderer.listen(workTab, 'click',
             (event: Event) => {
                 this.view = 'workweek';
-                this._changed = false;
-                this._onCalendarTabChanged();
+                this.changed = false;
+                this.onViewChanged();
             });
 
         const nextBtn = <HTMLDivElement> el.querySelector(".nextButton");
         this.renderer.listen(nextBtn, 'click',
             (event: Event) => {
-                this._onCalendarTabChanged();
+                this.onViewChanged();
             });
         const prevBtn = <HTMLDivElement>el.querySelector(".prevButton");
         this.renderer.listen(prevBtn, 'click',
             (event: Event) => {
-                this._onCalendarTabChanged();
+                this.onViewChanged();
             });
 
       $(el).find('.plotterlink').hide();
@@ -317,7 +317,7 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
         this._ical.hideStatusMsg();
     }
 
-    private _onCalendarTabChanged() {
+    private onViewChanged() {
         var currentElement = this.calendarContainer.nativeElement;
         var calTitle = <HTMLDivElement>currentElement.querySelector("#calTitle.calTitle");
         var timeRange = TimeRange.parse(calTitle.innerText);
@@ -350,7 +350,7 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
         }
     }
 
-    private _instantiateICal() {
+    private instantiateICal() {
         const el = this.calendarContainer.nativeElement;
         this._ical = new Web2Cal('calendarContainer',
             {
@@ -362,7 +362,7 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
                     this.render();
                     if (this.selectionChanged) {
                       this.selectionChanged = false;
-                      this._onCalendarTabChanged();
+                      this.onViewChanged();
                     }
                 },
                 onPreview: (evt: HTMLElement, dataObj: web2cal.EventData, html: JQuery) => {

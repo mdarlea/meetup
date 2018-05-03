@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: MeetingsComponent,
     children: [
-      {path: '', component: CalendarComponent},
+      {path: '', redirectTo: 'm/calendar', pathMatch: 'full'},
       {path: 'calendar', component: CalendarComponent},
       {path: 'calendar/schedule', component: CalendarEditComponent},
       {path: 'm/calendar', component: JqxCalendarComponent}

@@ -1,6 +1,6 @@
 import { Address } from '../../core/models/address';
 import { EventDto } from './event-dto';
-import { EventInfo } from '../minical/event-info';
+import { EventInfo } from './event-info';
 import { EventGroup } from './event-group';
 import * as _ from 'lodash';
 
