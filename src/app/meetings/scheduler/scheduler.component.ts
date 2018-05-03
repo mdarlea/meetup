@@ -49,8 +49,12 @@ export class SchedulerComponent implements OnInit, OnDestroy {
     private eventsQuerySvc: EventsQueryService,
     private eventSvc: EventService,
     private userSvc: UserService,
-    schedulerSvc: SchedulerService) {
-      this.addEventSubscription = schedulerSvc.addNewEvent$.subscribe(event => {
+    private schedulerSvc: SchedulerService) {
+
+    }
+
+  ngOnInit() {
+      this.addEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
         let group: EventGroup;
         const groups = this.groups.filter(g => g.id === event.userId);
         if (groups.length < 1) {
@@ -61,7 +65,7 @@ export class SchedulerComponent implements OnInit, OnDestroy {
         }
         group.events.push(event);
       });
-      this.deleteEventSubscription = schedulerSvc.deleteEvent$.subscribe(event => {
+      this.deleteEventSubscription = this.schedulerSvc.deleteEvent$.subscribe(event => {
         for (const group of this.groups) {
           for (let i = 0; i < group.events.length; i++) {
             if (group.events[i] === event) {
@@ -71,16 +75,12 @@ export class SchedulerComponent implements OnInit, OnDestroy {
           }
         }
       });
-      this.cancelAddEventSubscription = schedulerSvc.cancelAddEvent$.subscribe(() => {
+      this.cancelAddEventSubscription = this.schedulerSvc.cancelAddEvent$.subscribe(() => {
         this.minical.closeAddEvent();
       });
       this.subscription = this.eventsQuerySvc.subscribe(data => {
         this.groups = data;
     });
-    }
-
-  ngOnInit() {
-
   }
 
   ngOnDestroy() {
