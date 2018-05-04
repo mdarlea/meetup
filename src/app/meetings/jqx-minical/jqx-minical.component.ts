@@ -24,6 +24,9 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
   view: ViewContainerRef;
 
   @Output()
+  previewEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
+
+  @Output()
   newEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
 
   @Output()
@@ -202,6 +205,16 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
         ]
     });
 
+    $(this.calendarContainer.nativeElement).on('appointmentDoubleClick', (event: any) => {
+      const args = event.args;
+      const appointment = args.appointment.jqxAppointment;
+      this.previewEvent.emit({
+        id: appointment.appointmentId,
+        groupId: appointment.calendarId,
+        startTime: appointment.from.toDate(),
+        endTime: appointment.to.toDate()
+      });
+    });
     $(this.calendarContainer.nativeElement).on('appointmentChange', (event: any) => {
                 const args = event.args;
                 const appointment = args.appointment;

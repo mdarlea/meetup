@@ -1349,7 +1349,7 @@ var CountrySelector = function (element, settings, data) {
         var option = document.createElement("option");
         option.value = this.data[i].code;
         option.text = this.data[i].name;
-        option.setAttribute("data-image", "/Content/images/countries/icons/blank.gif");
+        option.setAttribute("data-image", "/assets/images/countries/icons/blank.gif");
         option.setAttribute("data-imagecss", "flag " + this.data[i].code);
         option.setAttribute("data-title", this.data[i].title);
         if (_settings.defaultValue && this.data[i].code === _settings.defaultValue) {

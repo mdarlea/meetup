@@ -1,5 +1,5 @@
 ﻿// tslint:disable-next-line:max-line-length
-import { Directive, Host, Input, Output, EventEmitter, OnChanges, OnInit, AfterContentInit, AfterViewInit, OnDestroy, Renderer, ElementRef } from '@angular/core'
+import { Directive, Host, Input, Output, EventEmitter, OnChanges, OnInit, AfterContentInit, AfterViewInit, OnDestroy, Renderer2, ElementRef } from '@angular/core'
 import { MinicalService } from './minical.service'
 
 @Directive({
@@ -29,7 +29,7 @@ export class GroupDirective implements OnChanges, OnInit, AfterContentInit, Afte
 
     private _group: web2cal.GroupData=null;
 
-    constructor(@Host() private _schedulerService: MinicalService, private _renderer: Renderer, private _elementRef: ElementRef) {
+    constructor(@Host() private _schedulerService: MinicalService, private _renderer: Renderer2, private _elementRef: ElementRef) {
     }
 
     ngOnChanges(changes: any) {

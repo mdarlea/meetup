@@ -3,9 +3,11 @@ import { Subscription} from 'rxjs/Subscription';
 
 import { EventsQueryService} from '../shared/events-query.service';
 import { EventViewModel} from '../shared/event-view-model';
+import { EventGroup} from '../shared/event-group';
 import { JqxMinicalComponent} from '../jqx-minical/jqx-minical.component';
 import {EventInfo} from '../shared/event-info';
 import { UserService} from '../../core/services/user.service';
+import {SchedulerService} from '../shared/scheduler.service';
 
 @Component({
   selector: 'jqx-scheduler',
@@ -17,17 +19,23 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
   modelState: any = null;
   enabled = true;
 
+  @Output() previewEvent = new EventEmitter<EventViewModel>();
   @Output() newEvent = new EventEmitter<EventViewModel>();
 
+  private addEventSubscription: Subscription;
   private subscription: Subscription;
 
   @ViewChild(JqxMinicalComponent) minicalComponent: JqxMinicalComponent;
 
   constructor(private eventsQuerySvc: EventsQueryService,
-              private userSvc: UserService) {
+              private userSvc: UserService,
+              private schedulerSvc: SchedulerService) {
   }
 
   ngOnInit() {
+    this.addEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
+        this.events.push(event);
+    });
     this.subscription = this.eventsQuerySvc.subscribe(groups => {
         this.events = new Array<EventViewModel>();
         for (const group of groups) {
@@ -39,8 +47,21 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.addEventSubscription) {
+      this.addEventSubscription.unsubscribe();
+    }
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+  }
+
+  onPreviewEvent(event: EventInfo) {
+    this.modelState = null;
+    for (const ev of this.events) {
+        if (ev.id === event.id) {
+          this.previewEvent.emit(ev);
+          return;
+        }
     }
   }
 
@@ -50,6 +71,7 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
     const newEvent = EventViewModel.fromEventInfo(event);
     newEvent.groupId = user.userId;
     newEvent.userId = user.userId;
+    newEvent.group = new EventGroup(user.userId, user.name, true);
     this.newEvent.emit(newEvent);
   }
 
