@@ -16,6 +16,8 @@
           <edit-event [event]="activeEvent"  *ngIf="editMode"></edit-event>
           <validation-errors [model-state]="modelState"></validation-errors>
           <div class="modal-footer">
+            <spinner *ngIf="loading"></spinner>
+            <ng-container *ngIf="!loading">
             <button type="button" *ngIf="!editMode && !readOnly" (click)="edit()" class="btn btn-success">
                             Edit
             </button>
@@ -28,6 +30,7 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">
               <span class="glyphicon glyphicon-log-out"></span>Close
             </button>
+            </ng-container>
           </div>
         </form>
       </div>

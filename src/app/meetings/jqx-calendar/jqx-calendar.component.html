@@ -15,6 +15,7 @@
           <edit-event [event]="activeEvent"  *ngIf="editMode"></edit-event>
           <validation-errors [model-state]="modelState"></validation-errors>
           <div class="modal-footer">
+            <spinner *ngIf="loading"></spinner>
             <button type="button" *ngIf="!editMode && !readOnly" (click)="edit()" class="btn btn-success">
                             Edit
             </button>

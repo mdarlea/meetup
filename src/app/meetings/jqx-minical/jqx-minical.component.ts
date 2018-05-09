@@ -30,7 +30,7 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
   newEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
 
   @Output()
-  updateEvent: EventEmitter<Jqx.Appointment> = new EventEmitter<Jqx.Appointment>();
+  updateEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
 
   private appointments = new Array<Jqx.Appointment>();
   private initialized = false;
@@ -63,6 +63,33 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
         this.newAppointment = appointment;
         $(this.calendarContainer.nativeElement).jqxScheduler('addAppointment', appointment);
         this.ensureVisible();
+        $(this.calendarContainer.nativeElement).jqxScheduler('clearAppointmentsSelection');
+      }
+    });
+    minicalSvc.updateEvent$.subscribe(appointment => {
+      // tslint:disable-next-line:curly
+      if (!this.initialized) return;
+
+      let id = null;
+      const appointments = $(this.calendarContainer.nativeElement).jqxScheduler('appointments');
+      for (const jqxAppointment of appointments) {
+        if (jqxAppointment.appointmentId === appointment.id) {
+          id = jqxAppointment.id;
+        }
+      }
+      if (id) {
+        const start = appointment.start;
+        const end = appointment.end;
+        const from = new $.jqx.date(start.getFullYear(), start.getMonth() + 1, start.getDate());
+        const to = new $.jqx.date(end.getFullYear(), end.getMonth() + 1, end.getDate());
+        $(this.calendarContainer.nativeElement).jqxScheduler('beginAppointmentsUpdate');
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'from', from);
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'to', to);
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'description', appointment.description);
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'location', appointment.location);
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'subject', appointment.subject);
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'resourceId', appointment.calendar);
+        $(this.calendarContainer.nativeElement).jqxScheduler('endAppointmentsUpdate');
       }
     });
     minicalSvc.deleteEvent$.subscribe(id => {
@@ -83,16 +110,20 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
       // tslint:disable-next-line:curly
       if (!this.initialized) return;
 
-      if (value) {
+      if (value === AppointmentTemplate.Create) {
         if (this.eventTemplate) {
           this.appointmentTemplate = AppointmentTemplate.NoAction;
-          this.renderAppointments(true);
+          this.render();
         } else {
           this.appointmentTemplate = AppointmentTemplate.Create;
         }
-      } else {
-        this.appointmentTemplate = AppointmentTemplate.Delete;
-        this.renderAppointments(false);
+      } else if (value === AppointmentTemplate.Delete) {
+        if (!this.eventTemplate) {
+          this.appointmentTemplate = AppointmentTemplate.NoAction;
+          this.render();
+        } else {
+          this.appointmentTemplate = AppointmentTemplate.Delete;
+        }
       }
     });
   }
@@ -109,14 +140,14 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
       case AppointmentTemplate.Create: {
         if (this.eventTemplate) {
           this.appointmentTemplate = AppointmentTemplate.NoAction;
-          this.renderAppointments(true);
+          this.render();
         }
         break;
       }
       case AppointmentTemplate.Delete : {
         if (!this.eventTemplate) {
           this.appointmentTemplate = AppointmentTemplate.NoAction;
-          this.renderAppointments(false);
+          this.render();
         }
         break;
       }
@@ -161,7 +192,7 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
                 const jqxAppointment = appointments[i];
                 for (const appointment of this.appointments) {
                   if (appointment.id === jqxAppointment.id) {
-                    this.setAppointmentFields(jqxAppointment, appointment);
+                    this.setAppointmentFields(jqxAppointment.id, appointment);
                     break;
                   }
                 }
@@ -216,8 +247,14 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
       });
     });
     $(this.calendarContainer.nativeElement).on('appointmentChange', (event: any) => {
-                const args = event.args;
-                const appointment = args.appointment;
+        const args = event.args;
+        const appointment = args.appointment.jqxAppointment;
+        this.updateEvent.emit({
+          id: appointment.appointmentId,
+          groupId: appointment.calendarId,
+          startTime: appointment.from.toDate(),
+          endTime: appointment.to.toDate()
+      });
     });
     $(this.calendarContainer.nativeElement).on('appointmentAdd', (event: any) => {
       if (this.newAppointment) {
@@ -225,7 +262,7 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
         const appointment = args.appointment;
 
         const id = appointment.id;
-        this.setAppointmentFields(appointment.jqxAppointment, this.newAppointment);
+        this.setAppointmentFields(id, this.newAppointment);
 
         this.newAppointment = null;
       }
@@ -247,14 +284,31 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
     this.initialized = true;
   }
 
-  private renderAppointments(withTemplate: boolean) {
+  render() {
+    // tslint:disable-next-line:curly
+    if (!this.initialized) return;
 
+    // remove all
+    const ids = new Array<any>();
+    const appointments = $(this.calendarContainer.nativeElement).jqxScheduler('appointments');
+    for (const appointment of appointments) {
+      ids.push(appointment.id);
+    }
+    for (const id of ids) {
+      $(this.calendarContainer.nativeElement).jqxScheduler('deleteAppointment', id);
+    }
+    for (const appointment of this.appointments) {
+      this.newAppointment = appointment;
+      $(this.calendarContainer.nativeElement).jqxScheduler('addAppointment', appointment);
+    }
+    this.ensureVisible();
+    $(this.calendarContainer.nativeElement).jqxScheduler('clearAppointmentsSelection');
   }
 
-  private setAppointmentFields(jqxAppointment: any, appointment: Jqx.Appointment) {
-      jqxAppointment.appointmentId = appointment.id;
-      jqxAppointment.calendarId = appointment.calendarId;
-      jqxAppointment.instructor = appointment.instructor;
+  private setAppointmentFields(id: any, appointment: Jqx.Appointment) {
+      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'appointmentId', appointment.id);
+      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'calendarId', appointment.calendarId);
+      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'instructor', appointment.instructor);
   }
 
   private ensureVisible() {

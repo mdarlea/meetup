@@ -8,6 +8,7 @@ import { JqxMinicalComponent} from '../jqx-minical/jqx-minical.component';
 import {EventInfo} from '../shared/event-info';
 import { UserService} from '../../core/services/user.service';
 import {SchedulerService} from '../shared/scheduler.service';
+import { EventService} from '../shared/event.service';
 
 @Component({
   selector: 'jqx-scheduler',
@@ -21,13 +22,15 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
 
   @Output() previewEvent = new EventEmitter<EventViewModel>();
   @Output() newEvent = new EventEmitter<EventViewModel>();
+  @Output() updateEvent = new EventEmitter<EventViewModel>();
 
   private addEventSubscription: Subscription;
   private subscription: Subscription;
 
-  @ViewChild(JqxMinicalComponent) minicalComponent: JqxMinicalComponent;
+  @ViewChild(JqxMinicalComponent) minical: JqxMinicalComponent;
 
   constructor(private eventsQuerySvc: EventsQueryService,
+              private eventSvc: EventService,
               private userSvc: UserService,
               private schedulerSvc: SchedulerService) {
   }
@@ -73,6 +76,33 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
     newEvent.userId = user.userId;
     newEvent.group = new EventGroup(user.userId, user.name, true);
     this.newEvent.emit(newEvent);
+  }
+
+    onUpdateEvent(event: EventInfo) {
+    this.modelState = null;
+
+    for (const ev of this.events) {
+        if (ev.id === event.id) {
+          // saves to the database
+          const copy = ev.clone();
+          copy.startTime = event.startTime;
+          copy.endTime = event.endTime;
+          // copy.groupId = event.groupId;
+
+          this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e => {
+            // updates the event
+            ev.startTime = event.startTime;
+            ev.endTime = event.endTime;
+            // ev.groupId = event.groupId;
+
+            this.updateEvent.emit(ev);
+          }, error => {
+              this.modelState = error;
+              this.minical.render();
+          });
+          return;
+        }
+    }
   }
 
 

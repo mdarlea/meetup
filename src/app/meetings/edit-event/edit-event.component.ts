@@ -37,6 +37,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     buttonTextEnterAddress = 'Enter Address';
     mainAddress: Address = null;
     disabled = false;
+    loading = false;
 
     constructor(
       private addressSvc: UserAddressService,
@@ -69,6 +70,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
         if (!this.isAtMainAddress) {
             this.isAtMainAddress = true;
             if (!this.mainAddress) {
+              this.loading = true;
               this.addressSvc.query();
             } else {
               this.setEventAddressFromMainAddress();
@@ -135,6 +137,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
                 : this.buttonTextAtMainAddress;
 
         this.addressSubscription = this.addressSvc.subscribe(addresses => {
+            this.loading = false;
             const value = addresses.filter(addr => addr.isMainAddress);
             this.mainAddress = (value.length > 0) ? value[0] : null;
             if (this.isAtMainAddress && this.mainAddress) {

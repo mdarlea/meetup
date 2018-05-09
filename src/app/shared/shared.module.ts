@@ -7,6 +7,7 @@ import { ImageSliderModule} from './image-slider/image-slider.module';
 import { AddressModule} from './address/address.module';
 import { FormFieldsModule} from './form-fields/form-fields.module';
 import { LoaderComponent } from './loader/loader.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -26,10 +27,12 @@ import { LoaderComponent } from './loader/loader.component';
     ImageSliderModule,
     AddressModule,
     FormFieldsModule,
-    LoaderComponent
+    LoaderComponent,
+    SpinnerComponent
   ],
   declarations: [
-  LoaderComponent],
+  LoaderComponent,
+  SpinnerComponent],
   providers: []
 })
 export class SharedModule {}

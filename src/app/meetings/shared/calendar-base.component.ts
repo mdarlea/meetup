@@ -27,14 +27,14 @@ export class CalendarBaseComponent implements OnInit, AfterViewInit, OnDestroy {
     private schedulerSvc: SchedulerService,
     private ref: ChangeDetectorRef,
     private loaderSvc: LoaderService) {
-    this.loadersubscription = this.loaderSvc.loading$.subscribe(value => this.loading = value);
+    // this.loadersubscription = this.loaderSvc.loading$.subscribe(value => this.loading = value);
     this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
-      this.loaderSvc.load(false);
+      this.loading = false;
       this.ref.detectChanges();
       this.hideModal();
     }, error => {
       this.modelState = error;
-      this.loaderSvc.load(false);
+      this.loading = false;
       this.ref.detectChanges();
     });
    }
@@ -109,7 +109,7 @@ export class CalendarBaseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSave() {
     this.modelState = null;
-    this.loaderSvc.load(true);
+    this.loading = true;
     this.editEventComponent.save();
   }
 
