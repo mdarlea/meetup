@@ -1,10 +1,12 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
+
+import {switchMap} from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CreateExternalApplicationUserModel } from '../shared/create-external-application-user.model'
 import { AccountService } from '../shared/account.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AuthUser } from '../../core/models/auth-user';
 import { AddressComponent } from '../../shared/address/address.component';
-import 'rxjs/add/operator/switchMap';
+
 
 @Component({
     selector: 'register-external',
@@ -44,8 +46,7 @@ export class RegisterExternalComponent implements OnInit {
         this.modelState = null;
         this.registering = true;
 
-        this.addressComponent.getGeolocation()
-                            .switchMap(result => this._authService.registerExternal(this.user))
+        let x = this.addressComponent.getGeolocation().pipe(switchMap(result => this._authService.registerExternal(this.user)))        
                             .subscribe((u: AuthUser) => {
                                 this._router.navigate(['/']);
                             },

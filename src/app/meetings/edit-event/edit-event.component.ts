@@ -1,17 +1,18 @@
+
+import {switchMap} from 'rxjs/operators';
 import { Component, OnInit, ViewChild, Input, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { EventViewModel} from '../shared/event-view-model';
 import { AddressComponent} from '../../shared/address/address.component';
 import { UserAddressService} from '../../core/services/user-address.service';
 import { EventService} from '../shared/event.service';
 import {SchedulerService} from '../shared/scheduler.service';
-import { Subscription} from 'rxjs/Subscription';
+import { Subscription,  Observable} from 'rxjs';
 import { Address} from '../../core/models/address';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
+
+
+
+
+
 import {LoaderService} from '../../core/services/loader.service';
 import { EventDto } from '../shared/event-dto';
 import * as _ from 'lodash';
@@ -89,7 +90,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       const dto = this.eventCopy.toEventDto();
       const isNewEvent = (dto.id <= 0);
       const observable = (!this.isAtMainAddress)
-          ? this.addressComponent.getGeolocation().switchMap(result => this.getSaveEventObservable(dto))
+          ? this.addressComponent.getGeolocation().pipe(switchMap(result => this.getSaveEventObservable(dto)))
           : this.getSaveEventObservable(dto);
       observable.subscribe(result => {
         this.eventCopy = EventViewModel.fromEventDto(result);
@@ -106,7 +107,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
     private getSaveEventObservable(dto: EventDto): Observable<EventDto>
     {
-      return (dto.id <= 0)  ? this.eventSvc.addNewEvent(dto) : this.eventSvc.saveEvent(dto);
+      return (dto.id <= 0)  ? this.eventSvc.addNewEvent(dto) : this.eventSvc.updateEventWithAddress(dto);
     }
 
     ngOnChanges(changes: any): void {

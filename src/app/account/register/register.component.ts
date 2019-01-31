@@ -1,9 +1,11 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
+
+import {switchMap} from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CreateApplicationUserModel } from '../shared/create-application-user.model';
 import { AccountService } from '../shared/account.service';
 import { Router } from '@angular/router';
 import { AddressComponent } from '../../shared/address/address.component';
-import 'rxjs/add/operator/switchMap';
+
 
 @Component({
     selector: 'register',
@@ -29,8 +31,7 @@ export class RegisterComponent implements OnInit {
         this.modelState = null;
         this.registering = true;
 
-       this.addressComponent.getGeolocation()
-                            .switchMap(result => this._authService.register(this.user))
+       this.addressComponent.getGeolocation().pipe(switchMap(result => this._authService.register(this.user)))
                             .subscribe((u: any) => {
                               this._router.navigate(['./thank-you', this.user.email]);
                             },

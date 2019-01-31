@@ -1,28 +1,29 @@
+
+import {switchMap, map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
+import { HttpClient } from '@angular/common/http';
+
 import {Settings} from '../settings';
 import {Configuration} from '../models/configuration';
 import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class ConfigurationService {
-  constructor(private http: Http, private config: Settings) {
+  constructor(private http: HttpClient, private config: Settings) {
 
   }
 
   public loadConfig(): Promise<any> {
     console.log(environment);
     return new Promise<any>((resolve, reject) => {
-      const observable = this.http.get('assets/config.txt').map(data => <Configuration> data.json());
+      const observable = this.http.get<Configuration>('assets/config.txt');
       if (environment.production) {
         let devConfig: Configuration;
-        observable.switchMap(
+        observable.pipe(switchMap(
                       config => {
                         devConfig = config;
-                        return this.http.get('assets/configprod.txt').map(data => <Configuration> data.json());
-                      }).subscribe(prodConfig => {
+                        return this.http.get<Configuration>('assets/configprod.txt');
+                      })).subscribe(prodConfig => {
                           this.config.configuration = Object.assign(devConfig, prodConfig);
                           console.log(this.config);
                            resolve(null);
@@ -36,4 +37,3 @@ export class ConfigurationService {
     });
   }
 }
-

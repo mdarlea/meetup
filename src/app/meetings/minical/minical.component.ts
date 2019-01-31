@@ -9,9 +9,8 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ContentChild
 import { TimeRange } from "./time-range";
 import { EventInfo } from "../shared/event-info";
 import { MinicalService } from './minical.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription} from 'rxjs';
 import { LoaderService} from '../../core/services/loader.service';
-import { Subscription} from 'rxjs/Subscription';
 
 /**
 *  @class

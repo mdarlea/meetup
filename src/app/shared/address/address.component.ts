@@ -1,10 +1,12 @@
+
+import {tap} from 'rxjs/operators';
 import { EventEmitter, Component, OnInit, Input, Output } from '@angular/core';
 import { Address } from '../../core/models/address';
 import { GeolocationService } from '../../shared/sw-map/geolocation.service';
-import { Observable} from 'rxjs/Observable';
+import { Observable} from 'rxjs';
 import { GeolocationResult} from '../../shared/sw-map/geolocation.service';
 
-import 'rxjs/add/operator/do';
+
 
 @Component({
   selector: 'address',
@@ -28,7 +30,7 @@ export class AddressComponent implements OnInit {
     }
 
     getGeolocation(): Observable<GeolocationResult> {
-        return this._geolocationService.geoLocationForAddress(this.address).do(result => {
+        return this._geolocationService.geoLocationForAddress(this.address).pipe(tap(result => {
             this.address.geolocationStreetNumber = result.streetNumber;
             this.address.geolocationStreet = result.street;
             this.address.latitude = result.latitude;
@@ -36,6 +38,6 @@ export class AddressComponent implements OnInit {
             if (!this.address.countryIsoCode) {
                 this.address.countryIsoCode = result.country.code;
             }
-        });
+        }));
     }
 }

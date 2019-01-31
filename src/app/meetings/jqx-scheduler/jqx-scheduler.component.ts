@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
-import { Subscription} from 'rxjs/Subscription';
+import { Subscription} from 'rxjs';
 
 import { EventsQueryService} from '../shared/events-query.service';
 import { EventViewModel} from '../shared/event-view-model';

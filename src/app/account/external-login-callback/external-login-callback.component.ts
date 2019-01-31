@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import {AccountService } from '../shared/account.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Response } from '@angular/http';
 import { ExternalLoginModel } from '../shared/external-login.model';
 
 @Component({

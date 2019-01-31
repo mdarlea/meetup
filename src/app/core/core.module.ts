@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule, XHRBackend, Http, RequestOptions} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import {ConfigurationService} from './services/configuration.service';
 import { configInitializerFactory } from './initializer.factory';
 import {APP_INITIALIZER, Injector} from '@angular/core';
@@ -8,37 +8,30 @@ import {Storage} from './services/storage/storage';
 import {AppLocalStorage} from './services/storage/app-local-storage';
 import { AmplifyLocalStorage} from './services/storage/amplify-local-storage';
 import { UserService} from './services/user.service';
-import {HttpService} from './services/http.service';
-import {ExceptionService} from './services/exception.service';
 import { UserAddressService} from './services/user-address.service';
 import { AddressService} from './services/address.service';
 import { throwIfAlreadyLoaded} from './module-import-guard';
-import {LoaderService} from './services/loader.service';
 import { Settings} from './settings';
-
-export function httpFactory(
-  xhrBackend: XHRBackend,
-  requestOptions: RequestOptions,
-  userSvc: UserService,
-  settings: Settings): Http
-  {
-    return new HttpService(xhrBackend, requestOptions, userSvc, settings);
-  }
+import {httpInterceptorProviders } from './http-interceptors/index';
+import {LoaderService} from './services/loader.service';
+import { HttpErrorHandlerService} from './services/http-error-handler.service';
+import { MessageService} from './services/message.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule
+    HttpClientModule
   ],
   declarations: [],
   providers: [
         LoaderService,
         ConfigurationService,
-        ExceptionService,
         UserService,
         Settings,
         AddressService,
         UserAddressService,
+        MessageService,
+        HttpErrorHandlerService,
         {
           provide: APP_INITIALIZER,
           useFactory: configInitializerFactory,
@@ -49,11 +42,7 @@ export function httpFactory(
           provide: Storage,
           useClass: AmplifyLocalStorage
         },
-        {
-          provide: Http,
-          useFactory: httpFactory,
-          deps: [XHRBackend, RequestOptions, UserService, Settings]
-        }
+        httpInterceptorProviders
       ]
 })
 export class CoreModule {
@@ -61,4 +50,3 @@ export class CoreModule {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
 }
-

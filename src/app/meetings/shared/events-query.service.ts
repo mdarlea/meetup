@@ -1,24 +1,24 @@
+
+import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { Observable , BehaviorSubject} from 'rxjs';
 import { EventDto } from '../shared/event-dto';
 import {TimeRangeDto} from '../shared/time-range-dto';
 import {LocationDto} from '../shared/location-dto';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {EventGroup} from '../shared/event-group';
 import { EventViewModel} from '../shared/event-view-model';
-import { ExceptionService} from '../../core/services/exception.service';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
+import { HttpErrorHandlerService, HandleError} from '../../core/services/http-error-handler.service';
 import { LoaderService} from '../../core/services/loader.service';
 
 @Injectable()
 export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
     private _route = 'api/event/';
+    private handleError: HandleError;
 
-    constructor(private http: Http, private exceptionSvc: ExceptionService, private loaderSvc: LoaderService) {
+    constructor(private http: HttpClient, exceptionSvc: HttpErrorHandlerService, private loaderSvc: LoaderService) {
       super(new Array<EventGroup>());
+      this.handleError = exceptionSvc.createHandleError('EventsQueryService');
     }
 
     private query(events: EventDto[]) {
@@ -68,44 +68,44 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
 
     private findEventsInArea(location: LocationDto): Observable<Array<EventDto>> {
         const url = `${this._route}FindEventsInArea`;
-        return this.http.post(url, location).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.post<EventDto[]>(url, location).pipe(catchError(this.handleError('findEventsInArea', new Array<EventDto>())));
     }
 
     private findDailyEventsForCurrentUser(): Observable<Array<EventDto>> {
         const url = `${this._route}FindDailyEventsForCurrentUser`;
-        return this.http.get(url).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findDailyEventsForCurrentUser', new Array<EventDto>())));
     }
 
     private findWeeklyEventsForCurrentUser(): Observable<Array<EventDto>> {
         const url = `${this._route}FindWeeklyEventsForCurrentUser`;
-        return this.http.get(url).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findWeeklyEventsForCurrentUser', new Array<EventDto>())));
     }
 
     private findMonthlyEventsForCurrentUser(): Observable<Array<EventDto>> {
         const url = `${this._route}FindMonthlyEventsForCurrentUser`;
-        return this.http.get(url).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findMonthlyEventsForCurrentUser', new Array<EventDto>())));
     }
 
     private findDailyEvents(): Observable<Array<EventDto>> {
         const url = `${this._route}FindDailyEvents`;
-        return this.http.get(url).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findDailyEvents', new Array<EventDto>())));
     }
 
     private findWeeklyEvents(): Observable<Array<EventDto>> {
         const url = `${this._route}FindWeeklyEvents`;
-        return this.http.get(url).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findWeeklyEvents', new Array<EventDto>())));
     }
 
     private findMonthlyEvents(): Observable<Array<EventDto>> {
         const url = `${this._route}FindMonthlyEvents`;
-        return this.http.get(url).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findMonthlyEvents', new Array<EventDto>())));
     }
     private findEventsInTimeRange(timeRange:TimeRangeDto): Observable<Array<EventDto>> {
         const url = `${this._route}FindEventsInTimeRange`;
-        return this.http.post(url,timeRange).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.post<EventDto[]>(url,timeRange).pipe(catchError(this.handleError('', new Array<EventDto>())));
     }
     private findEventsInTimeRangeForUser(timeRange: TimeRangeDto): Observable<Array<EventDto>> {
         const url = `${this._route}FindEventsInTimeRangeForUser`;
-        return this.http.post(url, timeRange).map(response => <EventDto[]> response.json()).catch(this.exceptionSvc.handleError);
+        return this.http.post<EventDto[]>(url, timeRange).pipe(catchError(this.handleError('findEventsInTimeRangeForUser', new Array<EventDto>())));
     }
 }

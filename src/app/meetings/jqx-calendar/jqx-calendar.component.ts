@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subscription} from 'rxjs/Subscription';
+import { Subscription} from 'rxjs';
 
 import { EventsQueryService} from '../shared/events-query.service';
 import {SchedulerService} from '../shared/scheduler.service';

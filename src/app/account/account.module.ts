@@ -1,5 +1,4 @@
 ﻿import { NgModule } from '@angular/core';
-import { JsonpModule } from '@angular/http';
 import { AccountService } from './shared/account.service';
 import { ExternalLoginCallbackComponent} from './external-login-callback/external-login-callback.component';
 import { PassResetComponent } from './login/pass-reset.component';
@@ -11,8 +10,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { SharedModule} from '../shared/shared.module';
 
 @NgModule({
-    imports: [
-        JsonpModule,
+    imports: [        
         AccountRoutingModule,
         SharedModule
     ],

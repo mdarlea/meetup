@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MapsApiLoaderService } from './maps-api-loader.service';
 import { Address } from './address.model';
-import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
+
+import {Observable, Observer} from 'rxjs';
 
 export class Country {
     code: string;

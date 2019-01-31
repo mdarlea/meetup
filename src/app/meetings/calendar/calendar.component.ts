@@ -4,7 +4,7 @@ import { TimeRange} from '../minical/time-range';
 import {TimeRangeDto} from '../shared/time-range-dto';
 import {EventViewModel} from '../shared/event-view-model';
 import { LoaderService} from '../../core/services/loader.service';
-import { Subscription} from 'rxjs/Subscription';
+import { Subscription} from 'rxjs';
 
 @Component({
   selector: 'calendar',

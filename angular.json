@@ -1,0 +1,207 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "client": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/magnific-popup/dist/magnific-popup.css",
+              "node_modules/jqwidgets-framework/jqwidgets/styles/jqx.base.css",
+              "web2cal/css/web2cal.css",
+              "src/styles.css",
+              "src/social.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/scrollreveal/dist/scrollreveal.js",
+              "node_modules/magnific-popup/dist/jquery.magnific-popup.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxcore.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxbuttons.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxscrollbar.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdata.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdate.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxscheduler.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxscheduler.api.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdatetimeinput.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxmenu.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxcalendar.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxtooltip.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxwindow.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxcheckbox.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxlistbox.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdropdownlist.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxnumberinput.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxradiobutton.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxinput.js",
+              "node_modules/jqwidgets-framework/jqwidgets/globalization/globalize.js",
+              "node_modules/jqwidgets-framework/jqwidgets/globalization/globalize.culture.de-DE.js",
+              "web2cal/Web2Cal-Basic-2.0-min.js",
+              "web2cal/web2cal.support.js",
+              "web2cal/web2cal.default.template.js",
+              "src/jquery.easing.min.js",
+              "src/amplify.js",
+              "src/country-selector.js",
+              "src/image-pre-loader.js",
+              "src/image-loader.js",
+              "src/local-storage.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "client:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "client:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "client:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/scrollreveal/dist/scrollreveal.js",
+              "node_modules/magnific-popup/dist/jquery.magnific-popup.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxcore.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxbuttons.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxscrollbar.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdata.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdate.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxscheduler.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxscheduler.api.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdatetimeinput.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxmenu.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxcalendar.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxtooltip.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxwindow.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxcheckbox.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxlistbox.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxdropdownlist.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxnumberinput.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxradiobutton.js",
+              "node_modules/jqwidgets-framework/jqwidgets/jqxinput.js",
+              "node_modules/jqwidgets-framework/jqwidgets/globalization/globalize.js",
+              "node_modules/jqwidgets-framework/jqwidgets/globalization/globalize.culture.de-DE.js",
+              "web2cal/Web2Cal-Basic-2.0-min.js",
+              "web2cal/web2cal.support.js",
+              "web2cal/web2cal.default.template.js",
+              "src/jquery.easing.min.js",
+              "src/amplify.js",
+              "src/country-selector.js",
+              "src/image-pre-loader.js",
+              "src/image-loader.js",
+              "src/local-storage.js"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/magnific-popup/dist/magnific-popup.css",
+              "node_modules/jqwidgets-framework/jqwidgets/styles/jqx.base.css",
+              "web2cal/css/web2cal.css",
+              "src/styles.css",
+              "src/social.css"
+            ],
+            "assets": [
+              "src/assets",
+              "src/favicon.ico"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": []
+          }
+        }
+      }
+    },
+    "client-e2e": {
+      "root": "e2e",
+      "sourceRoot": "e2e",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "client:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "e2e/tsconfig.e2e.json"
+            ],
+            "exclude": []
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "client",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "css"
+    },
+    "@schematics/angular:directive": {}
+  }
+}

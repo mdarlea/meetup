@@ -7,7 +7,7 @@ import {EventViewModel} from '../shared/event-view-model';
 import {EditEventComponent} from '../edit-event/edit-event.component';
 import {SchedulerService} from '../shared/scheduler.service';
 import { LoaderService} from '../../core/services/loader.service';
-import { Subscription} from 'rxjs/Subscription';
+import { Subscription} from 'rxjs';
 
 export class CalendarBaseComponent implements OnInit, AfterViewInit, OnDestroy {
   activeEvent = EventViewModel.newEvent();
