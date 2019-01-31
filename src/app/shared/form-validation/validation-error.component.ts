@@ -23,9 +23,9 @@ export function ValidationComponent(args: any): TypeDecorator {
 //validation type decorator
 export function ValidationType(validatorType: Function) {
     return (target: Function) => {
-        var annotations = Reflect.getMetadata('annotations', target) || [];
+        var annotations = Reflect.getMetadata('validation:annotations', target) || [];
         annotations.push(new ValidationTypeDecorator(validatorType));
-        Reflect.defineMetadata('annotations', annotations, target);
+        Reflect.defineMetadata('validation:annotations', annotations, target);
     }
 }
 export abstract class ValidationErrorComponent {
@@ -39,7 +39,7 @@ export abstract class ValidationErrorComponent {
 
         //get the validator type
         var target = this.constructor;
-        var annotations = Reflect.getMetadata('annotations', target) || [];
+        var annotations = Reflect.getMetadata('validation:annotations', target) || [];
 
         for (let annotation of annotations) {
             if (annotation instanceof ValidationTypeDecorator) {

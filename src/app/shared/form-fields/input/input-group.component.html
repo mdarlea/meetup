@@ -1,6 +1,6 @@
 ﻿<div class="form-group">
     <label [attr.for]="name" class="cols-sm-2 control-label">{{label}}</label>
-    <div class="cols-sm-10">
+    <div [class]="cssCol">
         <div class="input-group">
             <span class="input-group-addon" *ngIf="icon">
                 <i [ngClass]="['fa', icon]" aria-hidden="true"></i>

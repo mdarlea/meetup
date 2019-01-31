@@ -80,8 +80,9 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
       if (id) {
         const start = appointment.start;
         const end = appointment.end;
-        const from = new $.jqx.date(start.getFullYear(), start.getMonth() + 1, start.getDate());
-        const to = new $.jqx.date(end.getFullYear(), end.getMonth() + 1, end.getDate());
+        const from = new $.jqx.date(start.getFullYear(), start.getMonth() + 1, start.getDate(), start.getHours(), start.getMinutes());
+        const to = new $.jqx.date(end.getFullYear(), end.getMonth() + 1, end.getDate(), end.getHours(), end.getMinutes());
+
         $(this.calendarContainer.nativeElement).jqxScheduler('beginAppointmentsUpdate');
         $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'from', from);
         $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'to', to);
@@ -90,6 +91,7 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
         $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'subject', appointment.subject);
         $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'resourceId', appointment.calendar);
         $(this.calendarContainer.nativeElement).jqxScheduler('endAppointmentsUpdate');
+
       }
     });
     minicalSvc.deleteEvent$.subscribe(id => {

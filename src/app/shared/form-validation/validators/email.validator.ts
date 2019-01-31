@@ -7,7 +7,7 @@ export abstract class EmailBlackList {
 }
 
 @Directive({
-    selector:"[email][ngModel],[email][formControl]",
+    selector:"[email][ngModel],[email][formControl],[email][formControlName]",
     providers: [{
         provide: NG_VALIDATORS,
         useExisting: forwardRef(() => EmailValidator),

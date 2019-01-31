@@ -25,6 +25,11 @@ export class InputGroupComponent implements ControlValueAccessor{
     @Input() minlength: number = null;
     @Input() maxlength: number = null;
     @Input() disabled = false;
+    @Input() col=10;
+
+    get cssCol(): string {
+      return (this.col) ? `cols-sm-${this.col}` : 'cols-sm-10';
+    }
 
     @Input()
     get required(): Boolean { return this._required; }
