@@ -122,7 +122,7 @@ export class MinicalComponent implements OnChanges, OnInit, AfterContentInit, Af
       return this.viewValue;
     }
 
-    @ViewChild('calendarContainer') calendarContainer;
+    @ViewChild('calendarContainer') calendarContainer: ElementRef;
 
     constructor(private renderer: Renderer, private minicalSvc: MinicalService, loaderSvc: LoaderService) {
         this.minicalSvc.closeAddEvent$.subscribe(() => {

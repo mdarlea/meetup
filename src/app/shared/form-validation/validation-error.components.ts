@@ -18,8 +18,8 @@ import { ValidationType, ValidationErrorComponent } from './validation-error.com
 @ValidationType(RequiredValidator)
 export class RequiredValidationErrorComponent extends ValidationErrorComponent {
     constructor(
-        @Host() @SkipSelf() control: NgControl,
-        @Host() @SkipSelf() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() control: NgControl,
+        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }
@@ -33,8 +33,8 @@ export class RequiredValidationErrorComponent extends ValidationErrorComponent {
 @ValidationType(MinLengthValidator)
 export class MinLengthValidationErrorComponent extends ValidationErrorComponent {
     constructor(
-        @Host() @SkipSelf() control: NgControl,
-        @Host() @SkipSelf() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() control: NgControl,
+        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }
@@ -48,8 +48,8 @@ export class MinLengthValidationErrorComponent extends ValidationErrorComponent 
 @ValidationType(MaxLengthValidator)
 export class MaxLengthValidationErrorComponent extends ValidationErrorComponent {
     constructor(
-        @Host() @SkipSelf() control: NgControl,
-        @Host() @SkipSelf() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() control: NgControl,
+        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }
@@ -63,8 +63,8 @@ export class MaxLengthValidationErrorComponent extends ValidationErrorComponent 
 @ValidationType(PatternValidator)
 export class PatternValidationErrorComponent extends ValidationErrorComponent {
     constructor(
-        @Host() @SkipSelf() control: NgControl,
-        @Host() @SkipSelf() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() control: NgControl,
+        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }

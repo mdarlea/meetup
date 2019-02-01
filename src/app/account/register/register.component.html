@@ -65,7 +65,8 @@
                                 </button>
                             </div>
                             <div class="col-xs-6">
-                                <button class="btn btn-xl btn-success sr-button pull-right" routerLink="/login" routerLinkActive="active">Sign In</button>
+                                <button [disabled]="registering"
+                                        class="btn btn-xl btn-success sr-button pull-right" routerLink="/account/login" routerLinkActive="active">Sign In</button>
                             </div>
                         </div>
                     </form>
