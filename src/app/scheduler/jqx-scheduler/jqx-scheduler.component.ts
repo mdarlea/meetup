@@ -322,7 +322,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
         this.newJqxAppointment = null;
       }
     });
-    $(this.calendarContainer.nativeElement).on('cellClick', (event: any) => {
+    $(this.calendarContainer.nativeElement).on('cellDoubleClick', (event: any) => {
       const args = event.args;
       const start = args.date.toDate();
 

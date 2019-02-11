@@ -11,7 +11,7 @@
               (dateChanged)="onDateChanged($event)">
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>
-    <div>{{data.id}}</div>
+    <div>{{data.resourceId}}</div>
     <div>{{data.appointmentId}}</div>
   </ng-template>
   <ng-template schedulerReadSeletedEventTemplate let-selectedEvent="selectedEvent">
