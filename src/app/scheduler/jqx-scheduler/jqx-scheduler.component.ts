@@ -24,6 +24,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   private deleteEventSubscription: Subscription;
   private renderSubscription: Subscription;
   private ensureVisibleSubscription: Subscription;
+  private firstClick = true;
 
   @Input() date: Date;
   @Input() view: string;
@@ -221,10 +222,13 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
         ]
     });
 
-    $(this.calendarContainer.nativeElement).on('appointmentClick', (event: any) => {
 
-    });
     $(this.calendarContainer.nativeElement).on('appointmentDoubleClick', (event: any) => {
+      // workarround to fix issue with click event
+      if (this.firstClick) {
+        this.firstClick = false;
+        return;
+      }
       const args = event.args;
       const jqxAppointment = args.appointment.jqxAppointment;
       const eventInfo = {
@@ -313,10 +317,18 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
     }
   }
 
-  private ensureAppointmentVisible() {
-    const calendarDate = $(this.calendarContainer.nativeElement).jqxScheduler('date').toDate();
-
+  private ensureAppointmentVisible(id = 0) {
     const jqxAppointments = $(this.calendarContainer.nativeElement).jqxScheduler('appointments');
+
+    if (id && id > 0) {
+      for (const jqxAppointment of jqxAppointments) {
+        if (jqxAppointment.appointmentId === id) {
+          $(this.calendarContainer.nativeElement).jqxScheduler('ensureAppointmentVisible', jqxAppointment.appointmentId);
+          return;
+        }
+      }
+    }
+    const calendarDate = $(this.calendarContainer.nativeElement).jqxScheduler('date').toDate();
     let last = null;
     for (const jqxAppointment of jqxAppointments) {
       if (jqxAppointment.from.toDate() >= calendarDate) {
