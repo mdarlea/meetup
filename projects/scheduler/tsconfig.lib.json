@@ -11,6 +11,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "types": ["jquery", "jqx", "jquery-extensions"],
     "lib": [
       "dom",
       "es2018"
