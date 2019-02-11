@@ -6,10 +6,10 @@ import * as _ from 'lodash';
 
 export class EventViewModel {
     constructor(public id: number,
-        public name: string,
+        public subject: string,
         public instructor: string,
-        public startTime: Date,
-        public endTime: Date,
+        public start: Date,
+        public end: Date,
         public description: string,
         public allDay: boolean,
         public repeatEvent: any,
@@ -24,6 +24,8 @@ export class EventViewModel {
     readOnly: boolean;
     repeatedEventId: number;
     group: EventGroup;
+    calendar: string;
+    calendarId: string;
 
     static newEvent(): EventViewModel {
       const startTime = new Date();
@@ -83,18 +85,24 @@ export class EventViewModel {
 
 
     get repeatDay() {
-        return (this.repeat) ? this.startTime.getDay() + 1 : null;
+        return (this.repeat) ? this.start.getDay() + 1 : null;
+    }
+
+    setGroup(group: EventGroup) {
+      this.group = group;
+      this.calendarId = group.id;
+      this.calendar = group.name;
     }
 
     toEventDto(): EventDto {
         const event = new EventDto();
         event.id = this.id;
-        event.name = this.name;
+        event.name = this.subject;
         event.instructor = this.instructor;
         event.description = this.description;
 
-        event.startTime = this.startTime.toLocaleString();
-        event.endTime = this.endTime.toLocaleString();
+        event.startTime = this.start.toLocaleString();
+        event.endTime = this.end.toLocaleString();
         event.address = this.address;
         event.addressId = this.addressId;
         event.userId = this.userId;

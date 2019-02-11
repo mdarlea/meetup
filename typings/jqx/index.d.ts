@@ -1,3 +1,5 @@
+/// <reference path="../../node_modules/jqwidgets-framework/jqwidgets-ts/jqwidgets.d.ts" />
+
 interface JQuery  {
   jqxScheduler(options: jqwidgets.SchedulerOptions): JQuery;
   jqxScheduler(memberName: string, arg1?: any, arg2?: any, arg3?: any): any;
@@ -34,13 +36,14 @@ declare module Jqx {
   export interface Appointment {
         id: any,
         description: string,
-        instructor?: string;
         location: string,
         subject: string,
         calendar: string,
         calendarId?: any,
         start: Date,
-        end: Date
+        end: Date,
+        recurrencePattern?: string,
+        instructor?: string
   }
 
   export interface Source {

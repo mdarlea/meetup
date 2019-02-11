@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "types": ["jquery", "googlemaps", "metismenu", "scrollreveal"],
     "typeRoots": [
       "node_modules/@types",
       "typings"
@@ -18,6 +19,14 @@
       "dom"
     ],
     "module": "es2015",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "scheduler": [
+        "dist/scheduler"
+      ],
+      "scheduler/*": [
+        "dist/scheduler/*"
+      ]
+    }
   }
 }

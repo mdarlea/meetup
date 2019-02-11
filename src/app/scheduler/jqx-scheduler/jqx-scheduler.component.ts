@@ -1,72 +1,71 @@
-// tslint:disable-next-line:max-line-length
-import {Component, ContentChild, ViewChild, TemplateRef, ViewContainerRef, ElementRef, AfterContentChecked, AfterViewInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
+import { Component, ContentChild, ViewChild, Input, Output, EventEmitter, TemplateRef, SimpleChanges } from '@angular/core';
+import { ElementRef, ViewContainerRef } from '@angular/core';
+import { OnChanges, OnInit, AfterViewInit, AfterContentChecked, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-import {JqxEventTemplateDirective} from './jqx-event-template.directive';
-import {JqxMinicalService, AppointmentTemplate} from './jqx-minical.service';
-import {EventInfo} from '../shared/event-info';
+import { JqxSchedulerService } from './jqx-scheduler.service';
+import { EventInfo} from '../event-info';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'jqx-minical',
-  template: `<div #container [hidden]="true"><ng-container #view></ng-container></div>
-  <div id="calendarContainer" #calendarContainer></div>`,
-  providers: [JqxMinicalService]
+  selector: 'jqx-scheduler',
+  templateUrl: './jqx-scheduler.component.html',
+  styleUrls: ['./jqx-scheduler.component.css'],
+  providers: [JqxSchedulerService]
 })
-export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterContentChecked {
-  @ViewChild('calendarContainer') calendarContainer: ElementRef;
+export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
+  private initialized = false;
+  private appointments = new Array<Jqx.Appointment>();
+  private renderAppointments = false;
+  private newJqxAppointment: Jqx.Appointment = null;
 
-  @ContentChild(JqxEventTemplateDirective, { read: TemplateRef })
-  eventTemplate: TemplateRef<any>;
+  private addEventSubscription: Subscription;
+  private updateEventSubscription: Subscription;
+  private deleteEventSubscription: Subscription;
 
-  @ViewChild('container') container: ElementRef;
+  @Input() date: Date;
+  @Input() view: string;
+  @Input() draggable = false;
+  @Input() editMode = false;
 
-  @ViewChild('view', {read: ViewContainerRef})
-  view: ViewContainerRef;
+  private eventTemplateValue: TemplateRef<any>;
+  set eventTemplate(value: TemplateRef<any>) {
+    if (value !== this.eventTemplateValue) {
+      this.eventTemplateValue = value;
+      this.render(false);
+    }
+  }
+  get eventTemplate(): TemplateRef<any> {
+    return this.eventTemplateValue;
+  }
 
   @Output()
-  previewEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
-
-  @Output()
-  newEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
+  selectEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
 
   @Output()
   updateEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
 
-  private appointments = new Array<Jqx.Appointment>();
-  private initialized = false;
-  appointmentTemplate = AppointmentTemplate.NoAction;
+  @Output()
+  addEvent: EventEmitter<EventInfo> = new EventEmitter<EventInfo>();
 
-  @Output() dateChange = new EventEmitter<Date>();
+  // @ContentChild(JqxSchedulerEventTemplateDirective, { read: TemplateRef })
+  // eventTemplate: TemplateRef<any>;
 
-  private dateValue: Date;
-  private newAppointment: Jqx.Appointment = null;
-  private generatedId: number = null;
+  @ViewChild('calendarContainer') calendarContainer: ElementRef;
 
-  set date(value: Date) {
-      if (value !== this.dateValue) {
-        this.dateValue = value;
-        this.dateChange.emit(value);
-      }
-  }
+  @ViewChild('container') container: ElementRef;
+  @ViewChild('view', {read: ViewContainerRef}) viewContainer: ViewContainerRef;
 
-  @Input()
-  get date() {
-      return this.dateValue;
-  }
-
-  @Input() readOnly = false;
-
-  constructor(private minicalSvc: JqxMinicalService) {
-    minicalSvc.addEvent$.subscribe(appointment => {
+  constructor(private jqxSchedulerSvc: JqxSchedulerService) {
+    this.addEventSubscription = jqxSchedulerSvc.addEvent$.subscribe(appointment => {
       this.appointments.push(appointment);
       if (this.initialized) {
-        this.newAppointment = appointment;
+        this.newJqxAppointment = appointment;
         $(this.calendarContainer.nativeElement).jqxScheduler('addAppointment', appointment);
-        this.ensureVisible();
-        $(this.calendarContainer.nativeElement).jqxScheduler('clearAppointmentsSelection');
+        $(this.calendarContainer.nativeElement).jqxScheduler('ensureAppointmentVisible', appointment.id);
+        // ToDo: $(this.calendarContainer.nativeElement).jqxScheduler('clearAppointmentsSelection');
       }
     });
-    minicalSvc.updateEvent$.subscribe(appointment => {
+    this.updateEventSubscription = jqxSchedulerSvc.updateEvent$.subscribe(appointment => {
       // tslint:disable-next-line:curly
       if (!this.initialized) return;
 
@@ -94,7 +93,7 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
 
       }
     });
-    minicalSvc.deleteEvent$.subscribe(id => {
+    this.deleteEventSubscription = jqxSchedulerSvc.deleteEvent$.subscribe(id => {
         // tslint:disable-next-line:curly
         if (id < 0) return;
 
@@ -103,60 +102,24 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
             if (this.initialized) {
               $(this.calendarContainer.nativeElement).jqxScheduler('deleteAppointment', id);
             }
+
+            // ToDo TEST
             this.appointments.splice(i, 1);
             return;
           }
         }
     });
-    minicalSvc.appointmentTemplate$.subscribe(value => {
-      // tslint:disable-next-line:curly
-      if (!this.initialized) return;
-
-      if (value === AppointmentTemplate.Create) {
-        if (this.eventTemplate) {
-          this.appointmentTemplate = AppointmentTemplate.NoAction;
-          this.render();
-        } else {
-          this.appointmentTemplate = AppointmentTemplate.Create;
-        }
-      } else if (value === AppointmentTemplate.Delete) {
-        if (!this.eventTemplate) {
-          this.appointmentTemplate = AppointmentTemplate.NoAction;
-          this.render();
-        } else {
-          this.appointmentTemplate = AppointmentTemplate.Delete;
-        }
-      }
-    });
   }
 
-  ngOnChanges(changes: any) {
-
-  }
-
-  ngAfterContentChecked() {
+  ngOnChanges(changes: SimpleChanges): void {
     // tslint:disable-next-line:curly
-    if (!this.initialized || this.appointmentTemplate === AppointmentTemplate.NoAction) return;
-
-    switch (this.appointmentTemplate) {
-      case AppointmentTemplate.Create: {
-        if (this.eventTemplate) {
-          this.appointmentTemplate = AppointmentTemplate.NoAction;
-          this.render();
-        }
-        break;
-      }
-      case AppointmentTemplate.Delete : {
-        if (!this.eventTemplate) {
-          this.appointmentTemplate = AppointmentTemplate.NoAction;
-          this.render();
-        }
-        break;
-      }
-    }
+    if (!this.initialized) return;
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
     // prepare the data
     const source: Jqx.Source = {
         dataType: 'array',
@@ -175,23 +138,25 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
     };
     const adapter = new $.jqx.dataAdapter(source);
     const date = (this.date) ? this.date : new Date();
-    const jqxDate = new $.jqx.date(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    const jqxDate = (this.date) ? new $.jqx.date(date.getFullYear(), date.getMonth() + 1, date.getDate())
+                                : new $.jqx.date('todayDate');
 
     $(this.calendarContainer.nativeElement).jqxScheduler({
-        date: new $.jqx.date('todayDate'),
+        date: jqxDate,
         width: '100%',
         height: 600,
         source: adapter,
-        view: 'weekView',
+        view: (this.view) ? this.view : 'weekView',
         // min: new $.jqx.date(2015, 1, 1),
         // max: new $.jqx.date(2015, 12, 31, 23, 59, 59),
         showLegend: true,
         editDialog: false,
         ready: () => {
             if (this.appointments.length > 0) {
-              const appointments: Array<any> = $(this.calendarContainer.nativeElement).jqxScheduler('appointments');
-              for (let i = 0; i < appointments.length; i++) {
-                const jqxAppointment = appointments[i];
+
+              const jqxAppointments: Array<any> = $(this.calendarContainer.nativeElement).jqxScheduler('appointments');
+              for (let i = 0; i < jqxAppointments.length; i++) {
+                const jqxAppointment = jqxAppointments[i];
                 for (const appointment of this.appointments) {
                   if (appointment.id === jqxAppointment.id) {
                     this.setAppointmentFields(jqxAppointment.id, appointment);
@@ -199,17 +164,16 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
                   }
                 }
               }
-              this.ensureVisible();
+
+              this.ensureAppointmentVisible();
             }
         },
         renderAppointment: (data) => {
           if (this.eventTemplate) {
-            const viewRef = this.view.createEmbeddedView(this.eventTemplate, { data: data });
+            const viewRef = this.viewContainer.createEmbeddedView(this.eventTemplate, { data: data.appointment.jqxAppointment });
             viewRef.detectChanges();
             data.html = this.container.nativeElement.innerHTML;
-            this.view.clear();
-          } else {
-            // data.html = null;
+            this.viewContainer.clear();
           }
           return data;
         },
@@ -228,7 +192,7 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
             location: 'location',
             subject: 'subject',
             resourceId: 'calendar',
-            draggable: (this.readOnly) ? false : true
+            draggable: this.draggable
         },
         views:
         [
@@ -240,33 +204,34 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
 
     $(this.calendarContainer.nativeElement).on('appointmentDoubleClick', (event: any) => {
       const args = event.args;
-      const appointment = args.appointment.jqxAppointment;
-      this.previewEvent.emit({
-        id: appointment.appointmentId,
-        groupId: appointment.calendarId,
-        startTime: appointment.from.toDate(),
-        endTime: appointment.to.toDate()
-      });
+      const jqxAppointment = args.appointment.jqxAppointment;
+      const eventInfo = {
+        id: jqxAppointment.appointmentId,
+        groupId: jqxAppointment.calendarId,
+        startTime: jqxAppointment.from.toDate(),
+        endTime: jqxAppointment.to.toDate()
+      };
+      this.selectEvent.emit(eventInfo);
     });
     $(this.calendarContainer.nativeElement).on('appointmentChange', (event: any) => {
         const args = event.args;
-        const appointment = args.appointment.jqxAppointment;
+        const jqxAppointment = args.appointment.jqxAppointment;
         this.updateEvent.emit({
-          id: appointment.appointmentId,
-          groupId: appointment.calendarId,
-          startTime: appointment.from.toDate(),
-          endTime: appointment.to.toDate()
+          id: jqxAppointment.appointmentId,
+          groupId: jqxAppointment.calendarId,
+          startTime: jqxAppointment.from.toDate(),
+          endTime: jqxAppointment.to.toDate()
       });
     });
     $(this.calendarContainer.nativeElement).on('appointmentAdd', (event: any) => {
-      if (this.newAppointment) {
+      if (this.newJqxAppointment) {
         const args = event.args;
         const appointment = args.appointment;
 
         const id = appointment.id;
-        this.setAppointmentFields(id, this.newAppointment);
+        this.setAppointmentFields(id, this.newJqxAppointment);
 
-        this.newAppointment = null;
+        this.newJqxAppointment = null;
       }
     });
     $(this.calendarContainer.nativeElement).on('cellClick', (event: any) => {
@@ -276,17 +241,29 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
       const end = new Date(start);
       end.setHours(end.getHours() + 1);
 
-      this.newEvent.emit({
+      this.addEvent.emit({
         id: -1,
         startTime: start,
         endTime: end
       });
     });
+    $(this.calendarContainer.nativeElement).on('dateChange', (event: any) => {
+      const args = event.args;
+      const dateVal = args.date.toDate();
+      const from = args.from.toDate();
+      const to = args.to.toDate();
+    });
 
     this.initialized = true;
   }
 
-  render() {
+  ngOnDestroy(): void {
+    this.addEventSubscription.unsubscribe();
+    this.updateEventSubscription.unsubscribe();
+    this.deleteEventSubscription.unsubscribe();
+  }
+
+  private render(ensureAppointmentVisible: boolean) {
     // tslint:disable-next-line:curly
     if (!this.initialized) return;
 
@@ -300,28 +277,28 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
       $(this.calendarContainer.nativeElement).jqxScheduler('deleteAppointment', id);
     }
     for (const appointment of this.appointments) {
-      this.newAppointment = appointment;
+      this.newJqxAppointment = appointment;
       $(this.calendarContainer.nativeElement).jqxScheduler('addAppointment', appointment);
     }
-    this.ensureVisible();
-    $(this.calendarContainer.nativeElement).jqxScheduler('clearAppointmentsSelection');
+    // ToDo: $(this.calendarContainer.nativeElement).jqxScheduler('clearAppointmentsSelection');
+    if (ensureAppointmentVisible) {
+      this.ensureAppointmentVisible();
+    }
   }
 
-  private setAppointmentFields(id: any, appointment: Jqx.Appointment) {
-      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'appointmentId', appointment.id);
-      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'calendarId', appointment.calendarId);
-      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'instructor', appointment.instructor);
-  }
+  private ensureAppointmentVisible() {
+    const calendarDate = $(this.calendarContainer.nativeElement).jqxScheduler('date').toDate();
 
-  private ensureVisible() {
     const appointments = $(this.calendarContainer.nativeElement).jqxScheduler('appointments');
     let last = null;
     for (const appointment of appointments) {
-      if (!last) {
-        last = appointment;
-      } else {
-        if (appointment.from.toDate() < last.to.toDate()) {
+      if (appointment.from.toDate() >= calendarDate) {
+        if (!last) {
           last = appointment;
+        } else {
+          if (appointment.from.toDate() < last.from.toDate()) {
+            last = appointment;
+          }
         }
       }
     }
@@ -329,5 +306,10 @@ export class JqxMinicalComponent implements AfterViewInit, OnChanges, AfterConte
     if (last) {
       $(this.calendarContainer.nativeElement).jqxScheduler('ensureAppointmentVisible', last.id);
     }
+  }
+
+  private setAppointmentFields(id: any, appointment: Jqx.Appointment) {
+      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'appointmentId', appointment.id);
+      $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'calendarId', appointment.calendarId);
   }
 }

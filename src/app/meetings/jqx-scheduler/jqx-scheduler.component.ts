@@ -1,45 +1,49 @@
-import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Subscription} from 'rxjs';
 
 import { EventsQueryService} from '../shared/events-query.service';
 import { EventViewModel} from '../shared/event-view-model';
 import { EventGroup} from '../shared/event-group';
-import { JqxMinicalComponent} from '../jqx-minical/jqx-minical.component';
 import {EventInfo} from '../shared/event-info';
 import { UserService} from '../../core/services/user.service';
 import {SchedulerService} from '../shared/scheduler.service';
 import { EventService} from '../shared/event.service';
+import { LoaderService} from '../../core/services/loader.service';
+import { SchedulerComponent } from '../../scheduler/scheduler-root/scheduler.component';
 
 @Component({
-  selector: 'jqx-scheduler',
+  // tslint:disable-next-line:component-selector
+  selector: 'jqx-scheduler-deprecated',
   templateUrl: './jqx-scheduler.component.html',
   styleUrls: ['./jqx-scheduler.component.css']
 })
-export class JqxSchedulerComponent implements OnInit, OnDestroy {
+export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   events = new Array<EventViewModel>();
   modelState: any = null;
+  editMode = false;
+  readOnly = false;
   enabled = true;
+  loading = false;
 
   @Output() previewEvent = new EventEmitter<EventViewModel>();
-  @Output() newEvent = new EventEmitter<EventViewModel>();
-  @Output() updateEvent = new EventEmitter<EventViewModel>();
 
-  private addEventSubscription: Subscription;
-  private subscription: Subscription;
+  @ViewChild(SchedulerComponent) scheduler: SchedulerComponent;
 
-  @ViewChild(JqxMinicalComponent) minical: JqxMinicalComponent;
+  private eventsQuerySubscription: Subscription;
+  private addNewEventSubscription: Subscription;
+  private eventSavedSubscription: Subscription;
 
   constructor(private eventsQuerySvc: EventsQueryService,
               private eventSvc: EventService,
               private userSvc: UserService,
-              private schedulerSvc: SchedulerService) {
+              private schedulerSvc: SchedulerService,
+              private loaderSvc: LoaderService) {
   }
 
   ngOnInit() {
-    this.addEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
-        this.events.push(event);
-    });
-    this.subscription = this.eventsQuerySvc.subscribe(groups => {
+    this.eventsQuerySvc.reset();
+
+    this.eventsQuerySubscription = this.eventsQuerySvc.subscribe(groups => {
         this.events = new Array<EventViewModel>();
         for (const group of groups) {
           for (const event of group.events) {
@@ -47,14 +51,33 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
           }
         }
     });
+    this.addNewEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
+      this.events.push(event);
+    });
+    this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
+      this.loading = false;
+      // this.ref.detectChanges();
+      this.scheduler.closeSelectedEvent();
+    }, error => {
+      this.modelState = error;
+      this.loading = false;
+      // this.ref.detectChanges();
+    });
+
+    // query the events
+    this.eventsQuerySvc.queryWeeklyEventsForCurrentUser();
+  }
+
+  ngAfterViewInit() {
+    $('body').css('overflow', 'hidden');
   }
 
   ngOnDestroy() {
-    if (this.addEventSubscription) {
-      this.addEventSubscription.unsubscribe();
+    if (this.eventsQuerySubscription) {
+      this.eventsQuerySubscription.unsubscribe();
     }
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.addNewEventSubscription) {
+      this.addNewEventSubscription.unsubscribe();
     }
   }
 
@@ -68,43 +91,69 @@ export class JqxSchedulerComponent implements OnInit, OnDestroy {
     }
   }
 
-  onNewEvent(event: EventInfo) {
-    this.modelState = null;
-    const user = this.userSvc.getUser();
-    const newEvent = EventViewModel.fromEventInfo(event);
-    newEvent.groupId = user.userId;
-    newEvent.userId = user.userId;
-    newEvent.group = new EventGroup(user.userId, user.name, true);
-    this.newEvent.emit(newEvent);
-  }
-
     onUpdateEvent(event: EventInfo) {
-    this.modelState = null;
+      this.modelState = null;
 
     for (const ev of this.events) {
         if (ev.id === event.id) {
           // saves to the database
           const copy = ev.clone();
-          copy.startTime = event.startTime;
-          copy.endTime = event.endTime;
-          // copy.groupId = event.groupId;
+          copy.start = event.startTime;
+          copy.end = event.endTime;
 
           this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e => {
             // updates the event
-            ev.startTime = event.startTime;
-            ev.endTime = event.endTime;
-            // ev.groupId = event.groupId;
-
-            this.updateEvent.emit(ev);
+            ev.start = event.startTime;
+            ev.end = event.endTime;
           }, error => {
               this.modelState = error;
-              this.minical.render();
+              // this.minical.render();
           });
           return;
         }
     }
   }
+   onAddEvent(selectedEvent: EventViewModel) {
+    this.editMode = true;
+   }
+   onSave() {
+    this.modelState = null;
+    this.loading = true;
+    this.schedulerSvc.saveEvent();
+   }
 
+   edit() {
+    this.editMode = true;
+   }
+
+   delete(selectedEvent: EventViewModel) {
+    // tslint:disable-next-line:curly
+    if (!selectedEvent || selectedEvent.id < 1) return;
+
+    this.modelState = null;
+    this.loaderSvc.load(true);
+    this.eventSvc.removeEvent(selectedEvent.id).subscribe(
+      () => {
+          for (let i = 0; i < this.events.length; i++) {
+            if (this.events[i] === selectedEvent) {
+              this.events.splice(i, 1);
+              break;
+            }
+          }
+        this.loaderSvc.load(false);
+        if (this.scheduler) {
+          this.scheduler.closeSelectedEvent();
+        }
+      },
+      error => {
+        this.modelState = error;
+        this.loaderSvc.load(false);
+      });
+   }
+
+   getNewEvent(eventInfo: EventInfo) {
+      return EventViewModel.fromEventInfo(eventInfo);
+   }
 
   setTemplate() {
     this.enabled = !this.enabled;

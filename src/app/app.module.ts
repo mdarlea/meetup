@@ -7,7 +7,7 @@ import { CoreModule} from './core/core.module';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule} from './app-routing.module';
 import { SharedModule} from './shared/shared.module';
-import { swMapModule } from './shared/sw-map/sw-map.module'
+import { swMapModule } from './shared/sw-map/sw-map.module';
 
 @NgModule({
   declarations: [

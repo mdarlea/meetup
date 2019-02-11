@@ -1,0 +1,38 @@
+<jqx-scheduler [date]="date" [view]="view" [draggable]="draggable" [editMode] = "editMode"
+              (selectEvent)="onSelectEvent($event)"
+              (addEvent)="onAddEvent($event)"
+              (updateEvent)="onUpdateEvent($event)">
+  <jqx-event *ngFor="let event of events"
+           [id]="event.id"
+           [description]="event.description"
+           [location]="event.location"
+           [subject]="event.subject"
+           [calendar]="event.calendar"
+           [start]="event.start"
+           [end]="event.end"
+           [recurrencePattern]="event.recurrencePattern"
+           [calendarId]="event.calendarId">
+  </jqx-event>
+</jqx-scheduler>
+<!-- Modal -->
+<div #eventModal class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title">{{getSubject()}}</h4>
+      </div>
+      <div class="modal-body">
+        <ng-template *ngIf="!editMode && this.selectedEvent"
+             [ngTemplateOutlet]="schedulerReadSeletedEventTemplate"
+             [ngTemplateOutletContext]="{ selectedEvent: this.selectedEvent }">
+        </ng-template>
+        <ng-template *ngIf="editMode && this.selectedEvent"
+             [ngTemplateOutlet]="schedulerEditSeletedEventTemplate"
+             [ngTemplateOutletContext]="{ selectedEvent: this.selectedEvent }">
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+

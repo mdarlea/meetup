@@ -1,14 +1,14 @@
-<scheduler (calendarViewChanged)="onCalendarViewChanged($event)"
+<scheduler-deprecated (calendarViewChanged)="onCalendarViewChanged($event)"
            (newEvent)="onNewEvent($event)"
            (previewEvent)="onPreviewEvent($event)">
-</scheduler>
+</scheduler-deprecated>
 <!-- Modal -->
 <div #eventModal class="modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
        <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">{{activeEvent.name}}</h4>
+         <h4 class="modal-title">{{activeEvent.subject}}</h4>
       </div>
       <div class="modal-body">
         <preview-event [event]="activeEvent" *ngIf="!editMode"></preview-event>

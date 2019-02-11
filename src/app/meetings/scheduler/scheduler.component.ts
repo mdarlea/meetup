@@ -11,7 +11,7 @@ import { UserService} from '../../core/services/user.service';
 import {SchedulerService} from '../shared/scheduler.service';
 
 @Component({
-  selector: 'scheduler',
+  selector: 'scheduler-deprecated',
   templateUrl: './scheduler.component.html',
   styleUrls: ['./scheduler.component.css']
 })
@@ -126,14 +126,14 @@ export class SchedulerComponent implements OnInit, OnDestroy {
         if (ev.id === event.id) {
           // saves to the database
           const copy = ev.clone();
-          copy.startTime = event.startTime;
-          copy.endTime = event.endTime;
+          copy.start = event.startTime;
+          copy.end = event.endTime;
           copy.groupId = event.groupId;
 
           this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e => {
             // updates the event
-            ev.startTime = event.startTime;
-            ev.endTime = event.endTime;
+            ev.start = event.startTime;
+            ev.end = event.endTime;
             ev.groupId = event.groupId;
 
             this.updateEvent.emit(ev);

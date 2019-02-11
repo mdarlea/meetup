@@ -1,5 +1,5 @@
     <input-group name="name"
-                 [(ngModel)]="eventCopy.name"
+                 [(ngModel)]="eventCopy.subject"
                  fa-icon="calendar"
                  label="Event Name"
                  placeholder="The event name"
@@ -7,18 +7,18 @@
                  required>
         <err-required message="The event name is required"></err-required>
     </input-group>
-    <!-- <input-group name="instructor"
+    <input-group name="instructor"
                  [(ngModel)]="eventCopy.instructor"
                  fa-icon="user"
                  label="Leader"
                  [disabled]="disabled"
                  placeholder="The person hosting this event">
-    </input-group> -->
+    </input-group>
     <div class="row">
         <div class="col-sm-6 col-xs-12">
             <label>Start Time</label>
             <time-picker name="startTime"
-                         [(ngModel)]="eventCopy.startTime"
+                         [(ngModel)]="eventCopy.start"
                          required
                          time-range
                          format="{momentFormat:'lll'}">
@@ -29,7 +29,7 @@
         <div class="col-sm-6 col-xs-12">
             <label>End Time</label>
             <time-picker name="endTime"
-                         [(ngModel)]="eventCopy.endTime"
+                         [(ngModel)]="eventCopy.end"
                          required
                          time-range="startTime"
                          format="{momentFormat:'lll'}">

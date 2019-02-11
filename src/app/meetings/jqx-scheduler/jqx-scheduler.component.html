@@ -1,22 +1,51 @@
 <button (click)="setTemplate()">Set Template</button>
-<jqx-minical (previewEvent)="onPreviewEvent($event)"
-             (newEvent)="onNewEvent($event)"
-             (updateEvent)="onUpdateEvent($event)">
-  <ng-template let-data="data" jqxEventTemplate *ngIf="enabled">
-    <div><i>{{data.appointment.subject}}</i></div>
+
+<sw-scheduler [events]="events" [editMode]="editMode"
+              [getNewEvent]="getNewEvent"
+              (addEvent)="onAddEvent($event)"
+              (updateEvent)="onUpdateEvent($event)">
+  <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
+    <div><i>{{data.subject}}</i></div>
+    <div>{{data.id}}</div>
+    <div>{{data.appointmentId}}</div>
   </ng-template>
-  <jqx-event *ngFor="let event of events"
-           [id]="event.id"
-           [subject]="event.name"
-           [description]="event.description"
-           [start]="event.startTime"
-           [end]="event.endTime"
-           [instructor]="event.instructor"
-           [calendarId]="event.group.id"
-           [calendar]="event.group.name"
-           [repeat]="event.repeat"
-           [repeatDay]="event.repeatDay">
-  </jqx-event>
-</jqx-minical>
+  <ng-template schedulerReadSeletedEventTemplate let-selectedEvent="selectedEvent">
+    <preview-event [event]="selectedEvent"></preview-event>
+    <div class="modal-footer">
+      <spinner *ngIf="loading"></spinner>
+      <ng-container *ngIf="!loading">
+        <button type="button" *ngIf="!readOnly" (click)="edit()" class="btn btn-success">
+            Edit
+        </button>
+        <button *ngIf="!readOnly" type="button" (click)="delete()" class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span>Delete
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-log-out"></span>Close
+        </button>
+      </ng-container>
+    </div>
+  </ng-template>
+  <ng-template schedulerEditSeletedEventTemplate let-selectedEvent="selectedEvent">
+    <form class="form-group" #form="ngForm" (ngSubmit)="onSave()" ngNativeValidate>
+          <edit-event [event]="selectedEvent"></edit-event>
+          <validation-errors [model-state]="modelState"></validation-errors>
+          <div class="modal-footer">
+            <spinner *ngIf="loading"></spinner>
+            <ng-container *ngIf="!loading">
+              <button type="submit" [disabled]="!form.form.valid || loading" *ngIf="!readOnly" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>Save
+              </button>
+              <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger" [disabled]="loading">
+                <span class="glyphicon glyphicon-remove"></span>Delete
+              </button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-log-out"></span>Close
+              </button>
+            </ng-container>
+          </div>
+        </form>
+  </ng-template>
+</sw-scheduler>
 <validation-errors [model-state]="modelState"></validation-errors>
 
