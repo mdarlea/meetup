@@ -288,8 +288,8 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
     $(this.calendarContainer.nativeElement).on('appointmentDoubleClick', (event: any) => {
       // workarround to fix issue with click event
       if (this.firstClick) {
-        this.firstClick = false;
-        return;
+        // this.firstClick = false;
+        // return;
       }
       const args = event.args;
       const jqxAppointment = args.appointment.jqxAppointment;
