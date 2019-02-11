@@ -79,9 +79,9 @@ export class GeolocationService {
 
             const location = results[0];
 
-            for (var i = 0; i < location.address_components.length; i++) {
-                var item = results[0].address_components[i];
-                var types = item.types;
+            for (let i = 0; i < location.address_components.length; i++) {
+                const item = results[0].address_components[i];
+                const types = item.types;
 
                 if (types.indexOf("street_number") != -1) {
                     streetNumber = +item.short_name;
@@ -110,9 +110,9 @@ export class GeolocationService {
             }
 
             //get latitude  and longitude
-            var geometry = location.geometry.location;
+            const geometry = location.geometry.location;
 
-            var result = new GeolocationResult();
+            const result = new GeolocationResult();
             result.streetNumber = streetNumber;
             result.street = street;
             result.state = state;

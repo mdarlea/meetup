@@ -49,11 +49,11 @@ export class AccountService  {
         const url = `${this._route}login`;
         viewModel.clientId = this.settings.configuration.clientId;
 
-        return this.httpSvc.post<AuthUser>(url, viewModel).pipe(            
+        return this.httpSvc.post<AuthUser>(url, viewModel).pipe(
             tap(user => {
                 this._storeUser(user);
             }),
-            catchError(this.handleError('login', new AuthUser(null,null,null,null,null))));
+            catchError(this.handleError('login', new AuthUser(null, null, null, null, null), true)));
     }
 
     logout() {
@@ -79,7 +79,7 @@ export class AccountService  {
         user.userName = user.email;
         user.clientId = this.settings.configuration.clientId;
 
-        return this.httpSvc.post<AuthUser>(url, user).pipe(            
+        return this.httpSvc.post<AuthUser>(url, user).pipe(
             tap(u => {
               this._storeUser(u);
             }),
@@ -89,7 +89,7 @@ export class AccountService  {
     externalLoginCallback(): Observable<any> {
         const url = `${this._route}ExternalLoginCallback/${this.settings.configuration.clientId}`;
 
-        return this.httpSvc.get(url, {withCredentials: true}).pipe(            
+        return this.httpSvc.get(url, {withCredentials: true}).pipe(
             tap(user => {
                 if (user && user['token']) {
                     this._storeUser(<AuthUser> user);

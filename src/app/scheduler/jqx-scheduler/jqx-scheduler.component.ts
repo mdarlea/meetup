@@ -7,6 +7,13 @@ import { JqxSchedulerService } from './jqx-scheduler.service';
 import { SchedulerService } from '../scheduler-root/scheduler.service';
 import { EventInfo} from '../event-info';
 
+interface EventArgs {
+  date?: Date;
+  from: Date;
+  to: Date;
+  view?: string;
+}
+
 @Component({
   selector: 'jqx-scheduler',
   templateUrl: './jqx-scheduler.component.html',
@@ -26,10 +33,39 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   private ensureVisibleSubscription: Subscription;
   private firstClick = true;
 
-  @Input() date: Date;
-  @Input() view: string;
   @Input() draggable = false;
   @Input() editMode = false;
+
+  @Output() viewChanged = new EventEmitter<EventArgs>();
+  @Output() dateChanged = new EventEmitter<EventArgs>();
+
+  @Output() viewChange = new EventEmitter<string>();
+
+  private viewValue: string;
+  set view (value: string) {
+    if (value !== this.viewValue) {
+      this.viewValue = value;
+      this.viewChange.emit(value);
+    }
+  }
+  @Input()
+  get view() {
+    return this.viewValue;
+  }
+
+  @Output() dateChange = new EventEmitter<Date>();
+
+  private dateValue: Date;
+  set date (value: Date) {
+    if (value !== this.dateValue) {
+      this.dateValue = value;
+      this.dateChange.emit(value);
+    }
+  }
+  @Input()
+  get date() {
+    return this.dateValue;
+  }
 
   private eventTemplateValue: TemplateRef<any>;
   set eventTemplate(value: TemplateRef<any>) {
@@ -214,11 +250,37 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
             resourceId: 'calendar',
             draggable: this.draggable
         },
-        views:
-        [
-            'dayView',
-            'weekView',
-            'monthView'
+         views: [
+            {
+              type: 'dayView',
+              showWeekends: true,
+              timeRuler: { hidden: false },
+              workTime:	{
+                fromDayOfWeek: 0,
+                toDayOfWeek: 6,
+                fromHour: 1,
+                toHour: 24
+              }
+            },
+            {
+              type: 'weekView',
+              workTime:	{
+                fromDayOfWeek: 0,
+                toDayOfWeek: 6,
+                fromHour: 1,
+                toHour: 24
+              }
+            },
+            {
+              type: 'monthView',
+              showWeekends: true,
+              workTime:	{
+                fromDayOfWeek: 0,
+                toDayOfWeek: 6,
+                fromHour: 1,
+                toHour: 24
+              }
+            }
         ]
     });
 
@@ -275,9 +337,24 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
     });
     $(this.calendarContainer.nativeElement).on('dateChange', (event: any) => {
       const args = event.args;
-      const dateVal = args.date.toDate();
+      this.date = args.date.toDate();
       const from = args.from.toDate();
       const to = args.to.toDate();
+      this.dateChanged.emit({
+        date: date,
+        from: from,
+        to: to
+      });
+    });
+    $(this.calendarContainer.nativeElement).on('viewChange', (event: any) => {
+      const args = event.args;
+      this.date = args.date.toDate();
+      this.view = args.newViewType;
+      this.viewChanged.emit({
+        from: args.from.toDate(),
+        to: args.to.toDate(),
+        view: args.newViewType
+      });
     });
 
     for (const jqxAppointment of this.jqxAppointments) {

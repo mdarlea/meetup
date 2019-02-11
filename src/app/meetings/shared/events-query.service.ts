@@ -9,14 +9,13 @@ import {LocationDto} from '../shared/location-dto';
 import {EventGroup} from '../shared/event-group';
 import { EventViewModel} from '../shared/event-view-model';
 import { HttpErrorHandlerService, HandleError} from '../../core/services/http-error-handler.service';
-import { LoaderService} from '../../core/services/loader.service';
 
 @Injectable()
 export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
     private _route = 'api/event/';
     private handleError: HandleError;
 
-    constructor(private http: HttpClient, exceptionSvc: HttpErrorHandlerService, private loaderSvc: LoaderService) {
+    constructor(private http: HttpClient, exceptionSvc: HttpErrorHandlerService) {
       super(new Array<EventGroup>());
       this.handleError = exceptionSvc.createHandleError('EventsQueryService');
     }
@@ -42,7 +41,6 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
         }
       }
       super.next(groups);
-      this.loaderSvc.load(false);
     }
 
     reset() {
@@ -50,19 +48,15 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
     }
 
     queryWeeklyEventsForCurrentUser() {
-      this.loaderSvc.load(true);
       this.findWeeklyEventsForCurrentUser().subscribe(events => this.query(events));
     }
     queryEventsInTimeRangeForUser(timeRange: TimeRangeDto) {
-      this.loaderSvc.load(true);
       this.findEventsInTimeRangeForUser(timeRange).subscribe(events => this.query(events));
     }
     queryWeeklyEvents() {
-      this.loaderSvc.load(true);
       this.findWeeklyEvents().subscribe(events => this.query(events));
     }
     queryEventsInTimeRange(timeRange: TimeRangeDto) {
-      this.loaderSvc.load(true);
       this.findEventsInTimeRange(timeRange).subscribe(events => this.query(events));
     }
 

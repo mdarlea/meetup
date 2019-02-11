@@ -23,16 +23,44 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   selectedEvent: any;
 
   @Input() events = new Array<any>();
-  @Input() date: Date;
-  @Input() view: string;
   @Input() draggable = false;
   @Input() editMode = false;
-  @Input() createNewEvent: Function;
+  @Input() getNewEvent: Function;
 
   @Output() addEvent = new EventEmitter<any>();
-  @Output() previewEvent = new EventEmitter<any>();
-  @Output() editEvent = new EventEmitter<any>();
+  @Output() selectEvent = new EventEmitter<any>();
   @Output() updateEvent = new EventEmitter<EventInfo>();
+  @Output() closeEventModal = new EventEmitter<any>();
+  @Output() viewChanged = new EventEmitter<any>();
+  @Output() dateChanged = new EventEmitter<any>();
+
+  @Output() viewChange = new EventEmitter<string>();
+
+  private viewValue: string;
+  set view (value: string) {
+    if (value !== this.viewValue) {
+      this.viewValue = value;
+      this.viewChange.emit(value);
+    }
+  }
+  @Input()
+  get view() {
+    return this.viewValue;
+  }
+
+  @Output() dateChange = new EventEmitter<Date>();
+
+  private dateValue: Date;
+  set date (value: Date) {
+    if (value !== this.dateValue) {
+      this.dateValue = value;
+      this.dateChange.emit(value);
+    }
+  }
+  @Input()
+  get date() {
+    return this.dateValue;
+  }
 
   @ContentChild(SchedulerEditSeletedEventTemplateDirective, { read: TemplateRef })
   schedulerEditSeletedEventTemplate: TemplateRef<any>;
@@ -62,6 +90,9 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
     this.jqxScheduler.eventTemplate = this.schedulerEventTemplate;
   }
   ngAfterViewInit(): void {
+    $(this.eventModal.nativeElement).on('hidden.bs.modal', () => {
+      this.closeEventModal.emit();
+    });
     this.initialized = true;
   }
 
@@ -79,23 +110,18 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
     this.subscription.unsubscribe();
   }
 
-  onPreviewEvent(eventInfo: EventInfo) {
+  onSelectEvent(eventInfo: EventInfo) {
     this.setSelectedEvent(eventInfo);
     this.showModal();
-    this.previewEvent.emit(this.selectedEvent);
+    this.selectEvent.emit(this.selectedEvent);
   }
 
-  onEditEvent(eventInfo: EventInfo) {
-    this.setSelectedEvent(eventInfo);
-    this.showModal();
-    this.editEvent.emit(this.selectedEvent);
-  }
   onAddEvent(eventInfo: EventInfo) {
-    if (!this.createNewEvent) {
+    if (!this.getNewEvent) {
       throw new Error('onNewEvent function must be set');
     }
 
-    const newEvent = this.createNewEvent(eventInfo);
+    const newEvent = this.getNewEvent(eventInfo);
     this.selectedEvent = newEvent;
     this.showModal();
     this.addEvent.emit(newEvent);
@@ -103,6 +129,14 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
 
   closeSelectedEvent() {
     this.hideModal();
+  }
+
+  render() {
+    this.schedulerSvc.render();
+  }
+
+  ensureFirstEventVisible() {
+    this.schedulerSvc.ensureFirstEventVisible();
   }
 
   onUpdateEvent(eventInfo: EventInfo) {
@@ -129,5 +163,13 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
       }
     }
     this.selectedEvent = null;
+  }
+
+  onViewChanged(args: any) {
+    this.viewChanged.emit(args);
+  }
+
+  onDateChanged(args: any) {
+    this.dateChanged.emit(args);
   }
 }

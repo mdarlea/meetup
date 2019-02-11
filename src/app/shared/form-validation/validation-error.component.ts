@@ -3,6 +3,7 @@ import { Component, TypeDecorator, Input } from '@angular/core';
 import { Validator, ValidatorFn } from '@angular/forms';
 import { NgControl } from '@angular/forms';
 import { copyObject } from '../utils';
+import 'reflect-metadata';
 
 export class ValidationTypeDecorator {
     constructor(public validatorType: Function) {

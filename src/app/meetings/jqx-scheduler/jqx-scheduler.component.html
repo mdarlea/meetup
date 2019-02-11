@@ -1,12 +1,14 @@
-<button (click)="setTemplate()">Set Template</button>
-<button (click)="ensureVisible()">Ensure Visible</button>
-
+<spinner *ngIf="loading"></spinner>
+<validation-errors [model-state]="modelState"></validation-errors>
 <sw-scheduler [events]="events" [editMode]="editMode"
               [getNewEvent]="getNewEvent"
+              [(view)]="view" [(date)]="date"
               (selectEvent)="onSelectEvent($event)"
               (addEvent)="onAddEvent($event)"
               (updateEvent)="onUpdateEvent($event)"
-              (closeEventModal)="onCloseEventModal()">
+              (closeEventModal)="onCloseEventModal()"
+              (viewChanged)="onViewChanged($event)"
+              (dateChanged)="onDateChanged($event)">
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>
     <div>{{data.id}}</div>
@@ -50,6 +52,4 @@
         </form>
   </ng-template>
 </sw-scheduler>
-<spinner *ngIf="loading"></spinner>
-<validation-errors [model-state]="modelState"></validation-errors>
 

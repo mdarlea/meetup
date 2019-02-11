@@ -1,8 +1,9 @@
-<jqx-scheduler [date]="date" [view]="view" [draggable]="draggable" [editMode] = "editMode"
-              (previewEvent)="onPreviewEvent($event)"
-              (editEvent)="onEditEvent($event)"
+<jqx-scheduler [(date)]="date" [(view)]="view" [draggable]="draggable" [editMode] = "editMode"
+              (selectEvent)="onSelectEvent($event)"
               (addEvent)="onAddEvent($event)"
-              (updateEvent)="onUpdateEvent($event)">
+              (updateEvent)="onUpdateEvent($event)"
+              (viewChanged)="onViewChanged($event)"
+              (dateChanged)="onDateChanged($event)">
   <jqx-event *ngFor="let event of events"
            [id]="event.id"
            [description]="event.description"

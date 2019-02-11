@@ -10,6 +10,7 @@ import {SchedulerService} from '../shared/scheduler.service';
 import { EventService} from '../shared/event.service';
 import { LoaderService} from '../../core/services/loader.service';
 import { SchedulerComponent } from '../../scheduler/scheduler-root/scheduler.component';
+import { TimeRangeDto} from '../shared/time-range-dto';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -26,6 +27,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   enabled = true;
   loading = false;
   processingEvent = false;
+  view = 'weekView';
+  date = new Date();
 
   private initialized = false;
 
@@ -55,6 +58,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
             this.events.push(event);
           }
         }
+        this.loading = false;
+        this.loaderSvc.load(false);
     });
     this.addNewEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
       this.events.push(event);
@@ -69,7 +74,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // query the events
-    this.eventsQuerySvc.queryWeeklyEventsForCurrentUser();
+    this.loaderSvc.load(true);
+    this.eventsQuerySvc.queryWeeklyEvents();
   }
 
   ngAfterViewInit() {
@@ -133,6 +139,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   onSelectEvent(selectedEvent: EventViewModel) {
     this.modelState = null;
     this.eventModelState = null;
+    this.editMode = false;
   }
    onAddEvent(selectedEvent: EventViewModel) {
      this.modelState = null;
@@ -192,5 +199,19 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ensureVisible() {
     this.scheduler.ensureFirstEventVisible();
+  }
+
+  onDateChanged(args: any) {
+    this.eventsQuerySvc.reset();
+
+    this.loading = true;
+    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, args.to));
+  }
+
+  onViewChanged(args: any){
+    this.eventsQuerySvc.reset();
+
+    this.loading = true;
+    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, args.to));
   }
 }

@@ -23,8 +23,6 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   selectedEvent: any;
 
   @Input() events = new Array<any>();
-  @Input() date: Date;
-  @Input() view: string;
   @Input() draggable = false;
   @Input() editMode = false;
   @Input() getNewEvent: Function;
@@ -33,6 +31,36 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   @Output() selectEvent = new EventEmitter<any>();
   @Output() updateEvent = new EventEmitter<EventInfo>();
   @Output() closeEventModal = new EventEmitter<any>();
+  @Output() viewChanged = new EventEmitter<any>();
+  @Output() dateChanged = new EventEmitter<any>();
+
+  @Output() viewChange = new EventEmitter<string>();
+
+  private viewValue: string;
+  set view (value: string) {
+    if (value !== this.viewValue) {
+      this.viewValue = value;
+      this.viewChange.emit(value);
+    }
+  }
+  @Input()
+  get view() {
+    return this.viewValue;
+  }
+
+  @Output() dateChange = new EventEmitter<Date>();
+
+  private dateValue: Date;
+  set date (value: Date) {
+    if (value !== this.dateValue) {
+      this.dateValue = value;
+      this.dateChange.emit(value);
+    }
+  }
+  @Input()
+  get date() {
+    return this.dateValue;
+  }
 
   @ContentChild(SchedulerEditSeletedEventTemplateDirective, { read: TemplateRef })
   schedulerEditSeletedEventTemplate: TemplateRef<any>;
@@ -135,5 +163,13 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
       }
     }
     this.selectedEvent = null;
+  }
+
+  onViewChanged(args: any) {
+    this.viewChanged.emit(args);
+  }
+
+  onDateChanged(args: any) {
+    this.dateChanged.emit(args);
   }
 }
