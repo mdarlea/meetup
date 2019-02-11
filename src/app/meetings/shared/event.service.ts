@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 
 import {map, catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -23,18 +24,18 @@ export class EventService {
     }
     addNewEvent(event: EventDto): Observable<EventDto> {
         const url = `${this._route}AddNewEvent`;
-        return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('addNewEvent',event)));
+        return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('addNewEvent', event, true)));
     }
     updateEventWithAddress(event: EventDto): Observable<EventDto> {
         const url = `${this._route}UpdateEventWithAddress`;
-        return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('updateEventWithAddress',event)));
+        return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('addNewEvent', event, true)));
     }
     updateEvent(event: EventDto): Observable<EventDto> {
         const url = `${this._route}UpdateEvent`;
-        return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('updateEvent',event)));
+        return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('updateEvent', event, true)));
     }
     findEvent(eventId: number): Observable<EventDto> {
         const url = `${this._route}FindEvent/${eventId}`;
-        return this.http.get<EventDto>(url).pipe(catchError(this.handleError('findEvent',new EventDto())));
+        return this.http.get<EventDto>(url).pipe(catchError(this.handleError('findEvent', new EventDto())));
     }
 }

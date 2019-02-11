@@ -20,10 +20,12 @@ import { SchedulerComponent } from '../../scheduler/scheduler-root/scheduler.com
 export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   events = new Array<EventViewModel>();
   modelState: any = null;
+  eventModelState: any = null;
   editMode = false;
   readOnly = false;
   enabled = true;
   loading = false;
+  processingEvent = false;
 
   @Output() previewEvent = new EventEmitter<EventViewModel>();
 
@@ -32,6 +34,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   private eventsQuerySubscription: Subscription;
   private addNewEventSubscription: Subscription;
   private eventSavedSubscription: Subscription;
+  private eventSavingErrorSubscription: Subscription;
 
   constructor(private eventsQuerySvc: EventsQueryService,
               private eventSvc: EventService,
@@ -55,13 +58,12 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.events.push(event);
     });
     this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
-      this.loading = false;
-      // this.ref.detectChanges();
+      this.processingEvent = false;
       this.scheduler.closeSelectedEvent();
-    }, error => {
-      this.modelState = error;
-      this.loading = false;
-      // this.ref.detectChanges();
+    });
+    this.eventSavingErrorSubscription = this.schedulerSvc.eventSavingError$.subscribe(error => {
+      this.eventModelState = error;
+      this.processingEvent = false;
     });
 
     // query the events
@@ -79,10 +81,17 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.addNewEventSubscription) {
       this.addNewEventSubscription.unsubscribe();
     }
+    if (this.eventSavedSubscription) {
+      this.eventSavedSubscription.unsubscribe();
+    }
+    if (this.eventSavingErrorSubscription) {
+      this.eventSavingErrorSubscription.unsubscribe();
+    }
   }
 
   onPreviewEvent(event: EventInfo) {
     this.modelState = null;
+    this.eventModelState = null;
     for (const ev of this.events) {
         if (ev.id === event.id) {
           this.previewEvent.emit(ev);
@@ -93,8 +102,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     onUpdateEvent(event: EventInfo) {
       this.modelState = null;
+      this.loading = true;
 
-    for (const ev of this.events) {
+     for (const ev of this.events) {
         if (ev.id === event.id) {
           // saves to the database
           const copy = ev.clone();
@@ -105,21 +115,34 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
             // updates the event
             ev.start = event.startTime;
             ev.end = event.endTime;
+            this.loading = false;
           }, error => {
               this.modelState = error;
-              // this.minical.render();
+              this.scheduler.render();
+              this.loading = false;
           });
           return;
         }
     }
   }
+
+  onSelectEvent(selectedEvent: EventViewModel) {
+    this.modelState = null;
+    this.eventModelState = null;
+  }
    onAddEvent(selectedEvent: EventViewModel) {
-    this.editMode = true;
+     this.modelState = null;
+     this.eventModelState = null;
+     this.editMode = true;
    }
    onSave() {
     this.modelState = null;
-    this.loading = true;
+    this.processingEvent = true;
     this.schedulerSvc.saveEvent();
+   }
+
+   onCloseEventModal() {
+     this.eventModelState = null;
    }
 
    edit() {
@@ -131,7 +154,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!selectedEvent || selectedEvent.id < 1) return;
 
     this.modelState = null;
-    this.loaderSvc.load(true);
+    this.eventModelState = null;
+    // this.loaderSvc.load(true);
+    this.processingEvent = true;
     this.eventSvc.removeEvent(selectedEvent.id).subscribe(
       () => {
           for (let i = 0; i < this.events.length; i++) {
@@ -140,14 +165,16 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
               break;
             }
           }
-        this.loaderSvc.load(false);
+        // this.loaderSvc.load(false);
+        this.processingEvent = false;
         if (this.scheduler) {
           this.scheduler.closeSelectedEvent();
         }
       },
       error => {
         this.modelState = error;
-        this.loaderSvc.load(false);
+        // this.loaderSvc.load(false);
+        this.processingEvent = false;
       });
    }
 

@@ -32,6 +32,7 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   @Output() addEvent = new EventEmitter<any>();
   @Output() selectEvent = new EventEmitter<any>();
   @Output() updateEvent = new EventEmitter<EventInfo>();
+  @Output() closeEventModal = new EventEmitter<any>();
 
   @ContentChild(SchedulerEditSeletedEventTemplateDirective, { read: TemplateRef })
   schedulerEditSeletedEventTemplate: TemplateRef<any>;
@@ -61,6 +62,9 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
     this.jqxScheduler.eventTemplate = this.schedulerEventTemplate;
   }
   ngAfterViewInit(): void {
+    $(this.eventModal.nativeElement).on('hidden.bs.modal', () => {
+      this.closeEventModal.emit();
+    });
     this.initialized = true;
   }
 
@@ -97,6 +101,10 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
 
   closeSelectedEvent() {
     this.hideModal();
+  }
+
+  render() {
+    this.schedulerSvc.render();
   }
 
   onUpdateEvent(eventInfo: EventInfo) {

@@ -8,11 +8,6 @@ import { EventService} from '../shared/event.service';
 import {SchedulerService} from '../shared/scheduler.service';
 import { Subscription,  Observable} from 'rxjs';
 import { Address} from '../../core/models/address';
-
-
-
-
-
 import {LoaderService} from '../../core/services/loader.service';
 import { EventDto } from '../shared/event-dto';
 import * as _ from 'lodash';
@@ -30,6 +25,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
     private addressSubscription: Subscription;
     private loaderSubscription: Subscription;
+    private saveEventSubscription: Subscription;
 
     showCountry = true;
     isAtMainAddress = false;
@@ -112,6 +108,11 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
     ngOnChanges(changes: any): void {
         if (changes && 'event' in changes) {
+            this.isAtMainAddress = false;
+            this.buttonText = (this.isAtMainAddress)
+                ? this.buttonTextEnterAddress
+                : this.buttonTextAtMainAddress;
+
             const value = <EventViewModel> changes.event.currentValue;
             if (value) {
               if (value.id <= 0) {
@@ -133,10 +134,6 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.buttonText = (this.isAtMainAddress)
-                ? this.buttonTextEnterAddress
-                : this.buttonTextAtMainAddress;
-
         this.addressSubscription = this.addressSvc.subscribe(addresses => {
             this.loading = false;
             const value = addresses.filter(addr => addr.isMainAddress);
@@ -144,6 +141,9 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
             if (this.isAtMainAddress && this.mainAddress) {
               this.setEventAddressFromMainAddress();
             }
+        });
+        this.saveEventSubscription = this.schedulerSvc.saveEvent$.subscribe(value => {
+          this.save();
         });
     }
 
@@ -153,6 +153,9 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       }
       if (this.loaderSubscription) {
         this.loaderSubscription.unsubscribe();
+      }
+      if (this.saveEventSubscription) {
+        this.saveEventSubscription.unsubscribe();
       }
     }
 }

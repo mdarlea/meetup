@@ -2,8 +2,10 @@
 
 <sw-scheduler [events]="events" [editMode]="editMode"
               [getNewEvent]="getNewEvent"
+              (selectEvent)="onSelectEvent($event)"
               (addEvent)="onAddEvent($event)"
-              (updateEvent)="onUpdateEvent($event)">
+              (updateEvent)="onUpdateEvent($event)"
+              (closeEventModal)="onCloseEventModal()">
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>
     <div>{{data.id}}</div>
@@ -12,12 +14,12 @@
   <ng-template schedulerReadSeletedEventTemplate let-selectedEvent="selectedEvent">
     <preview-event [event]="selectedEvent"></preview-event>
     <div class="modal-footer">
-      <spinner *ngIf="loading"></spinner>
-      <ng-container *ngIf="!loading">
+      <spinner *ngIf="processingEvent"></spinner>
+      <ng-container *ngIf="!processingEvent">
         <button type="button" *ngIf="!readOnly" (click)="edit()" class="btn btn-success">
             Edit
         </button>
-        <button *ngIf="!readOnly" type="button" (click)="delete()" class="btn btn-danger">
+        <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger">
           <span class="glyphicon glyphicon-remove"></span>Delete
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -29,14 +31,14 @@
   <ng-template schedulerEditSeletedEventTemplate let-selectedEvent="selectedEvent">
     <form class="form-group" #form="ngForm" (ngSubmit)="onSave()" ngNativeValidate>
           <edit-event [event]="selectedEvent"></edit-event>
-          <validation-errors [model-state]="modelState"></validation-errors>
+          <validation-errors [model-state]="eventModelState"></validation-errors>
           <div class="modal-footer">
-            <spinner *ngIf="loading"></spinner>
-            <ng-container *ngIf="!loading">
-              <button type="submit" [disabled]="!form.form.valid || loading" *ngIf="!readOnly" class="btn btn-success">
+            <spinner *ngIf="processingEvent"></spinner>
+            <ng-container *ngIf="!processingEvent">
+              <button type="submit" [disabled]="!form.form.valid" *ngIf="!readOnly" class="btn btn-success">
                 <span class="glyphicon glyphicon-ok"></span>Save
               </button>
-              <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger" [disabled]="loading">
+              <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger">
                 <span class="glyphicon glyphicon-remove"></span>Delete
               </button>
               <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -47,5 +49,6 @@
         </form>
   </ng-template>
 </sw-scheduler>
+<spinner *ngIf="loading"></spinner>
 <validation-errors [model-state]="modelState"></validation-errors>
 
