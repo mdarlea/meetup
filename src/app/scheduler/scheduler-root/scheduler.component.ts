@@ -107,6 +107,10 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
     this.schedulerSvc.render();
   }
 
+  ensureFirstEventVisible() {
+    this.schedulerSvc.ensureFirstEventVisible();
+  }
+
   onUpdateEvent(eventInfo: EventInfo) {
     this.setSelectedEvent(eventInfo);
     this.updateEvent.emit(eventInfo);

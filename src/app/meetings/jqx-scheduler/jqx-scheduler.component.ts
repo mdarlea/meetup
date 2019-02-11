@@ -27,6 +27,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = false;
   processingEvent = false;
 
+  private initialized = false;
+
   @Output() previewEvent = new EventEmitter<EventViewModel>();
 
   @ViewChild(SchedulerComponent) scheduler: SchedulerComponent;
@@ -72,6 +74,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     $('body').css('overflow', 'hidden');
+
+    this.initialized = true;
   }
 
   ngOnDestroy() {
@@ -184,5 +188,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setTemplate() {
     this.enabled = !this.enabled;
+  }
+
+  ensureVisible() {
+    this.scheduler.ensureFirstEventVisible();
   }
 }

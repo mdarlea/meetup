@@ -43,7 +43,8 @@ declare module Jqx {
         start: Date,
         end: Date,
         recurrencePattern?: string,
-        instructor?: string
+        instructor?: string,
+        draggable?: boolean
   }
 
   export interface Source {
