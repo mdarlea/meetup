@@ -1,6 +1,7 @@
 <spinner *ngIf="loading"></spinner>
 <validation-errors [model-state]="modelState"></validation-errors>
 <sw-scheduler [events]="events" [editMode]="editMode"
+              resourceOrientation="none"
               [getNewEvent]="getNewEvent"
               [(view)]="view" [(date)]="date"
               (selectEvent)="onSelectEvent($event)"

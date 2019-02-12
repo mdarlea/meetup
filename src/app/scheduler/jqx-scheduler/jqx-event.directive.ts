@@ -14,7 +14,6 @@ export class JqxEventDirective implements OnChanges, OnInit, OnDestroy {
     @Input() start: Date;
     @Input() end: Date;
     @Input() recurrencePattern: string;
-    @Input() calendarId: string;
 
     private event: Jqx.Appointment;
 
@@ -45,7 +44,6 @@ export class JqxEventDirective implements OnChanges, OnInit, OnDestroy {
             subject: this.subject,
             location: this.location,
             description: this.description,
-            calendarId: this.calendarId,
             calendar: this.calendar,
             start: this.start,
             end: this.end,

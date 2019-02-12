@@ -34,14 +34,13 @@ declare module Jqx {
     new(args: string): any;
   }
   export interface Appointment {
-        id: any,
-        description: string,
-        location: string,
-        subject: string,
+        id?: any,
+        description?: string,
+        location?: string,
+        subject?: string,
         calendar: string,
-        calendarId?: any,
-        start: Date,
-        end: Date,
+        start?: Date,
+        end?: Date,
         recurrencePattern?: string,
         instructor?: string,
         draggable?: boolean

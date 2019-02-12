@@ -25,6 +25,7 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   @Input() events = new Array<any>();
   @Input() draggable = false;
   @Input() editMode = false;
+  @Input() resourceOrientation: string;
   @Input() getNewEvent: Function;
 
   @Output() addEvent = new EventEmitter<any>();

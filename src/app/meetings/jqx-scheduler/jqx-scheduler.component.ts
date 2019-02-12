@@ -41,6 +41,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   private eventSavedSubscription: Subscription;
   private eventSavingErrorSubscription: Subscription;
 
+  getNewEvent = (eventInfo: EventInfo) => {
+      return this.getNewEventObject(eventInfo);
+  }
   constructor(private eventsQuerySvc: EventsQueryService,
               private eventSvc: EventService,
               private userSvc: UserService,
@@ -189,9 +192,13 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       });
    }
 
-   getNewEvent(eventInfo: EventInfo) {
-      return EventViewModel.fromEventInfo(eventInfo);
-   }
+  private getNewEventObject(eventInfo: EventInfo) {
+      const event = EventViewModel.fromEventInfo(eventInfo);
+      const user = this.userSvc.getUser();
+      event.calendar = user.name;
+      event.calendarId = user.userId;
+      return event;
+  }
 
   setTemplate() {
     this.enabled = !this.enabled;

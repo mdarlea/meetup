@@ -1,4 +1,5 @@
 <jqx-scheduler [(date)]="date" [(view)]="view" [draggable]="draggable" [editMode] = "editMode"
+              [resourceOrientation]="resourceOrientation"
               (selectEvent)="onSelectEvent($event)"
               (addEvent)="onAddEvent($event)"
               (updateEvent)="onUpdateEvent($event)"
@@ -12,8 +13,7 @@
            [calendar]="event.calendar"
            [start]="event.start"
            [end]="event.end"
-           [recurrencePattern]="event.recurrencePattern"
-           [calendarId]="event.calendarId">
+           [recurrencePattern]="event.recurrencePattern">
   </jqx-event>
 </jqx-scheduler>
 <!-- Modal -->

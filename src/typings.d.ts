@@ -1,14 +1,4 @@
 /// <reference path="../node_modules/moment/moment.d.ts" />
-/// <reference path="../typings/amplifyjs/index.d.ts" />
-/// <reference path="../typings/web2cal/index.d.ts" />
-/// <reference path="../typings/jqx/index.d.ts" />
-/// <reference path="../typings/moment/index.d.ts" />
-/// <reference path="../typings/jquery-extensions/index.d.ts" />
-/// <reference path="../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../node_modules/@types/googlemaps/index.d.ts" />
-/// <reference path="../node_modules/@types/metismenu/index.d.ts" />
-/// <reference path="../node_modules/@types/scrollreveal/index.d.ts" />
-
 
 declare var module: NodeModule;
 interface NodeModule {
