@@ -1,6 +1,6 @@
 <spinner *ngIf="loading"></spinner>
 <validation-errors [model-state]="modelState"></validation-errors>
-<sw-scheduler [events]="events" [editMode]="editMode"
+<sw-scheduler [editMode]="editMode"
               resourceOrientation="none"
               [getNewEvent]="getNewEvent"
               [(view)]="view" [(date)]="date"
@@ -10,6 +10,8 @@
               (closeEventModal)="onCloseEventModal()"
               (viewChanged)="onViewChanged($event)"
               (dateChanged)="onDateChanged($event)">
+  <sw-calendar *ngFor="let calendar of calendars" [name]="calendar.name" [events]="calendar.events">
+  </sw-calendar>
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>
     <div>{{data.resourceId}}</div>

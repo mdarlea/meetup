@@ -5,16 +5,6 @@
               (updateEvent)="onUpdateEvent($event)"
               (viewChanged)="onViewChanged($event)"
               (dateChanged)="onDateChanged($event)">
-  <jqx-event *ngFor="let event of events"
-           [id]="event.id"
-           [description]="event.description"
-           [location]="event.location"
-           [subject]="event.subject"
-           [calendar]="event.calendar"
-           [start]="event.start"
-           [end]="event.end"
-           [recurrencePattern]="event.recurrencePattern">
-  </jqx-event>
 </jqx-scheduler>
 <!-- Modal -->
 <div #eventModal class="modal" role="dialog">

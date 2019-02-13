@@ -6,7 +6,8 @@ import { SchedulerEditSeletedEventTemplateDirective } from './scheduler-root/sch
 import { SchedulerReadSeletedEventTemplateDirective } from './scheduler-root/scheduler-read-selected-event-template.directive';
 import { SchedulerEventTemplateDirective } from './scheduler-root/scheduler-event-template.directive';
 import { JqxSchedulerComponent } from './jqx-scheduler/jqx-scheduler.component';
-import { JqxEventDirective } from './jqx-scheduler/jqx-event.directive';
+import { CalendarComponent } from './calendar/calendar.component';
+import { EventDirective } from './calendar/event.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { JqxEventDirective } from './jqx-scheduler/jqx-event.directive';
     SchedulerReadSeletedEventTemplateDirective,
     SchedulerEventTemplateDirective,
     JqxSchedulerComponent,
-    JqxEventDirective
+    CalendarComponent,
+    EventDirective
   ],
   imports: [
     CommonModule
@@ -24,7 +26,8 @@ import { JqxEventDirective } from './jqx-scheduler/jqx-event.directive';
     SchedulerComponent,
     SchedulerEditSeletedEventTemplateDirective,
     SchedulerReadSeletedEventTemplateDirective,
-    SchedulerEventTemplateDirective
+    SchedulerEventTemplateDirective,
+    CalendarComponent
   ]
 })
 export class SchedulerModule { }

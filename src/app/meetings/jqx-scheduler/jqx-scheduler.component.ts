@@ -19,7 +19,7 @@ import { TimeRangeDto} from '../shared/time-range-dto';
   styleUrls: ['./jqx-scheduler.component.css']
 })
 export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
-  events = new Array<EventViewModel>();
+  calendars = new Array<EventGroup>();
   modelState: any = null;
   eventModelState: any = null;
   editMode = false;
@@ -55,17 +55,16 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventsQuerySvc.reset();
 
     this.eventsQuerySubscription = this.eventsQuerySvc.subscribe(groups => {
-        this.events = new Array<EventViewModel>();
-        for (const group of groups) {
-          for (const event of group.events) {
-            this.events.push(event);
-          }
-        }
+        this.calendars = groups;
         this.loading = false;
         this.loaderSvc.load(false);
     });
     this.addNewEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
-      this.events.push(event);
+      for (const calendar of this.calendars) {
+        if (calendar.id === event.groupId) {
+          calendar.events.push(event);
+        }
+      }
     });
     this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
       this.processingEvent = false;
@@ -102,40 +101,30 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onPreviewEvent(event: EventInfo) {
-    this.modelState = null;
-    this.eventModelState = null;
-    for (const ev of this.events) {
-        if (ev.id === event.id) {
-          this.previewEvent.emit(ev);
-          return;
-        }
-    }
-  }
-
     onUpdateEvent(event: EventInfo) {
       this.modelState = null;
       this.loading = true;
+      for (const calendar of this.calendars) {
+        for (const ev of calendar.events) {
+          if (ev.id === event.id) {
+            // saves to the database
+            const copy = ev.clone();
+            copy.start = event.startTime;
+            copy.end = event.endTime;
 
-     for (const ev of this.events) {
-        if (ev.id === event.id) {
-          // saves to the database
-          const copy = ev.clone();
-          copy.start = event.startTime;
-          copy.end = event.endTime;
-
-          this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e => {
-            // updates the event
-            ev.start = event.startTime;
-            ev.end = event.endTime;
-            this.loading = false;
-          }, error => {
+            this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e => {
+              // updates the event
+              ev.start = event.startTime;
+              ev.end = event.endTime;
+              this.loading = false;
+            }, error => {
               this.modelState = error;
               this.scheduler.render();
               this.loading = false;
           });
           return;
         }
+      }
     }
   }
 
@@ -173,12 +162,14 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.processingEvent = true;
     this.eventSvc.removeEvent(selectedEvent.id).subscribe(
       () => {
-          for (let i = 0; i < this.events.length; i++) {
-            if (this.events[i] === selectedEvent) {
-              this.events.splice(i, 1);
+        for (const calendar of this.calendars) {
+          for (let i = 0; i < calendar.events.length; i++) {
+            if (calendar.events[i] === selectedEvent) {
+              calendar.events.splice(i, 1);
               break;
             }
           }
+        }
         // this.loaderSvc.load(false);
         this.processingEvent = false;
         if (this.scheduler) {
@@ -195,8 +186,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   private getNewEventObject(eventInfo: EventInfo) {
       const event = EventViewModel.fromEventInfo(eventInfo);
       const user = this.userSvc.getUser();
-      event.calendar = user.name;
-      event.calendarId = user.userId;
+      event.groupId = user.userId;
       return event;
   }
 

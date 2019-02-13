@@ -1,6 +1,6 @@
 import { Directive, TemplateRef, Self, Host, OnInit, OnDestroy} from '@angular/core';
 
-import { SchedulerService} from './scheduler.service';
+import { SchedulerService} from '../scheduler.service';
 
 @Directive({
   selector: '[schedulerEventTemplate]'

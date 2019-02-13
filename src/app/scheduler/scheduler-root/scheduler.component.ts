@@ -1,4 +1,5 @@
-import { Component, ContentChild, ViewChild, TemplateRef, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ContentChild, ContentChildren, ViewChild, TemplateRef, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { QueryList} from '@angular/core';
 import { OnInit, AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription} from 'rxjs';
 
@@ -6,8 +7,9 @@ import { SchedulerEditSeletedEventTemplateDirective } from './scheduler-edit-sel
 import { SchedulerReadSeletedEventTemplateDirective } from './scheduler-read-selected-event-template.directive';
 import { SchedulerEventTemplateDirective } from './scheduler-event-template.directive';
 import { JqxSchedulerComponent } from '../jqx-scheduler/jqx-scheduler.component';
-import { SchedulerService} from './scheduler.service';
+import { SchedulerService} from '../scheduler.service';
 import { EventInfo} from '../event-info';
+import { CalendarComponent} from '../calendar/calendar.component';
 
 @Component({
   selector: 'sw-scheduler',
@@ -22,7 +24,6 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
 
   selectedEvent: any;
 
-  @Input() events = new Array<any>();
   @Input() draggable = false;
   @Input() editMode = false;
   @Input() resourceOrientation: string;
@@ -62,6 +63,8 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   get date() {
     return this.dateValue;
   }
+
+  @ContentChildren(CalendarComponent) calendars: QueryList<CalendarComponent>;
 
   @ContentChild(SchedulerEditSeletedEventTemplateDirective, { read: TemplateRef })
   schedulerEditSeletedEventTemplate: TemplateRef<any>;
@@ -157,13 +160,18 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
     return (this.selectedEvent && this.selectedEvent.subject) ? this.selectedEvent.subject : 'New Event';
   }
   private setSelectedEvent(eventInfo: EventInfo) {
-    for (const event of this.events) {
-      if (event.id === eventInfo.id) {
-        this.selectedEvent = event;
-        return;
-      }
+    if (this.calendars) {
+      this.calendars.forEach(calendar => {
+        if (calendar.events) {
+          for (const event of calendar.events) {
+            if (event.id === eventInfo.id) {
+              this.selectedEvent = event;
+              return;
+            }
+          }
+        }
+      });
     }
-    this.selectedEvent = null;
   }
 
   onViewChanged(args: any) {

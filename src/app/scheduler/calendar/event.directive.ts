@@ -1,23 +1,22 @@
 ﻿import { Directive, OnChanges, Input, OnInit, OnDestroy, Host } from '@angular/core';
-import { JqxSchedulerService } from './jqx-scheduler.service';
+import { CalendarService } from './calendar.service';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: 'jqx-event'
+    selector: 'event'
 })
-export class JqxEventDirective implements OnChanges, OnInit, OnDestroy {
-    @Input() id: number;
+export class EventDirective implements OnChanges, OnInit, OnDestroy {
+    @Input() id: any;
     @Input() description: string;
     @Input() location: string;
     @Input() subject: string;
-    @Input() calendar: string;
     @Input() start: Date;
     @Input() end: Date;
     @Input() recurrencePattern: string;
 
     private event: Jqx.Appointment;
 
-    constructor(@Host() private jqxSchedulerSvc: JqxSchedulerService) {
+    constructor(private calendarSvc: CalendarService) {
     }
 
     ngOnChanges(changes: any) {
@@ -34,7 +33,7 @@ export class JqxEventDirective implements OnChanges, OnInit, OnDestroy {
         }
 
         if (isChanged) {
-            this.jqxSchedulerSvc.updateEvent(this.event);
+            this.calendarSvc.updateEvent(this.event);
         }
     }
 
@@ -44,16 +43,15 @@ export class JqxEventDirective implements OnChanges, OnInit, OnDestroy {
             subject: this.subject,
             location: this.location,
             description: this.description,
-            calendar: this.calendar,
             start: this.start,
             end: this.end,
             recurrencePattern: this.recurrencePattern
         };
 
-        this.jqxSchedulerSvc.addEvent(this.event);
+        this.calendarSvc.addEvent(this.event);
     }
 
     ngOnDestroy() {
-        this.jqxSchedulerSvc.deleteEvent(this.event.id);
+        this.calendarSvc.deleteEvent(this.event.id);
     }
 }

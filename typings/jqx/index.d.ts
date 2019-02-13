@@ -38,7 +38,7 @@ declare module Jqx {
         description?: string,
         location?: string,
         subject?: string,
-        calendar: string,
+        calendar?: string,
         start?: Date,
         end?: Date,
         recurrencePattern?: string,

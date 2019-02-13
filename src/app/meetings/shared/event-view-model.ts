@@ -24,8 +24,6 @@ export class EventViewModel {
     readOnly: boolean;
     repeatedEventId: number;
     group: EventGroup;
-    calendar: string;
-    calendarId: string;
 
     static newEvent(): EventViewModel {
       const startTime = new Date();
@@ -90,8 +88,6 @@ export class EventViewModel {
 
     setGroup(group: EventGroup) {
       this.group = group;
-      this.calendarId = group.id;
-      this.calendar = group.name;
     }
 
     toEventDto(): EventDto {
