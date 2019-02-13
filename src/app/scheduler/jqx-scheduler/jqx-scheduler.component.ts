@@ -1,6 +1,6 @@
 import { Component, ContentChildren, ViewChild, Input, Output, EventEmitter, TemplateRef, SimpleChanges } from '@angular/core';
 import { ElementRef, ViewContainerRef } from '@angular/core';
-import { OnChanges, OnInit, AfterViewInit, AfterContentChecked, OnDestroy } from '@angular/core';
+import { OnChanges, OnInit, AfterViewInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
@@ -21,12 +21,11 @@ interface EventArgs {
   templateUrl: './jqx-scheduler.component.html',
   styleUrls: ['./jqx-scheduler.component.css']
 })
-export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
+export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, AfterContentInit, OnDestroy {
   private initialized = false;
   private jqxAppointments = new Array<Jqx.Appointment>();
   private renderAppointments = false;
   private newJqxAppointment: Jqx.Appointment = null;
-  private newJqxAppointmentSetVisible = false;
 
   private addEventSubscription: Subscription;
   private updateEventSubscription: Subscription;
@@ -38,6 +37,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   @Input() draggable = false;
   @Input() editMode = false;
   @Input() resourceOrientation: string;
+  @Input() ensureEventVisibleId: any;
 
   @Output() viewChanged = new EventEmitter<EventArgs>();
   @Output() dateChanged = new EventEmitter<EventArgs>();
@@ -133,9 +133,17 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
     if (changes && 'resourceOrientation' in changes) {
       this.render(false);
     }
+
+    if (changes && 'ensureEventVisibleId' in changes) {
+
+    }
   }
 
   ngOnInit() {
+  }
+
+  ngAfterContentInit() {
+
   }
 
   ngAfterViewInit(): void {
@@ -286,12 +294,11 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
         const id = appointment.id;
         this.setAppointmentFields(id, this.newJqxAppointment);
 
-        this.newJqxAppointment = null;
-
-        if (this.newJqxAppointmentSetVisible) {
+        if (this.ensureEventVisibleId && this.ensureEventVisibleId === this.newJqxAppointment.id) {
           $(this.calendarContainer.nativeElement).jqxScheduler('ensureAppointmentVisible', id);
-          this.newJqxAppointmentSetVisible = false;
         }
+
+        this.newJqxAppointment = null;
       }
     });
     $(this.calendarContainer.nativeElement).on('cellDoubleClick', (event: any) => {
@@ -449,14 +456,11 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
         }
   }
 
-    private refreshAppointments(visibleAppointmentId?: number) {
+    private refreshAppointments() {
         this.setResources();
 
         for (const jqxAppointment of this.jqxAppointments) {
           this.newJqxAppointment = jqxAppointment;
-          if (jqxAppointment.id === visibleAppointmentId) {
-            this.newJqxAppointmentSetVisible = true;
-          }
           $(this.calendarContainer.nativeElement).jqxScheduler('addAppointment', jqxAppointment);
         }
     }

@@ -14,7 +14,7 @@ import { TimeRangeDto} from '../shared/time-range-dto';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'jqx-scheduler-deprecated',
+  selector: 'jqx-scheduler',
   templateUrl: './jqx-scheduler.component.html',
   styleUrls: ['./jqx-scheduler.component.css']
 })
@@ -29,6 +29,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   processingEvent = false;
   view = 'weekView';
   date = new Date();
+  ensureEventVisibleId: any;
 
   private initialized = false;
 
@@ -60,10 +61,20 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.loaderSvc.load(false);
     });
     this.addNewEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
+      let found = false;
       for (const calendar of this.calendars) {
         if (calendar.id === event.groupId) {
           calendar.events.push(event);
+          found = true;
+          break;
         }
+      }
+      if (!found) {
+        // add new group
+        const calendar = new EventGroup(event.groupId, event.instructor, true);
+        event.group = calendar;
+        calendar.events = [event];
+        this.calendars.push(calendar);
       }
     });
     this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
@@ -158,7 +169,6 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.modelState = null;
     this.eventModelState = null;
-    // this.loaderSvc.load(true);
     this.processingEvent = true;
     this.eventSvc.removeEvent(selectedEvent.id).subscribe(
       () => {
@@ -170,7 +180,6 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
         }
-        // this.loaderSvc.load(false);
         this.processingEvent = false;
         if (this.scheduler) {
           this.scheduler.closeSelectedEvent();
@@ -178,7 +187,6 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       error => {
         this.modelState = error;
-        // this.loaderSvc.load(false);
         this.processingEvent = false;
       });
    }
@@ -205,7 +213,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, args.to));
   }
 
-  onViewChanged(args: any){
+  onViewChanged(args: any) {
     this.eventsQuerySvc.reset();
 
     this.loading = true;

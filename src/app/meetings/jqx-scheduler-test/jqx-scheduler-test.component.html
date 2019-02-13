@@ -1,7 +1,6 @@
 <spinner *ngIf="loading"></spinner>
 <validation-errors [model-state]="modelState"></validation-errors>
 <sw-scheduler [editMode]="editMode"
-              [ensureEventVisibleId]="ensureEventVisibleId"
               resourceOrientation="none"
               [getNewEvent]="getNewEvent"
               [(view)]="view" [(date)]="date"
@@ -11,7 +10,9 @@
               (closeEventModal)="onCloseEventModal()"
               (viewChanged)="onViewChanged($event)"
               (dateChanged)="onDateChanged($event)">
-  <sw-calendar *ngFor="let calendar of calendars" [name]="calendar.name" [events]="calendar.events">
+  <sw-calendar name="Room 1" [events]="roomOne">
+  </sw-calendar>
+  <sw-calendar name="Room 2" [events]="roomTwo">
   </sw-calendar>
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>
@@ -19,7 +20,38 @@
     <div>{{data.appointmentId}}</div>
   </ng-template>
   <ng-template schedulerReadSeletedEventTemplate let-selectedEvent="selectedEvent">
-    <preview-event [event]="selectedEvent"></preview-event>
+    <div class="row">
+        <div class="col-xs-6">
+            <label class="pull-right">ID</label>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-info">{{selectedEvent.id}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label class="pull-right">Subject</label>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-info">{{selectedEvent.subject}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label class="pull-right">Start Time</label>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-info">{{selectedEvent.start | format:"LLLL"}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label class="pull-right">End Time</label>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-info">{{selectedEvent.end | format:"LLLL"}}</span>
+        </div>
+    </div>
     <div class="modal-footer">
       <spinner *ngIf="processingEvent"></spinner>
       <ng-container *ngIf="!processingEvent">
@@ -37,7 +69,6 @@
   </ng-template>
   <ng-template schedulerEditSeletedEventTemplate let-selectedEvent="selectedEvent">
     <form class="form-group" #form="ngForm" (ngSubmit)="onSave()" ngNativeValidate>
-          <edit-event [event]="selectedEvent"></edit-event>
           <validation-errors [model-state]="eventModelState"></validation-errors>
           <div class="modal-footer">
             <spinner *ngIf="processingEvent"></spinner>

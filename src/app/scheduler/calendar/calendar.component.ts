@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 
-import { Component, OnChanges, Input, OnInit, OnDestroy, Host, AfterViewInit } from '@angular/core';
+import { Component, OnChanges, Input, OnInit, OnDestroy, Host, AfterContentInit, AfterViewInit } from '@angular/core';
 import { SchedulerService } from '../scheduler.service';
 import { CalendarService} from './calendar.service';
 
@@ -10,7 +10,7 @@ import { CalendarService} from './calendar.service';
     templateUrl: './calendar.component.html',
     providers: [CalendarService]
 })
-export class CalendarComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
+export class CalendarComponent implements OnChanges, OnInit, AfterContentInit, AfterViewInit, OnDestroy {
     private initialized = false;
     private jqxAppointments = new Array<Jqx.Appointment>();
 
@@ -53,6 +53,10 @@ export class CalendarComponent implements OnChanges, OnInit, AfterViewInit, OnDe
       this.deleteEventSubscription = this.calendarSvc.deleteEvent$.subscribe(id => {
         this.schedulerSvc.deleteEvents([id]);
       });
+    }
+
+    ngAfterContentInit() {
+
     }
 
     ngAfterViewInit() {
