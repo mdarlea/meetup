@@ -1,4 +1,4 @@
-export interface JqxAppointments {
+export interface JqxCalendar {
   calendar: string;
   appointments: Array<Jqx.Appointment>;
 }

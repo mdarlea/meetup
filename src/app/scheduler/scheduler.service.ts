@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable ,  Subject } from 'rxjs';
-import { JqxAppointments} from './jqx-appointments.model';
+import { JqxCalendar} from './jqx-calendar.model';
 
 @Injectable()
 export class SchedulerService {
     private addOrRemoveEventTemplateSource = new Subject<any>();
     private renderSource = new Subject<any>();
     private ensureFirstEventVisibleSource = new Subject<any>();
-    private addEventsSource = new Subject<JqxAppointments>();
+    private addEventsSource = new Subject<JqxCalendar>();
     private updateEventsSource = new Subject<Array<Jqx.Appointment>>();
     private deleteEventsSource = new Subject<Array<any>>();
 
@@ -30,7 +30,7 @@ export class SchedulerService {
       this.ensureFirstEventVisibleSource.next(null);
     }
 
-    addEvents(events: JqxAppointments) {
+    addEvents(events: JqxCalendar) {
       this.addEventsSource.next(events);
     }
 

@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 
 import { SchedulerService } from '../scheduler.service';
 import { EventInfo} from '../event-info';
-import { JqxAppointments} from '../jqx-appointments.model';
+import { JqxCalendar} from '../jqx-calendar.model';
 import { CalendarComponent} from '../calendar/calendar.component';
 
 interface EventArgs {
@@ -390,7 +390,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
       $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'appointmentId', appointment.id);
   }
 
-  addAppointments(jqxAppointments: JqxAppointments) {
+  addAppointments(jqxAppointments: JqxCalendar) {
     const resources = $(this.calendarContainer.nativeElement).jqxScheduler('resources');
     const source = resources.source.loadedData;
     const calendars = source.filter(data => data.calendar === jqxAppointments.calendar);
