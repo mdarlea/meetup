@@ -33,7 +33,7 @@ export class CalendarComponent implements OnChanges, OnInit, AfterContentInit, A
         for (const jqxAppointment of this.jqxAppointments) {
           jqxAppointment.calendar = calendar;
         }
-        this.schedulerSvc.updateEvents(this.jqxAppointments);
+        this.schedulerSvc.updateJqxEvents(this.jqxAppointments);
       }
     }
 
@@ -43,15 +43,21 @@ export class CalendarComponent implements OnChanges, OnInit, AfterContentInit, A
         this.jqxAppointments.push(jqxAppointment);
 
         if (this.initialized) {
-          this.schedulerSvc.addEvents({calendar: this.name, appointments: [jqxAppointment]});
+          this.schedulerSvc.addJqxEvents({calendar: this.name, appointments: [jqxAppointment]});
         }
       });
       this.updateEventSubscription = this.calendarSvc.updateEvent$.subscribe(jqxAppointment => {
         jqxAppointment.calendar = this.name;
-        this.schedulerSvc.updateEvents([jqxAppointment]);
+        this.schedulerSvc.updateJqxEvents([jqxAppointment]);
       });
       this.deleteEventSubscription = this.calendarSvc.deleteEvent$.subscribe(id => {
-        this.schedulerSvc.deleteEvents([id]);
+        for (let i = 0; i < this.jqxAppointments.length; i++) {
+          if (this.jqxAppointments[i].id === id) {
+            this.jqxAppointments.splice(i, 1);
+            break;
+          }
+        }
+        this.schedulerSvc.deleteJqxEvents([id]);
       });
     }
 
@@ -60,11 +66,15 @@ export class CalendarComponent implements OnChanges, OnInit, AfterContentInit, A
     }
 
     ngAfterViewInit() {
-      this.schedulerSvc.addEvents({calendar: this.name, appointments: this.jqxAppointments});
+      this.schedulerSvc.addCalendar({calendar: this.name, appointments: this.jqxAppointments});
       this.initialized = true;
     }
 
     ngOnDestroy() {
+      // delete this calendar
+      this.jqxAppointments = [];
+      this.schedulerSvc.deleteJqxCalendar(this.name);
+
       if (this.addEventSubscription) {
         this.addEventSubscription.unsubscribe();
       }
@@ -74,12 +84,5 @@ export class CalendarComponent implements OnChanges, OnInit, AfterContentInit, A
       if (this.deleteEventSubscription) {
         this.deleteEventSubscription.unsubscribe();
       }
-
-      // delete all events in this calendar
-      const ids = new Array<any>();
-      for (const jqxAppointment of this.jqxAppointments) {
-        ids.push(jqxAppointment.id);
-      }
-      this.schedulerSvc.deleteEvents(ids);
     }
 }

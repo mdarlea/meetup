@@ -10,6 +10,7 @@ import { JqxSchedulerComponent } from '../jqx-scheduler/jqx-scheduler.component'
 import { SchedulerService} from '../scheduler.service';
 import { EventInfo} from '../event-info';
 import { CalendarComponent} from '../calendar/calendar.component';
+import { JqxCalendar} from '../jqx-calendar.model';
 
 @Component({
   selector: 'sw-scheduler',
@@ -21,6 +22,8 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   private initialized = false;
   private setEventTemplate = false;
   private subscription: Subscription;
+  private addCalendarSubscription: Subscription;
+  private jqxCalendars = new Array<JqxCalendar>();
 
   selectedEvent: any;
 
@@ -86,6 +89,21 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
 
       this.setEventTemplate = true;
     });
+    this.addCalendarSubscription = this.schedulerSvc.addCalendar$.subscribe(data => {
+      if (this.initialized) {
+        // notify the jqx scheduler
+        this.schedulerSvc.addJqxEvents(data);
+      } else {
+        const jqxCalendars = this.jqxCalendars.filter(calendar => calendar.calendar === data.calendar);
+        if (jqxCalendars.length > 0) {
+          for (const appointment of data.appointments) {
+            jqxCalendars[0].appointments.push(appointment);
+          }
+        } else {
+          this.jqxCalendars.push(data);
+        }
+      }
+    });
    }
 
   ngOnInit() {
@@ -98,6 +116,12 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
     $(this.eventModal.nativeElement).on('hidden.bs.modal', () => {
       this.closeEventModal.emit();
     });
+    if (this.jqxCalendars.length > 0) {
+      // notify the jqx scheduler
+      for (const jqxCalendar of this.jqxCalendars) {
+        this.schedulerSvc.addJqxEvents(jqxCalendar);
+      }
+    }
     this.initialized = true;
   }
 
@@ -113,6 +137,7 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.addCalendarSubscription.unsubscribe();
   }
 
   onSelectEvent(eventInfo: EventInfo) {
@@ -136,12 +161,8 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
     this.hideModal();
   }
 
-  render() {
-    this.schedulerSvc.render();
-  }
-
-  ensureFirstEventVisible() {
-    this.schedulerSvc.ensureFirstEventVisible();
+  render(id?: any) {
+    this.schedulerSvc.renderSqxScheduler(id);
   }
 
   onUpdateEvent(eventInfo: EventInfo) {

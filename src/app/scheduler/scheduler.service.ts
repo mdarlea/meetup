@@ -5,40 +5,46 @@ import { JqxCalendar} from './jqx-calendar.model';
 @Injectable()
 export class SchedulerService {
     private addOrRemoveEventTemplateSource = new Subject<any>();
-    private renderSource = new Subject<any>();
-    private ensureFirstEventVisibleSource = new Subject<any>();
-    private addEventsSource = new Subject<JqxCalendar>();
-    private updateEventsSource = new Subject<Array<Jqx.Appointment>>();
-    private deleteEventsSource = new Subject<Array<any>>();
+    private renderJqxSchedulerSource = new Subject<any>();
+    private addJqxEventsSource = new Subject<JqxCalendar>();
+    private updateJqxEventsSource = new Subject<Array<Jqx.Appointment>>();
+    private deleteJqxEventsSource = new Subject<Array<any>>();
+    private deleteJqxCalendarSource = new Subject<string>();
+    private addCalendarSource = new Subject<JqxCalendar>();
 
     addOrRemoveEventTemplate$ = this.addOrRemoveEventTemplateSource.asObservable();
-    render$ = this.renderSource.asObservable();
-    ensureFirstEventVisible$ = this.ensureFirstEventVisibleSource.asObservable();
-    addEvents$ = this.addEventsSource.asObservable();
-    updateEvents$ = this.updateEventsSource.asObservable();
-    deleteEvents$ = this.deleteEventsSource.asObservable();
+    renderJqxScheduler$ = this.renderJqxSchedulerSource.asObservable();
+    addJqxEvents$ = this.addJqxEventsSource.asObservable();
+    updateJqxEvents$ = this.updateJqxEventsSource.asObservable();
+    deleteJqxEvents$ = this.deleteJqxEventsSource.asObservable();
+    deleteJqxCalendar$ = this.deleteJqxCalendarSource.asObservable();
+    addCalendar$ = this.addCalendarSource.asObservable();
 
     addOrRemoveEventTemplate() {
       this.addOrRemoveEventTemplateSource.next(null);
     }
 
-    render() {
-      this.renderSource.next(null);
+    renderSqxScheduler(id?: any) {
+      this.renderJqxSchedulerSource.next(id);
     }
 
-    ensureFirstEventVisible() {
-      this.ensureFirstEventVisibleSource.next(null);
+    addJqxEvents(events: JqxCalendar) {
+      this.addJqxEventsSource.next(events);
     }
 
-    addEvents(events: JqxCalendar) {
-      this.addEventsSource.next(events);
+    updateJqxEvents(events: Array<Jqx.Appointment>) {
+      this.updateJqxEventsSource.next(events);
     }
 
-    updateEvents(events: Array<Jqx.Appointment>) {
-      this.updateEventsSource.next(events);
+    deleteJqxEvents(ids: Array<any>) {
+      this.deleteJqxEventsSource.next(ids);
     }
 
-    deleteEvents(ids: Array<any>) {
-      this.deleteEventsSource.next(ids);
+    deleteJqxCalendar(name: string) {
+      this.deleteJqxCalendarSource.next(name);
+    }
+
+    addCalendar(calendar: JqxCalendar) {
+      this.addCalendarSource.next(calendar);
     }
 }

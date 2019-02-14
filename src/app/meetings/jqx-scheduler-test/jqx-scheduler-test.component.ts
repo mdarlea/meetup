@@ -52,6 +52,7 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
   ngAfterViewInit() {
     $('body').css('overflow', 'hidden');
 
+    this.roomTwo[0].subject = 'After view init';
     this.initialized = true;
   }
 
@@ -105,10 +106,6 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
     this.enabled = !this.enabled;
   }
 
-  ensureVisible() {
-    this.scheduler.ensureFirstEventVisible();
-  }
-
   onDateChanged(args: any) {
   }
 
@@ -126,12 +123,12 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
     end = new Date();
     start.setHours(12, 0, 0, 0);
     end.setHours(13, 0, 0, 0);
-    this.roomOne.push({id: 1, subject: '2nd subject', start: start, end: end});
+    this.roomOne.push({id: 2, subject: '2nd subject', start: start, end: end});
 
     start = new Date();
     end = new Date();
     start.setHours(13, 0, 0, 0);
     end.setHours(14, 0, 0, 0);
-    this.roomTwo.push({id: 1, subject: '3rd subject', start: start, end: end});
+    this.roomTwo.push({id: 3, subject: '3rd subject', start: start, end: end});
   }
 }

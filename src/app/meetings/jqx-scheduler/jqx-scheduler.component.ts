@@ -56,8 +56,24 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventsQuerySvc.reset();
 
     this.eventsQuerySubscription = this.eventsQuerySvc.subscribe(groups => {
-        this.calendars = groups;
+        for (const calendar of this.calendars) {
+          calendar.events = [];
+        }
+        for (const group of groups) {
+          // check if this group has already been added
+          const calendars = this.calendars.filter(c => c.id === group.id);
+          if (calendars.length > 0) {
+            for (const calendar of calendars) {
+              calendar.events = group.events;
+            }
+          } else {
+            // add new group
+            this.calendars.push(group);
+          }
+        }
+
         this.loading = false;
+        this.ensureFirstEventVisible();
         this.loaderSvc.load(false);
     });
     this.addNewEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
@@ -75,6 +91,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         event.group = calendar;
         calendar.events = [event];
         this.calendars.push(calendar);
+
+        // a new calendar was added so the view will be refreshed
+        this.ensureEventVisibleId = event.id;
       }
     });
     this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
@@ -130,7 +149,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
               this.loading = false;
             }, error => {
               this.modelState = error;
-              this.scheduler.render();
+              this.scheduler.render(event.id);
               this.loading = false;
           });
           return;
@@ -202,21 +221,48 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.enabled = !this.enabled;
   }
 
-  ensureVisible() {
-    this.scheduler.ensureFirstEventVisible();
-  }
-
   onDateChanged(args: any) {
-    this.eventsQuerySvc.reset();
-
-    this.loading = true;
-    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, args.to));
+    return this.onViewChanged(args);
   }
 
   onViewChanged(args: any) {
+    const toDate: Date = args.to;
+    toDate.setDate(toDate.getDate() - 1);
+
     this.eventsQuerySvc.reset();
 
     this.loading = true;
-    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, args.to));
+    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, toDate));
+  }
+
+  ensureFirstEventVisible() {
+    let last: EventViewModel = null;
+
+    let startTime = new Date();
+    for (const calendar of this.calendars) {
+      for (const event of calendar.events) {
+        if (!last) {
+          last = event;
+          startTime.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+        } else {
+          const start = new Date();
+          start.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+
+          if (start < startTime) {
+            startTime = start;
+            last = event;
+          }
+        }
+      }
+    }
+
+    if (last) {
+      this.ensureEventVisibleId = last.id;
+    } else {
+      this.ensureEventVisibleId = null;
+    }
+  }
+  eventTemplate() {
+    this.enabled = !this.enabled;
   }
 }
