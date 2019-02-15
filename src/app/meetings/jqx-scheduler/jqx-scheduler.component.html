@@ -2,7 +2,7 @@
 <spinner *ngIf="loading"></spinner>
 <validation-errors [model-state]="modelState"></validation-errors>
 <sw-scheduler [editMode]="editMode"
-              [ensureEventVisibleId]="ensureEventVisibleId"
+              [ensureEventVisible]="ensureEventVisibleId"
               resourceOrientation="none"
               [getNewEvent]="getNewEvent"
               [(view)]="view" [(date)]="date"
@@ -46,7 +46,7 @@
               <button type="submit" [disabled]="!form.form.valid" *ngIf="!readOnly" class="btn btn-success">
                 <span class="glyphicon glyphicon-ok"></span>Save
               </button>
-              <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger">
+              <button *ngIf="!readOnly && selectedEvent.id > 0" type="button" (click)="delete(selectedEvent)" class="btn btn-danger">
                 <span class="glyphicon glyphicon-remove"></span>Delete
               </button>
               <button type="button" class="btn btn-default" data-dismiss="modal">

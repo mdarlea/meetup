@@ -40,8 +40,9 @@
     <div class="col-xs-6">
         <label class="pull-right">Location</label>
     </div>
-    <div class="col-xs-6" *ngIf="!loading">
-        <address-read-only [address]="event.address"></address-read-only>
+    <div class="col-xs-6">
+        <spinner *ngIf="loading"></spinner>
+        <address-read-only *ngIf="!loading" [address]="event.address"></address-read-only>
     </div>
 </div>
 <div class="panel panel-info info-box" *ngIf="event.repeat">

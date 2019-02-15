@@ -1,0 +1,2194 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>JqxSchedulerComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+                <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>jqx-scheduler</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./jqx-scheduler.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./jqx-scheduler.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addNewEventSubscription">addNewEventSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#calendars">calendars</a>
+                            </li>
+                            <li>
+                                <a href="#date">date</a>
+                            </li>
+                            <li>
+                                <a href="#editMode">editMode</a>
+                            </li>
+                            <li>
+                                <a href="#enabled">enabled</a>
+                            </li>
+                            <li>
+                                <a href="#ensureEventVisibleId">ensureEventVisibleId</a>
+                            </li>
+                            <li>
+                                <a href="#eventModelState">eventModelState</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#eventSavedSubscription">eventSavedSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#eventSavingErrorSubscription">eventSavingErrorSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#eventsQuerySubscription">eventsQuerySubscription</a>
+                            </li>
+                            <li>
+                                <a href="#getNewEvent">getNewEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initialized">initialized</a>
+                            </li>
+                            <li>
+                                <a href="#loading">loading</a>
+                            </li>
+                            <li>
+                                <a href="#modelState">modelState</a>
+                            </li>
+                            <li>
+                                <a href="#processingEvent">processingEvent</a>
+                            </li>
+                            <li>
+                                <a href="#readOnly">readOnly</a>
+                            </li>
+                            <li>
+                                <a href="#scheduler">scheduler</a>
+                            </li>
+                            <li>
+                                <a href="#view">view</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#edit">edit</a>
+                            </li>
+                            <li>
+                                <a href="#ensureFirstEventVisible">ensureFirstEventVisible</a>
+                            </li>
+                            <li>
+                                <a href="#eventTemplate">eventTemplate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getNewEventObject">getNewEventObject</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onAddEvent">onAddEvent</a>
+                            </li>
+                            <li>
+                                <a href="#onCloseEventModal">onCloseEventModal</a>
+                            </li>
+                            <li>
+                                <a href="#onDateChanged">onDateChanged</a>
+                            </li>
+                            <li>
+                                <a href="#onSave">onSave</a>
+                            </li>
+                            <li>
+                                <a href="#onSelectEvent">onSelectEvent</a>
+                            </li>
+                            <li>
+                                <a href="#onUpdateEvent">onUpdateEvent</a>
+                            </li>
+                            <li>
+                                <a href="#onViewChanged">onViewChanged</a>
+                            </li>
+                            <li>
+                                <a href="#setTemplate">setTemplate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#previewEvent">previewEvent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(eventsQuerySvc: <a href="../injectables/EventsQueryService.html">EventsQueryService</a>, eventSvc: <a href="../injectables/EventService.html">EventService</a>, userSvc: <a href="../injectables/UserService.html">UserService</a>, schedulerSvc: <a href="../injectables/SchedulerService.html">SchedulerService</a>, loaderSvc: <a href="../injectables/LoaderService.html">LoaderService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>eventsQuerySvc</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/EventsQueryService.html" target="_self" >EventsQueryService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>eventSvc</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/EventService.html" target="_self" >EventService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userSvc</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>schedulerSvc</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/SchedulerService.html" target="_self" >SchedulerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>loaderSvc</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/LoaderService.html" target="_self" >LoaderService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="previewEvent"></a>
+                        <b>previewEvent</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:36</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="delete"></a>
+                        <span class="name">
+                            <b>
+                            delete
+                            </b>
+                            <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>delete(selectedEvent: <a href="../classes/EventViewModel.html">EventViewModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="189" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:189</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selectedEvent</td>
+                                                        <td>
+                                                                    <code><a href="../classes/EventViewModel.html" target="_self" >EventViewModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="edit"></a>
+                        <span class="name">
+                            <b>
+                            edit
+                            </b>
+                            <a href="#edit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>edit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="185" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:185</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ensureFirstEventVisible"></a>
+                        <span class="name">
+                            <b>
+                            ensureFirstEventVisible
+                            </b>
+                            <a href="#ensureFirstEventVisible"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ensureFirstEventVisible()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="242" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:242</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="eventTemplate"></a>
+                        <span class="name">
+                            <b>
+                            eventTemplate
+                            </b>
+                            <a href="#eventTemplate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>eventTemplate()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="269" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:269</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getNewEventObject"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            getNewEventObject
+                            </b>
+                            <a href="#getNewEventObject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getNewEventObject(eventInfo: <a href="../interfaces/EventInfo.html">EventInfo</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="217" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:217</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>eventInfo</td>
+                                                        <td>
+                                                                    <code><a href="../interfaces/EventInfo.html" target="_self" >EventInfo</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngAfterViewInit"></a>
+                        <span class="name">
+                            <b>
+                            ngAfterViewInit
+                            </b>
+                            <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="117" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:117</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnDestroy"></a>
+                        <span class="name">
+                            <b>
+                            ngOnDestroy
+                            </b>
+                            <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:123</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onAddEvent"></a>
+                        <span class="name">
+                            <b>
+                            onAddEvent
+                            </b>
+                            <a href="#onAddEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onAddEvent(selectedEvent: <a href="../classes/EventViewModel.html">EventViewModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="170" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:170</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selectedEvent</td>
+                                                        <td>
+                                                                    <code><a href="../classes/EventViewModel.html" target="_self" >EventViewModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onCloseEventModal"></a>
+                        <span class="name">
+                            <b>
+                            onCloseEventModal
+                            </b>
+                            <a href="#onCloseEventModal"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onCloseEventModal()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="181" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:181</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onDateChanged"></a>
+                        <span class="name">
+                            <b>
+                            onDateChanged
+                            </b>
+                            <a href="#onDateChanged"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onDateChanged(args: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="228" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:228</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>args</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onSave"></a>
+                        <span class="name">
+                            <b>
+                            onSave
+                            </b>
+                            <a href="#onSave"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onSave()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="175" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:175</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onSelectEvent"></a>
+                        <span class="name">
+                            <b>
+                            onSelectEvent
+                            </b>
+                            <a href="#onSelectEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onSelectEvent(selectedEvent: <a href="../classes/EventViewModel.html">EventViewModel</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="165" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:165</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selectedEvent</td>
+                                                        <td>
+                                                                    <code><a href="../classes/EventViewModel.html" target="_self" >EventViewModel</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onUpdateEvent"></a>
+                        <span class="name">
+                            <b>
+                            onUpdateEvent
+                            </b>
+                            <a href="#onUpdateEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onUpdateEvent(event: <a href="../interfaces/EventInfo.html">EventInfo</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:138</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                        <td>
+                                                                    <code><a href="../interfaces/EventInfo.html" target="_self" >EventInfo</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onViewChanged"></a>
+                        <span class="name">
+                            <b>
+                            onViewChanged
+                            </b>
+                            <a href="#onViewChanged"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onViewChanged(args: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="232" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:232</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>args</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setTemplate"></a>
+                        <span class="name">
+                            <b>
+                            setTemplate
+                            </b>
+                            <a href="#setTemplate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>setTemplate()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="224" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:224</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="addNewEventSubscription"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            addNewEventSubscription</b>
+                            <a href="#addNewEventSubscription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="calendars"></a>
+                        <span class="name">
+                            <b>
+                            calendars</b>
+                            <a href="#calendars"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Array&lt;EventGroup&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="date"></a>
+                        <span class="name">
+                            <b>
+                            date</b>
+                            <a href="#date"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Date()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="editMode"></a>
+                        <span class="name">
+                            <b>
+                            editMode</b>
+                            <a href="#editMode"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="enabled"></a>
+                        <span class="name">
+                            <b>
+                            enabled</b>
+                            <a href="#enabled"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>true</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ensureEventVisibleId"></a>
+                        <span class="name">
+                            <b>
+                            ensureEventVisibleId</b>
+                            <a href="#ensureEventVisibleId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="eventModelState"></a>
+                        <span class="name">
+                            <b>
+                            eventModelState</b>
+                            <a href="#eventModelState"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="eventSavedSubscription"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            eventSavedSubscription</b>
+                            <a href="#eventSavedSubscription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="eventSavingErrorSubscription"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            eventSavingErrorSubscription</b>
+                            <a href="#eventSavingErrorSubscription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="eventsQuerySubscription"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            eventsQuerySubscription</b>
+                            <a href="#eventsQuerySubscription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getNewEvent"></a>
+                        <span class="name">
+                            <b>
+                            getNewEvent</b>
+                            <a href="#getNewEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="initialized"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            initialized</b>
+                            <a href="#initialized"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loading"></a>
+                        <span class="name">
+                            <b>
+                            loading</b>
+                            <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modelState"></a>
+                        <span class="name">
+                            <b>
+                            modelState</b>
+                            <a href="#modelState"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="processingEvent"></a>
+                        <span class="name">
+                            <b>
+                            processingEvent</b>
+                            <a href="#processingEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="readOnly"></a>
+                        <span class="name">
+                            <b>
+                            readOnly</b>
+                            <a href="#readOnly"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="scheduler"></a>
+                        <span class="name">
+                            <b>
+                            scheduler</b>
+                            <a href="#scheduler"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../components/SchedulerComponent.html" target="_self" >SchedulerComponent</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(SchedulerComponent)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="view"></a>
+                        <span class="name">
+                            <b>
+                            view</b>
+                            <a href="#view"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;weekView&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/meetings/jqx-scheduler/jqx-scheduler.component.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from &#x27;@angular/core&#x27;;
+import { Subscription} from &#x27;rxjs&#x27;;
+
+import { EventsQueryService} from &#x27;../shared/events-query.service&#x27;;
+import { EventViewModel} from &#x27;../shared/event-view-model&#x27;;
+import { EventGroup} from &#x27;../shared/event-group&#x27;;
+import {EventInfo} from &#x27;../shared/event-info&#x27;;
+import { UserService} from &#x27;../../core/services/user.service&#x27;;
+import {SchedulerService} from &#x27;../shared/scheduler.service&#x27;;
+import { EventService} from &#x27;../shared/event.service&#x27;;
+import { LoaderService} from &#x27;../../core/services/loader.service&#x27;;
+import { SchedulerComponent } from &#x27;../../scheduler/scheduler-root/scheduler.component&#x27;;
+import { TimeRangeDto} from &#x27;../shared/time-range-dto&#x27;;
+
+@Component({
+  // tslint:disable-next-line:component-selector
+  selector: &#x27;jqx-scheduler&#x27;,
+  templateUrl: &#x27;./jqx-scheduler.component.html&#x27;,
+  styleUrls: [&#x27;./jqx-scheduler.component.css&#x27;]
+})
+export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
+  calendars &#x3D; new Array&lt;EventGroup&gt;();
+  modelState: any &#x3D; null;
+  eventModelState: any &#x3D; null;
+  editMode &#x3D; false;
+  readOnly &#x3D; false;
+  enabled &#x3D; true;
+  loading &#x3D; false;
+  processingEvent &#x3D; false;
+  view &#x3D; &#x27;weekView&#x27;;
+  date &#x3D; new Date();
+  ensureEventVisibleId: any;
+
+  private initialized &#x3D; false;
+
+  @Output() previewEvent &#x3D; new EventEmitter&lt;EventViewModel&gt;();
+
+  @ViewChild(SchedulerComponent) scheduler: SchedulerComponent;
+
+  private eventsQuerySubscription: Subscription;
+  private addNewEventSubscription: Subscription;
+  private eventSavedSubscription: Subscription;
+  private eventSavingErrorSubscription: Subscription;
+
+  getNewEvent &#x3D; (eventInfo: EventInfo) &#x3D;&gt; {
+      return this.getNewEventObject(eventInfo);
+  }
+  constructor(private eventsQuerySvc: EventsQueryService,
+              private eventSvc: EventService,
+              private userSvc: UserService,
+              private schedulerSvc: SchedulerService,
+              private loaderSvc: LoaderService) {
+  }
+
+  ngOnInit() {
+    this.eventsQuerySvc.reset();
+
+    this.eventsQuerySubscription &#x3D; this.eventsQuerySvc.subscribe(groups &#x3D;&gt; {
+        for (const calendar of this.calendars) {
+          calendar.events &#x3D; [];
+        }
+        for (const group of groups) {
+          // check if this group has already been added
+          const calendars &#x3D; this.calendars.filter(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; group.id);
+          if (calendars.length &gt; 0) {
+            for (const calendar of calendars) {
+              calendar.events &#x3D; group.events;
+            }
+          } else {
+            // add new group
+            this.calendars.push(group);
+          }
+        }
+
+        this.loading &#x3D; false;
+        this.ensureFirstEventVisible();
+        this.loaderSvc.load(false);
+    }, error &#x3D;&gt; {
+      this.modelState &#x3D; error;
+      this.loading &#x3D; false;
+      this.loaderSvc.load(false);
+    });
+    this.addNewEventSubscription &#x3D; this.schedulerSvc.addNewEvent$.subscribe(event &#x3D;&gt; {
+      let found &#x3D; false;
+      for (const calendar of this.calendars) {
+        if (calendar.id &#x3D;&#x3D;&#x3D; event.groupId) {
+          calendar.events.push(event);
+          found &#x3D; true;
+          break;
+        }
+      }
+      if (!found) {
+        // add new group
+        const calendar &#x3D; new EventGroup(event.groupId, event.instructor, true);
+        event.group &#x3D; calendar;
+        calendar.events &#x3D; [event];
+        this.calendars.push(calendar);
+
+        // a new calendar was added so the view will be refreshed
+        this.ensureEventVisibleId &#x3D; event.id;
+      }
+    });
+    this.eventSavedSubscription &#x3D; this.schedulerSvc.eventSaved$.subscribe(event &#x3D;&gt; {
+      this.processingEvent &#x3D; false;
+      this.scheduler.closeSelectedEvent();
+    });
+    this.eventSavingErrorSubscription &#x3D; this.schedulerSvc.eventSavingError$.subscribe(error &#x3D;&gt; {
+      this.eventModelState &#x3D; error;
+      this.processingEvent &#x3D; false;
+    });
+
+    // query the events
+    this.loaderSvc.load(true);
+    this.eventsQuerySvc.queryWeeklyEvents();
+  }
+
+  ngAfterViewInit() {
+    $(&#x27;body&#x27;).css(&#x27;overflow&#x27;, &#x27;hidden&#x27;);
+
+    this.initialized &#x3D; true;
+  }
+
+  ngOnDestroy() {
+    if (this.eventsQuerySubscription) {
+      this.eventsQuerySubscription.unsubscribe();
+    }
+    if (this.addNewEventSubscription) {
+      this.addNewEventSubscription.unsubscribe();
+    }
+    if (this.eventSavedSubscription) {
+      this.eventSavedSubscription.unsubscribe();
+    }
+    if (this.eventSavingErrorSubscription) {
+      this.eventSavingErrorSubscription.unsubscribe();
+    }
+  }
+
+    onUpdateEvent(event: EventInfo) {
+      this.modelState &#x3D; null;
+      this.loading &#x3D; true;
+      for (const calendar of this.calendars) {
+        for (const ev of calendar.events) {
+          if (ev.id &#x3D;&#x3D;&#x3D; event.id) {
+            // saves to the database
+            const copy &#x3D; ev.clone();
+            copy.start &#x3D; event.startTime;
+            copy.end &#x3D; event.endTime;
+
+            this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e &#x3D;&gt; {
+              // updates the event
+              ev.start &#x3D; event.startTime;
+              ev.end &#x3D; event.endTime;
+              this.loading &#x3D; false;
+            }, error &#x3D;&gt; {
+              this.modelState &#x3D; error;
+              this.scheduler.render(event.id);
+              this.loading &#x3D; false;
+          });
+          return;
+        }
+      }
+    }
+  }
+
+  onSelectEvent(selectedEvent: EventViewModel) {
+    this.modelState &#x3D; null;
+    this.eventModelState &#x3D; null;
+    this.editMode &#x3D; false;
+  }
+   onAddEvent(selectedEvent: EventViewModel) {
+     this.modelState &#x3D; null;
+     this.eventModelState &#x3D; null;
+     this.editMode &#x3D; true;
+   }
+   onSave() {
+    this.modelState &#x3D; null;
+    this.processingEvent &#x3D; true;
+    this.schedulerSvc.saveEvent();
+   }
+
+   onCloseEventModal() {
+     this.eventModelState &#x3D; null;
+   }
+
+   edit() {
+    this.editMode &#x3D; true;
+   }
+
+   delete(selectedEvent: EventViewModel) {
+    // tslint:disable-next-line:curly
+    if (!selectedEvent || selectedEvent.id &lt; 1) return;
+
+    this.modelState &#x3D; null;
+    this.eventModelState &#x3D; null;
+    this.processingEvent &#x3D; true;
+    this.eventSvc.removeEvent(selectedEvent.id).subscribe(
+      () &#x3D;&gt; {
+        for (const calendar of this.calendars) {
+          for (let i &#x3D; 0; i &lt; calendar.events.length; i++) {
+            if (calendar.events[i] &#x3D;&#x3D;&#x3D; selectedEvent) {
+              calendar.events.splice(i, 1);
+              break;
+            }
+          }
+        }
+        this.processingEvent &#x3D; false;
+        if (this.scheduler) {
+          this.scheduler.closeSelectedEvent();
+        }
+      },
+      error &#x3D;&gt; {
+        this.modelState &#x3D; error;
+        this.processingEvent &#x3D; false;
+      });
+   }
+
+  private getNewEventObject(eventInfo: EventInfo) {
+      const event &#x3D; EventViewModel.fromEventInfo(eventInfo);
+      const user &#x3D; this.userSvc.getUser();
+      event.groupId &#x3D; user.userId;
+      return event;
+  }
+
+  setTemplate() {
+    this.enabled &#x3D; !this.enabled;
+  }
+
+  onDateChanged(args: any) {
+    return this.onViewChanged(args);
+  }
+
+  onViewChanged(args: any) {
+    const toDate: Date &#x3D; args.to;
+    toDate.setDate(toDate.getDate() - 1);
+
+    this.eventsQuerySvc.reset();
+
+    this.loading &#x3D; true;
+    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, toDate));
+  }
+
+  ensureFirstEventVisible() {
+    let last: EventViewModel &#x3D; null;
+
+    let startTime &#x3D; new Date();
+    for (const calendar of this.calendars) {
+      for (const event of calendar.events) {
+        if (!last) {
+          last &#x3D; event;
+          startTime.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+        } else {
+          const start &#x3D; new Date();
+          start.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+
+          if (start &lt; startTime) {
+            startTime &#x3D; start;
+            last &#x3D; event;
+          }
+        }
+      }
+    }
+
+    if (last) {
+      this.ensureEventVisibleId &#x3D; last.id;
+    } else {
+      this.ensureEventVisibleId &#x3D; null;
+    }
+  }
+  eventTemplate() {
+    this.enabled &#x3D; !this.enabled;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;button (click)&#x3D;&quot;eventTemplate()&quot;&gt;Event Template&lt;/button&gt;
+&lt;spinner *ngIf&#x3D;&quot;loading&quot;&gt;&lt;/spinner&gt;
+&lt;validation-errors [model-state]&#x3D;&quot;modelState&quot;&gt;&lt;/validation-errors&gt;
+&lt;sw-scheduler [editMode]&#x3D;&quot;editMode&quot;
+              [ensureEventVisibleId]&#x3D;&quot;ensureEventVisibleId&quot;
+              resourceOrientation&#x3D;&quot;none&quot;
+              [getNewEvent]&#x3D;&quot;getNewEvent&quot;
+              [(view)]&#x3D;&quot;view&quot; [(date)]&#x3D;&quot;date&quot;
+              (selectEvent)&#x3D;&quot;onSelectEvent($event)&quot;
+              (addEvent)&#x3D;&quot;onAddEvent($event)&quot;
+              (updateEvent)&#x3D;&quot;onUpdateEvent($event)&quot;
+              (closeEventModal)&#x3D;&quot;onCloseEventModal()&quot;
+              (viewChanged)&#x3D;&quot;onViewChanged($event)&quot;
+              (dateChanged)&#x3D;&quot;onDateChanged($event)&quot;&gt;
+  &lt;sw-calendar *ngFor&#x3D;&quot;let calendar of calendars&quot; [name]&#x3D;&quot;calendar.name&quot; [events]&#x3D;&quot;calendar.events&quot;&gt;
+  &lt;/sw-calendar&gt;
+  &lt;ng-template schedulerEventTemplate let-data&#x3D;&quot;data&quot; *ngIf&#x3D;&quot;enabled&quot;&gt;
+    &lt;div&gt;&lt;i&gt;{{data.subject}}&lt;/i&gt;&lt;/div&gt;
+    &lt;div&gt;{{data.resourceId}}&lt;/div&gt;
+    &lt;div&gt;&lt;span&gt;{{data.appointmentId}}&lt;/span&gt;&amp;nbsp;&lt;span&gt;{{data.id}}&lt;/span&gt;&lt;/div&gt;
+  &lt;/ng-template&gt;
+  &lt;ng-template schedulerReadSeletedEventTemplate let-selectedEvent&#x3D;&quot;selectedEvent&quot;&gt;
+    &lt;preview-event [event]&#x3D;&quot;selectedEvent&quot;&gt;&lt;/preview-event&gt;
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+      &lt;spinner *ngIf&#x3D;&quot;processingEvent&quot;&gt;&lt;/spinner&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;!processingEvent&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;!readOnly&quot; (click)&#x3D;&quot;edit()&quot; class&#x3D;&quot;btn btn-success&quot;&gt;
+            Edit
+        &lt;/button&gt;
+        &lt;button *ngIf&#x3D;&quot;!readOnly&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;delete(selectedEvent)&quot; class&#x3D;&quot;btn btn-danger&quot;&gt;
+          &lt;span class&#x3D;&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/span&gt;Delete
+        &lt;/button&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-default&quot; data-dismiss&#x3D;&quot;modal&quot;&gt;
+          &lt;span class&#x3D;&quot;glyphicon glyphicon-log-out&quot;&gt;&lt;/span&gt;Close
+        &lt;/button&gt;
+      &lt;/ng-container&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+  &lt;ng-template schedulerEditSeletedEventTemplate let-selectedEvent&#x3D;&quot;selectedEvent&quot;&gt;
+    &lt;form class&#x3D;&quot;form-group&quot; #form&#x3D;&quot;ngForm&quot; (ngSubmit)&#x3D;&quot;onSave()&quot; ngNativeValidate&gt;
+          &lt;edit-event [event]&#x3D;&quot;selectedEvent&quot;&gt;&lt;/edit-event&gt;
+          &lt;validation-errors [model-state]&#x3D;&quot;eventModelState&quot;&gt;&lt;/validation-errors&gt;
+          &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+            &lt;spinner *ngIf&#x3D;&quot;processingEvent&quot;&gt;&lt;/spinner&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;!processingEvent&quot;&gt;
+              &lt;button type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;!form.form.valid&quot; *ngIf&#x3D;&quot;!readOnly&quot; class&#x3D;&quot;btn btn-success&quot;&gt;
+                &lt;span class&#x3D;&quot;glyphicon glyphicon-ok&quot;&gt;&lt;/span&gt;Save
+              &lt;/button&gt;
+              &lt;button *ngIf&#x3D;&quot;!readOnly&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;delete(selectedEvent)&quot; class&#x3D;&quot;btn btn-danger&quot;&gt;
+                &lt;span class&#x3D;&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/span&gt;Delete
+              &lt;/button&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-default&quot; data-dismiss&#x3D;&quot;modal&quot;&gt;
+                &lt;span class&#x3D;&quot;glyphicon glyphicon-log-out&quot;&gt;&lt;/span&gt;Close
+              &lt;/button&gt;
+            &lt;/ng-container&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+  &lt;/ng-template&gt;
+&lt;/sw-scheduler&gt;
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./jqx-scheduler.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><button (click)="eventTemplate()">Event Template</button><spinner *ngIf="loading"></spinner><validation-errors [model-state]="modelState"></validation-errors><sw-scheduler [editMode]="editMode"              [ensureEventVisibleId]="ensureEventVisibleId"              resourceOrientation="none"              [getNewEvent]="getNewEvent"              [(view)]="view" [(date)]="date"              (selectEvent)="onSelectEvent($event)"              (addEvent)="onAddEvent($event)"              (updateEvent)="onUpdateEvent($event)"              (closeEventModal)="onCloseEventModal()"              (viewChanged)="onViewChanged($event)"              (dateChanged)="onDateChanged($event)">  <sw-calendar *ngFor="let calendar of calendars" [name]="calendar.name" [events]="calendar.events">  </sw-calendar>  <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">    <div><i>{{data.subject}}</i></div>    <div>{{data.resourceId}}</div>    <div><span>{{data.appointmentId}}</span>&nbsp;<span>{{data.id}}</span></div>  </ng-template>  <ng-template schedulerReadSeletedEventTemplate let-selectedEvent="selectedEvent">    <preview-event [event]="selectedEvent"></preview-event>    <div class="modal-footer">      <spinner *ngIf="processingEvent"></spinner>      <ng-container *ngIf="!processingEvent">        <button type="button" *ngIf="!readOnly" (click)="edit()" class="btn btn-success">            Edit        </button>        <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger">          <span class="glyphicon glyphicon-remove"></span>Delete        </button>        <button type="button" class="btn btn-default" data-dismiss="modal">          <span class="glyphicon glyphicon-log-out"></span>Close        </button>      </ng-container>    </div>  </ng-template>  <ng-template schedulerEditSeletedEventTemplate let-selectedEvent="selectedEvent">    <form class="form-group" #form="ngForm" (ngSubmit)="onSave()" ngNativeValidate>          <edit-event [event]="selectedEvent"></edit-event>          <validation-errors [model-state]="eventModelState"></validation-errors>          <div class="modal-footer">            <spinner *ngIf="processingEvent"></spinner>            <ng-container *ngIf="!processingEvent">              <button type="submit" [disabled]="!form.form.valid" *ngIf="!readOnly" class="btn btn-success">                <span class="glyphicon glyphicon-ok"></span>Save              </button>              <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger">                <span class="glyphicon glyphicon-remove"></span>Delete              </button>              <button type="button" class="btn btn-default" data-dismiss="modal">                <span class="glyphicon glyphicon-log-out"></span>Close              </button>            </ng-container>          </div>        </form>  </ng-template></sw-scheduler></div>'
+    var COMPONENTS = [{'name': 'AddressComponent', 'selector': 'address'},{'name': 'AddressReadOnlyComponent', 'selector': 'address-read-only'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BgImageSliderComponent', 'selector': 'bg-image-slider'},{'name': 'CalendarComponent', 'selector': 'calendar'},{'name': 'CalendarComponent', 'selector': 'sw-calendar'},{'name': 'CalendarEditComponent', 'selector': 'calendar-edit'},{'name': 'EditEventComponent', 'selector': 'edit-event'},{'name': 'EmailValidationErrorComponent', 'selector': 'err-email'},{'name': 'ExternalLoginCallbackComponent', 'selector': 'external-login'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'ImageSliderComponent', 'selector': 'image-slider'},{'name': 'InputGroupComponent', 'selector': 'input-group'},{'name': 'InputSimpleComponent', 'selector': 'input-simple'},{'name': 'JqxSchedulerComponent', 'selector': 'jqx-scheduler'},{'name': 'JqxSchedulerTestComponent', 'selector': 'jqx-scheduler-test'},{'name': 'LoaderComponent', 'selector': 'loader'},{'name': 'LoginComponent', 'selector': 'login'},{'name': 'MaxLengthValidationErrorComponent', 'selector': 'err-maxlength'},{'name': 'MeetingsComponent', 'selector': 'meetings'},{'name': 'MinicalComponent', 'selector': 'minical'},{'name': 'MinLengthValidationErrorComponent', 'selector': 'err-minlength'},{'name': 'NavbarComponent', 'selector': 'navbar'},{'name': 'PassResetComponent', 'selector': 'pass-reset'},{'name': 'PatternValidationErrorComponent', 'selector': 'err-pattern'},{'name': 'PreviewEventComponent', 'selector': 'preview-event'},{'name': 'RegisterComponent', 'selector': 'register'},{'name': 'RegisterExternalComponent', 'selector': 'register-external'},{'name': 'RequiredValidationErrorComponent', 'selector': 'err-required'},{'name': 'SchedulerComponent', 'selector': 'scheduler-deprecated'},{'name': 'SchedulerComponent', 'selector': 'sw-scheduler'},{'name': 'SpinnerComponent', 'selector': 'spinner'},{'name': 'ThankYouComponent', 'selector': 'thank-you'},{'name': 'TimePickerComponent', 'selector': 'time-picker'},{'name': 'TimeValidationErrorComponent', 'selector': 'err-time-range'},{'name': 'ValidationErrorsComponent', 'selector': 'validation-errors'}];
+    var DIRECTIVES = [{'name': 'CountriesDirective', 'selector': 'select[ngCountries]'},{'name': 'EmailValidator', 'selector': '[email][ngModel],[email][formControl],[email][formControlName]'},{'name': 'EventDirective', 'selector': 'event'},{'name': 'EventDirective', 'selector': 'event'},{'name': 'GroupDirective', 'selector': 'group'},{'name': 'SchedulerEditSeletedEventTemplateDirective', 'selector': '[schedulerEditSeletedEventTemplate]'},{'name': 'SchedulerEventTemplateDirective', 'selector': '[schedulerEventTemplate]'},{'name': 'SchedulerReadSeletedEventTemplateDirective', 'selector': '[schedulerReadSeletedEventTemplate]'},{'name': 'TimeValidator', 'selector': '[time-range][ngModel],[time-range][formControl]'}];
+    var ACTUAL_COMPONENT = {'name': 'JqxSchedulerComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'JqxSchedulerComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -9,6 +9,9 @@ import { JqxSchedulerComponent } from './jqx-scheduler/jqx-scheduler.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EventDirective } from './calendar/event.directive';
 
+/**
+ * Module for the sw-scheduler component
+ */
 @NgModule({
   declarations: [
     SchedulerComponent,

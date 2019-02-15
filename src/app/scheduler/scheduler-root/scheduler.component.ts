@@ -12,6 +12,62 @@ import { EventInfo} from '../event-info';
 import { CalendarComponent} from '../calendar/calendar.component';
 import { JqxCalendar} from '../jqx-calendar.model';
 
+/**
+ * Jqx Scheduler for Angular
+ * @example
+ * <sw-scheduler [editMode]="editMode"
+ *           [ensureEventVisibleId]="ensureEventVisibleId"
+ *            resourceOrientation="none"
+              [getNewEvent]="getNewEvent"
+              [(view)]="view" [(date)]="date"
+              (selectEvent)="onSelectEvent($event)"
+              (addEvent)="onAddEvent($event)"
+              (updateEvent)="onUpdateEvent($event)"
+              (closeEventModal)="onCloseEventModal()"
+              (viewChanged)="onViewChanged($event)"
+              (dateChanged)="onDateChanged($event)">
+  <sw-calendar *ngFor="let calendar of calendars" [name]="calendar.name" [events]="calendar.events">
+  </sw-calendar>
+  <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
+    <div><i>{{data.subject}}</i></div>
+    <div>{{data.resourceId}}</div>
+  </ng-template>
+  <ng-template schedulerReadSeletedEventTemplate let-selectedEvent="selectedEvent">
+    <preview-event [event]="selectedEvent"></preview-event>
+    <div class="modal-footer">
+      <ng-container>
+        <button type="button" (click)="edit()" class="btn btn-success">
+            Edit
+        </button>
+        <button type="button" (click)="delete(selectedEvent)" class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span>Delete
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-log-out"></span>Close
+        </button>
+      </ng-container>
+    </div>
+  </ng-template>
+  <ng-template schedulerEditSeletedEventTemplate let-selectedEvent="selectedEvent">
+    <form class="form-group" (ngSubmit)="onSave()" ngNativeValidate>
+          <edit-event [event]="selectedEvent"></edit-event>
+          <div class="modal-footer">
+            <ng-container>
+              <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>Save
+              </button>
+              <button type="button" (click)="delete(selectedEvent)" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>Delete
+              </button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-log-out"></span>Close
+              </button>
+            </ng-container>
+          </div>
+        </form>
+  </ng-template>
+</sw-scheduler>
+ */
 @Component({
   selector: 'sw-scheduler',
   templateUrl: './scheduler.component.html',
@@ -21,17 +77,30 @@ import { JqxCalendar} from '../jqx-calendar.model';
 export class SchedulerComponent implements OnInit, AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
   private initialized = false;
   private setEventTemplate = false;
+
+  /**
+   * @ignore
+   */
   private subscription: Subscription;
+
+  /**
+   * @ignore
+   */
   private addCalendarSubscription: Subscription;
   private jqxCalendars = new Array<JqxCalendar>();
 
   selectedEvent: any;
 
   @Input() draggable = false;
+
+ /**
+ * If true then the dialog box for the selected event will display the schedulerReadSeletedEventTemplate template
+ * otherwize it will dispaly the schedulerEditSeletedEventTemplate template
+ */
   @Input() editMode = false;
   @Input() resourceOrientation: string;
   @Input() getNewEvent: Function;
-  @Input() ensureEventVisibleId: any;
+  @Input() ensureEventVisible: any;
 
   @Output() addEvent = new EventEmitter<any>();
   @Output() selectEvent = new EventEmitter<any>();

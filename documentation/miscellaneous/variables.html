@@ -1,0 +1,539 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Miscellaneous</li>
+  <li>Variables</li>
+</ol>
+
+<section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#COUNTRIES" title="src/app/shared/form-fields/countries/countries.ts"><b>COUNTRIES</b>&nbsp;&nbsp;&nbsp;(src/.../countries.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.prod.ts"><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.prod.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.ts"><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#httpInterceptorProviders" title="src/app/core/http-interceptors/index.ts"><b>httpInterceptorProviders</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MAP_API_CONFIG" title="src/app/shared/sw-map/map-config.ts"><b>MAP_API_CONFIG</b>&nbsp;&nbsp;&nbsp;(src/.../map-config.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app/shared/form-fields/countries/countries.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="COUNTRIES"></a>
+                        <span class="name">
+                            <b>
+                            COUNTRIES</b>
+                            <a href="#COUNTRIES"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/Country.html" target="_self" >Country[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[
+    { &quot;code&quot;: &quot;null&quot;, &quot;id&quot;: &quot;null&quot;, &quot;title&quot;: &quot;Select Country ...&quot;, &quot;name&quot;: &quot;Select Country ...&quot; },
+    { &quot;code&quot;: &quot;ad&quot;, &quot;id&quot;: &quot;ad&quot;, &quot;title&quot;: &quot;Andorra&quot;, &quot;name&quot;: &quot;Andorra&quot; },
+    { &quot;code&quot;: &quot;ae&quot;, &quot;id&quot;: &quot;ae&quot;, &quot;title&quot;: &quot;United Arab Emirates&quot;, &quot;name&quot;: &quot;United Arab Emirates&quot; },
+    { &quot;code&quot;: &quot;af&quot;, &quot;id&quot;: &quot;af&quot;, &quot;title&quot;: &quot;Afghanistan&quot;, &quot;name&quot;: &quot;Afghanistan&quot; },
+    { &quot;code&quot;: &quot;ag&quot;, &quot;id&quot;: &quot;ag&quot;, &quot;title&quot;: &quot;Antigua and Barbuda&quot;, &quot;name&quot;: &quot;Antigua and Barbuda&quot; },
+    { &quot;code&quot;: &quot;ai&quot;, &quot;id&quot;: &quot;ai&quot;, &quot;title&quot;: &quot;Anguilla&quot;, &quot;name&quot;: &quot;Anguilla&quot; },
+    { &quot;code&quot;: &quot;al&quot;, &quot;id&quot;: &quot;al&quot;, &quot;title&quot;: &quot;Albania&quot;, &quot;name&quot;: &quot;Albania&quot; },
+    { &quot;code&quot;: &quot;am&quot;, &quot;id&quot;: &quot;am&quot;, &quot;title&quot;: &quot;Armenia&quot;, &quot;name&quot;: &quot;Armenia&quot; },
+    { &quot;code&quot;: &quot;an&quot;, &quot;id&quot;: &quot;an&quot;, &quot;title&quot;: &quot;Netherlands Antilles&quot;, &quot;name&quot;: &quot;Netherlands Antilles&quot; },
+    { &quot;code&quot;: &quot;ao&quot;, &quot;id&quot;: &quot;ao&quot;, &quot;title&quot;: &quot;Angola&quot;, &quot;name&quot;: &quot;Angola&quot; },
+    { &quot;code&quot;: &quot;aq&quot;, &quot;id&quot;: &quot;aq&quot;, &quot;title&quot;: &quot;Antarctica&quot;, &quot;name&quot;: &quot;Antarctica&quot; },
+    { &quot;code&quot;: &quot;ar&quot;, &quot;id&quot;: &quot;ar&quot;, &quot;title&quot;: &quot;Argentina&quot;, &quot;name&quot;: &quot;Argentina&quot; },
+    { &quot;code&quot;: &quot;as&quot;, &quot;id&quot;: &quot;as&quot;, &quot;title&quot;: &quot;American Samoa&quot;, &quot;name&quot;: &quot;American Samoa&quot; },
+    { &quot;code&quot;: &quot;at&quot;, &quot;id&quot;: &quot;at&quot;, &quot;title&quot;: &quot;Austria&quot;, &quot;name&quot;: &quot;Austria&quot; },
+    { &quot;code&quot;: &quot;au&quot;, &quot;id&quot;: &quot;au&quot;, &quot;title&quot;: &quot;Australia&quot;, &quot;name&quot;: &quot;Australia&quot; },
+    { &quot;code&quot;: &quot;aw&quot;, &quot;id&quot;: &quot;aw&quot;, &quot;title&quot;: &quot;Aruba&quot;, &quot;name&quot;: &quot;Aruba&quot; },
+    { &quot;code&quot;: &quot;ax&quot;, &quot;id&quot;: &quot;ax&quot;, &quot;title&quot;: &quot;Aland Islands&quot;, &quot;name&quot;: &quot;Aland Islands&quot; },
+    { &quot;code&quot;: &quot;az&quot;, &quot;id&quot;: &quot;az&quot;, &quot;title&quot;: &quot;Azerbaijan&quot;, &quot;name&quot;: &quot;Azerbaijan&quot; },
+    { &quot;code&quot;: &quot;ba&quot;, &quot;id&quot;: &quot;ba&quot;, &quot;title&quot;: &quot;Bosnia and Herzegovina&quot;, &quot;name&quot;: &quot;Bosnia and Herzegovina&quot; },
+    { &quot;code&quot;: &quot;bb&quot;, &quot;id&quot;: &quot;bb&quot;, &quot;title&quot;: &quot;Barbados&quot;, &quot;name&quot;: &quot;Barbados&quot; },
+    { &quot;code&quot;: &quot;bd&quot;, &quot;id&quot;: &quot;bd&quot;, &quot;title&quot;: &quot;Bangladesh&quot;, &quot;name&quot;: &quot;Bangladesh&quot; },
+    { &quot;code&quot;: &quot;be&quot;, &quot;id&quot;: &quot;be&quot;, &quot;title&quot;: &quot;Belgium&quot;, &quot;name&quot;: &quot;Belgium&quot; },
+    { &quot;code&quot;: &quot;bf&quot;, &quot;id&quot;: &quot;bf&quot;, &quot;title&quot;: &quot;Burkina Faso&quot;, &quot;name&quot;: &quot;Burkina Faso&quot; },
+    { &quot;code&quot;: &quot;bg&quot;, &quot;id&quot;: &quot;bg&quot;, &quot;title&quot;: &quot;Bulgaria&quot;, &quot;name&quot;: &quot;Bulgaria&quot; },
+    { &quot;code&quot;: &quot;bh&quot;, &quot;id&quot;: &quot;bh&quot;, &quot;title&quot;: &quot;Bahrain&quot;, &quot;name&quot;: &quot;Bahrain&quot; },
+    { &quot;code&quot;: &quot;bi&quot;, &quot;id&quot;: &quot;bi&quot;, &quot;title&quot;: &quot;Burundi&quot;, &quot;name&quot;: &quot;Burundi&quot; },
+    { &quot;code&quot;: &quot;bj&quot;, &quot;id&quot;: &quot;bj&quot;, &quot;title&quot;: &quot;Benin&quot;, &quot;name&quot;: &quot;Benin&quot; },
+    { &quot;code&quot;: &quot;bm&quot;, &quot;id&quot;: &quot;bm&quot;, &quot;title&quot;: &quot;Bermuda&quot;, &quot;name&quot;: &quot;Bermuda&quot; },
+    { &quot;code&quot;: &quot;bn&quot;, &quot;id&quot;: &quot;bn&quot;, &quot;title&quot;: &quot;Brunei Darussalam&quot;, &quot;name&quot;: &quot;Brunei Darussalam&quot; },
+    { &quot;code&quot;: &quot;bo&quot;, &quot;id&quot;: &quot;bo&quot;, &quot;title&quot;: &quot;Bolivia&quot;, &quot;name&quot;: &quot;Bolivia&quot; },
+    { &quot;code&quot;: &quot;br&quot;, &quot;id&quot;: &quot;br&quot;, &quot;title&quot;: &quot;Brazil&quot;, &quot;name&quot;: &quot;Brazil&quot; },
+    { &quot;code&quot;: &quot;bs&quot;, &quot;id&quot;: &quot;bs&quot;, &quot;title&quot;: &quot;Bahamas&quot;, &quot;name&quot;: &quot;Bahamas&quot; },
+    { &quot;code&quot;: &quot;bt&quot;, &quot;id&quot;: &quot;bt&quot;, &quot;title&quot;: &quot;Bhutan&quot;, &quot;name&quot;: &quot;Bhutan&quot; },
+    { &quot;code&quot;: &quot;bv&quot;, &quot;id&quot;: &quot;bv&quot;, &quot;title&quot;: &quot;Bouvet Island&quot;, &quot;name&quot;: &quot;Bouvet Island&quot; },
+    { &quot;code&quot;: &quot;bw&quot;, &quot;id&quot;: &quot;bw&quot;, &quot;title&quot;: &quot;Botswana&quot;, &quot;name&quot;: &quot;Botswana&quot; },
+    { &quot;code&quot;: &quot;by&quot;, &quot;id&quot;: &quot;by&quot;, &quot;title&quot;: &quot;Belarus&quot;, &quot;name&quot;: &quot;Belarus&quot; },
+    { &quot;code&quot;: &quot;bz&quot;, &quot;id&quot;: &quot;bz&quot;, &quot;title&quot;: &quot;Belize&quot;, &quot;name&quot;: &quot;Belize&quot; },
+    { &quot;code&quot;: &quot;ca&quot;, &quot;id&quot;: &quot;ca&quot;, &quot;title&quot;: &quot;Canada&quot;, &quot;name&quot;: &quot;Canada&quot; },
+    { &quot;code&quot;: &quot;cc&quot;, &quot;id&quot;: &quot;cc&quot;, &quot;title&quot;: &quot;Cocos (Keeling) Islands&quot;, &quot;name&quot;: &quot;Cocos (Keeling) Islands&quot; },
+    { &quot;code&quot;: &quot;cd&quot;, &quot;id&quot;: &quot;cd&quot;, &quot;title&quot;: &quot;Democratic Republic of the Congo&quot;, &quot;name&quot;: &quot;Democratic Republic of the Congo&quot; },
+    { &quot;code&quot;: &quot;cf&quot;, &quot;id&quot;: &quot;cf&quot;, &quot;title&quot;: &quot;Central African Republic&quot;, &quot;name&quot;: &quot;Central African Republic&quot; },
+    { &quot;code&quot;: &quot;cg&quot;, &quot;id&quot;: &quot;cg&quot;, &quot;title&quot;: &quot;Congo&quot;, &quot;name&quot;: &quot;Congo&quot; },
+    { &quot;code&quot;: &quot;ch&quot;, &quot;id&quot;: &quot;ch&quot;, &quot;title&quot;: &quot;Switzerland&quot;, &quot;name&quot;: &quot;Switzerland&quot; },
+    { &quot;code&quot;: &quot;ci&quot;, &quot;id&quot;: &quot;ci&quot;, &quot;title&quot;: &quot;Cote D&#x27;Ivoire (Ivory Coast)&quot;, &quot;name&quot;: &quot;Cote D&#x27;Ivoire (Ivory Coast)&quot; },
+    { &quot;code&quot;: &quot;ck&quot;, &quot;id&quot;: &quot;ck&quot;, &quot;title&quot;: &quot;Cook Islands&quot;, &quot;name&quot;: &quot;Cook Islands&quot; },
+    { &quot;code&quot;: &quot;cl&quot;, &quot;id&quot;: &quot;cl&quot;, &quot;title&quot;: &quot;Chile&quot;, &quot;name&quot;: &quot;Chile&quot; },
+    { &quot;code&quot;: &quot;cm&quot;, &quot;id&quot;: &quot;cm&quot;, &quot;title&quot;: &quot;Cameroon&quot;, &quot;name&quot;: &quot;Cameroon&quot; },
+    { &quot;code&quot;: &quot;cn&quot;, &quot;id&quot;: &quot;cn&quot;, &quot;title&quot;: &quot;China&quot;, &quot;name&quot;: &quot;China&quot; },
+    { &quot;code&quot;: &quot;co&quot;, &quot;id&quot;: &quot;co&quot;, &quot;title&quot;: &quot;Colombia&quot;, &quot;name&quot;: &quot;Colombia&quot; },
+    { &quot;code&quot;: &quot;cr&quot;, &quot;id&quot;: &quot;cr&quot;, &quot;title&quot;: &quot;Costa Rica&quot;, &quot;name&quot;: &quot;Costa Rica&quot; },
+    { &quot;code&quot;: &quot;cs&quot;, &quot;id&quot;: &quot;cs&quot;, &quot;title&quot;: &quot;Serbia and Montenegro&quot;, &quot;name&quot;: &quot;Serbia and Montenegro&quot; },
+    { &quot;code&quot;: &quot;cu&quot;, &quot;id&quot;: &quot;cu&quot;, &quot;title&quot;: &quot;Cuba&quot;, &quot;name&quot;: &quot;Cuba&quot; },
+    { &quot;code&quot;: &quot;cv&quot;, &quot;id&quot;: &quot;cv&quot;, &quot;title&quot;: &quot;Cape Verde&quot;, &quot;name&quot;: &quot;Cape Verde&quot; },
+    { &quot;code&quot;: &quot;cx&quot;, &quot;id&quot;: &quot;cx&quot;, &quot;title&quot;: &quot;Christmas Island&quot;, &quot;name&quot;: &quot;Christmas Island&quot; },
+    { &quot;code&quot;: &quot;cy&quot;, &quot;id&quot;: &quot;cy&quot;, &quot;title&quot;: &quot;Cyprus&quot;, &quot;name&quot;: &quot;Cyprus&quot; },
+    { &quot;code&quot;: &quot;cz&quot;, &quot;id&quot;: &quot;cz&quot;, &quot;title&quot;: &quot;Czech Republic&quot;, &quot;name&quot;: &quot;Czech Republic&quot; },
+    { &quot;code&quot;: &quot;de&quot;, &quot;id&quot;: &quot;de&quot;, &quot;title&quot;: &quot;Germany&quot;, &quot;name&quot;: &quot;Germany&quot; },
+    { &quot;code&quot;: &quot;dj&quot;, &quot;id&quot;: &quot;dj&quot;, &quot;title&quot;: &quot;Djibouti&quot;, &quot;name&quot;: &quot;Djibouti&quot; },
+    { &quot;code&quot;: &quot;dk&quot;, &quot;id&quot;: &quot;dk&quot;, &quot;title&quot;: &quot;Denmark&quot;, &quot;name&quot;: &quot;Denmark&quot; },
+    { &quot;code&quot;: &quot;dm&quot;, &quot;id&quot;: &quot;dm&quot;, &quot;title&quot;: &quot;Dominica&quot;, &quot;name&quot;: &quot;Dominica&quot; },
+    { &quot;code&quot;: &quot;do&quot;, &quot;id&quot;: &quot;do&quot;, &quot;title&quot;: &quot;Dominican Republic&quot;, &quot;name&quot;: &quot;Dominican Republic&quot; },
+    { &quot;code&quot;: &quot;dz&quot;, &quot;id&quot;: &quot;dz&quot;, &quot;title&quot;: &quot;Algeria&quot;, &quot;name&quot;: &quot;Algeria&quot; },
+    { &quot;code&quot;: &quot;ec&quot;, &quot;id&quot;: &quot;ec&quot;, &quot;title&quot;: &quot;Ecuador&quot;, &quot;name&quot;: &quot;Ecuador&quot; },
+    { &quot;code&quot;: &quot;ee&quot;, &quot;id&quot;: &quot;ee&quot;, &quot;title&quot;: &quot;Estonia&quot;, &quot;name&quot;: &quot;Estonia&quot; },
+    { &quot;code&quot;: &quot;eg&quot;, &quot;id&quot;: &quot;eg&quot;, &quot;title&quot;: &quot;Egypt&quot;, &quot;name&quot;: &quot;Egypt&quot; },
+    { &quot;code&quot;: &quot;eh&quot;, &quot;id&quot;: &quot;eh&quot;, &quot;title&quot;: &quot;Western Sahara&quot;, &quot;name&quot;: &quot;Western Sahara&quot; },
+    { &quot;code&quot;: &quot;er&quot;, &quot;id&quot;: &quot;er&quot;, &quot;title&quot;: &quot;Eritrea&quot;, &quot;name&quot;: &quot;Eritrea&quot; },
+    { &quot;code&quot;: &quot;es&quot;, &quot;id&quot;: &quot;es&quot;, &quot;title&quot;: &quot;Spain&quot;, &quot;name&quot;: &quot;Spain&quot; },
+    { &quot;code&quot;: &quot;et&quot;, &quot;id&quot;: &quot;et&quot;, &quot;title&quot;: &quot;Ethiopia&quot;, &quot;name&quot;: &quot;Ethiopia&quot; },
+    { &quot;code&quot;: &quot;fi&quot;, &quot;id&quot;: &quot;fi&quot;, &quot;title&quot;: &quot;Finland&quot;, &quot;name&quot;: &quot;Finland&quot; },
+    { &quot;code&quot;: &quot;fj&quot;, &quot;id&quot;: &quot;fj&quot;, &quot;title&quot;: &quot;Fiji&quot;, &quot;name&quot;: &quot;Fiji&quot; },
+    { &quot;code&quot;: &quot;fk&quot;, &quot;id&quot;: &quot;fk&quot;, &quot;title&quot;: &quot;Falkland Islands (Malvinas)&quot;, &quot;name&quot;: &quot;Falkland Islands (Malvinas)&quot; },
+    { &quot;code&quot;: &quot;fm&quot;, &quot;id&quot;: &quot;fm&quot;, &quot;title&quot;: &quot;Federated States of Micronesia&quot;, &quot;name&quot;: &quot;Federated States of Micronesia&quot; },
+    { &quot;code&quot;: &quot;fo&quot;, &quot;id&quot;: &quot;fo&quot;, &quot;title&quot;: &quot;Faroe Islands&quot;, &quot;name&quot;: &quot;Faroe Islands&quot; },
+    { &quot;code&quot;: &quot;fr&quot;, &quot;id&quot;: &quot;fr&quot;, &quot;title&quot;: &quot;France&quot;, &quot;name&quot;: &quot;France&quot; },
+    { &quot;code&quot;: &quot;fx&quot;, &quot;id&quot;: &quot;fx&quot;, &quot;title&quot;: &quot;France, Metropolitan&quot;, &quot;name&quot;: &quot;France, Metropolitan&quot; },
+    { &quot;code&quot;: &quot;ga&quot;, &quot;id&quot;: &quot;ga&quot;, &quot;title&quot;: &quot;Gabon&quot;, &quot;name&quot;: &quot;Gabon&quot; },
+    { &quot;code&quot;: &quot;gb&quot;, &quot;id&quot;: &quot;gb&quot;, &quot;title&quot;: &quot;Great Britain (UK)&quot;, &quot;name&quot;: &quot;Great Britain (UK)&quot; },
+    { &quot;code&quot;: &quot;gd&quot;, &quot;id&quot;: &quot;gd&quot;, &quot;title&quot;: &quot;Grenada&quot;, &quot;name&quot;: &quot;Grenada&quot; },
+    { &quot;code&quot;: &quot;ge&quot;, &quot;id&quot;: &quot;ge&quot;, &quot;title&quot;: &quot;Georgia&quot;, &quot;name&quot;: &quot;Georgia&quot; },
+    { &quot;code&quot;: &quot;gf&quot;, &quot;id&quot;: &quot;gf&quot;, &quot;title&quot;: &quot;French Guiana&quot;, &quot;name&quot;: &quot;French Guiana&quot; },
+    { &quot;code&quot;: &quot;gh&quot;, &quot;id&quot;: &quot;gh&quot;, &quot;title&quot;: &quot;Ghana&quot;, &quot;name&quot;: &quot;Ghana&quot; },
+    { &quot;code&quot;: &quot;gi&quot;, &quot;id&quot;: &quot;gi&quot;, &quot;title&quot;: &quot;Gibraltar&quot;, &quot;name&quot;: &quot;Gibraltar&quot; },
+    { &quot;code&quot;: &quot;gl&quot;, &quot;id&quot;: &quot;gl&quot;, &quot;title&quot;: &quot;Greenland&quot;, &quot;name&quot;: &quot;Greenland&quot; },
+    { &quot;code&quot;: &quot;gm&quot;, &quot;id&quot;: &quot;gm&quot;, &quot;title&quot;: &quot;Gambia&quot;, &quot;name&quot;: &quot;Gambia&quot; },
+    { &quot;code&quot;: &quot;gn&quot;, &quot;id&quot;: &quot;gn&quot;, &quot;title&quot;: &quot;Guinea&quot;, &quot;name&quot;: &quot;Guinea&quot; },
+    { &quot;code&quot;: &quot;gp&quot;, &quot;id&quot;: &quot;gp&quot;, &quot;title&quot;: &quot;Guadeloupe&quot;, &quot;name&quot;: &quot;Guadeloupe&quot; },
+    { &quot;code&quot;: &quot;gq&quot;, &quot;id&quot;: &quot;gq&quot;, &quot;title&quot;: &quot;Equatorial Guinea&quot;, &quot;name&quot;: &quot;Equatorial Guinea&quot; },
+    { &quot;code&quot;: &quot;gr&quot;, &quot;id&quot;: &quot;gr&quot;, &quot;title&quot;: &quot;Greece&quot;, &quot;name&quot;: &quot;Greece&quot; },
+    { &quot;code&quot;: &quot;gs&quot;, &quot;id&quot;: &quot;gs&quot;, &quot;title&quot;: &quot;S. Georgia and S. Sandwich Islands&quot;, &quot;name&quot;: &quot;S. Georgia and S. Sandwich Islands&quot; },
+    { &quot;code&quot;: &quot;gt&quot;, &quot;id&quot;: &quot;gt&quot;, &quot;title&quot;: &quot;Guatemala&quot;, &quot;name&quot;: &quot;Guatemala&quot; },
+    { &quot;code&quot;: &quot;gu&quot;, &quot;id&quot;: &quot;gu&quot;, &quot;title&quot;: &quot;Guam&quot;, &quot;name&quot;: &quot;Guam&quot; },
+    { &quot;code&quot;: &quot;gw&quot;, &quot;id&quot;: &quot;gw&quot;, &quot;title&quot;: &quot;Guinea-Bissau&quot;, &quot;name&quot;: &quot;Guinea-Bissau&quot; },
+    { &quot;code&quot;: &quot;gy&quot;, &quot;id&quot;: &quot;gy&quot;, &quot;title&quot;: &quot;Guyana&quot;, &quot;name&quot;: &quot;Guyana&quot; },
+    { &quot;code&quot;: &quot;hk&quot;, &quot;id&quot;: &quot;hk&quot;, &quot;title&quot;: &quot;Hong Kong&quot;, &quot;name&quot;: &quot;Hong Kong&quot; },
+    { &quot;code&quot;: &quot;hm&quot;, &quot;id&quot;: &quot;hm&quot;, &quot;title&quot;: &quot;Heard Island and McDonald Islands&quot;, &quot;name&quot;: &quot;Heard Island and McDonald Islands&quot; },
+    { &quot;code&quot;: &quot;hn&quot;, &quot;id&quot;: &quot;hn&quot;, &quot;title&quot;: &quot;Honduras&quot;, &quot;name&quot;: &quot;Honduras&quot; },
+    { &quot;code&quot;: &quot;hr&quot;, &quot;id&quot;: &quot;hr&quot;, &quot;title&quot;: &quot;Croatia (Hrvatska)&quot;, &quot;name&quot;: &quot;Croatia (Hrvatska)&quot; },
+    { &quot;code&quot;: &quot;ht&quot;, &quot;id&quot;: &quot;ht&quot;, &quot;title&quot;: &quot;Haiti&quot;, &quot;name&quot;: &quot;Haiti&quot; },
+    { &quot;code&quot;: &quot;hu&quot;, &quot;id&quot;: &quot;hu&quot;, &quot;title&quot;: &quot;Hungary&quot;, &quot;name&quot;: &quot;Hungary&quot; },
+    { &quot;code&quot;: &quot;id&quot;, &quot;id&quot;: &quot;id&quot;, &quot;title&quot;: &quot;Indonesia&quot;, &quot;name&quot;: &quot;Indonesia&quot; },
+    { &quot;code&quot;: &quot;ie&quot;, &quot;id&quot;: &quot;ie&quot;, &quot;title&quot;: &quot;Ireland&quot;, &quot;name&quot;: &quot;Ireland&quot; },
+    { &quot;code&quot;: &quot;il&quot;, &quot;id&quot;: &quot;il&quot;, &quot;title&quot;: &quot;Israel&quot;, &quot;name&quot;: &quot;Israel&quot; },
+    { &quot;code&quot;: &quot;in&quot;, &quot;id&quot;: &quot;in&quot;, &quot;title&quot;: &quot;India&quot;, &quot;name&quot;: &quot;India&quot; },
+    { &quot;code&quot;: &quot;io&quot;, &quot;id&quot;: &quot;io&quot;, &quot;title&quot;: &quot;British Indian Ocean Territory&quot;, &quot;name&quot;: &quot;British Indian Ocean Territory&quot; },
+    { &quot;code&quot;: &quot;iq&quot;, &quot;id&quot;: &quot;iq&quot;, &quot;title&quot;: &quot;Iraq&quot;, &quot;name&quot;: &quot;Iraq&quot; },
+    { &quot;code&quot;: &quot;ir&quot;, &quot;id&quot;: &quot;ir&quot;, &quot;title&quot;: &quot;Iran&quot;, &quot;name&quot;: &quot;Iran&quot; },
+    { &quot;code&quot;: &quot;is&quot;, &quot;id&quot;: &quot;is&quot;, &quot;title&quot;: &quot;Iceland&quot;, &quot;name&quot;: &quot;Iceland&quot; },
+    { &quot;code&quot;: &quot;it&quot;, &quot;id&quot;: &quot;it&quot;, &quot;title&quot;: &quot;Italy&quot;, &quot;name&quot;: &quot;Italy&quot; },
+    { &quot;code&quot;: &quot;jm&quot;, &quot;id&quot;: &quot;jm&quot;, &quot;title&quot;: &quot;Jamaica&quot;, &quot;name&quot;: &quot;Jamaica&quot; },
+    { &quot;code&quot;: &quot;jo&quot;, &quot;id&quot;: &quot;jo&quot;, &quot;title&quot;: &quot;Jordan&quot;, &quot;name&quot;: &quot;Jordan&quot; },
+    { &quot;code&quot;: &quot;jp&quot;, &quot;id&quot;: &quot;jp&quot;, &quot;title&quot;: &quot;Japan&quot;, &quot;name&quot;: &quot;Japan&quot; },
+    { &quot;code&quot;: &quot;ke&quot;, &quot;id&quot;: &quot;ke&quot;, &quot;title&quot;: &quot;Kenya&quot;, &quot;name&quot;: &quot;Kenya&quot; },
+    { &quot;code&quot;: &quot;kg&quot;, &quot;id&quot;: &quot;kg&quot;, &quot;title&quot;: &quot;Kyrgyzstan&quot;, &quot;name&quot;: &quot;Kyrgyzstan&quot; },
+    { &quot;code&quot;: &quot;kh&quot;, &quot;id&quot;: &quot;kh&quot;, &quot;title&quot;: &quot;Cambodia&quot;, &quot;name&quot;: &quot;Cambodia&quot; },
+    { &quot;code&quot;: &quot;ki&quot;, &quot;id&quot;: &quot;ki&quot;, &quot;title&quot;: &quot;Kiribati&quot;, &quot;name&quot;: &quot;Kiribati&quot; },
+    { &quot;code&quot;: &quot;km&quot;, &quot;id&quot;: &quot;km&quot;, &quot;title&quot;: &quot;Comoros&quot;, &quot;name&quot;: &quot;Comoros&quot; },
+    { &quot;code&quot;: &quot;kn&quot;, &quot;id&quot;: &quot;kn&quot;, &quot;title&quot;: &quot;Saint Kitts and Nevis&quot;, &quot;name&quot;: &quot;Saint Kitts and Nevis&quot; },
+    { &quot;code&quot;: &quot;kp&quot;, &quot;id&quot;: &quot;kp&quot;, &quot;title&quot;: &quot;Korea (North)&quot;, &quot;name&quot;: &quot;Korea (North)&quot; },
+    { &quot;code&quot;: &quot;kr&quot;, &quot;id&quot;: &quot;kr&quot;, &quot;title&quot;: &quot;Korea (South)&quot;, &quot;name&quot;: &quot;Korea (South)&quot; },
+    { &quot;code&quot;: &quot;kw&quot;, &quot;id&quot;: &quot;kw&quot;, &quot;title&quot;: &quot;Kuwait&quot;, &quot;name&quot;: &quot;Kuwait&quot; },
+    { &quot;code&quot;: &quot;ky&quot;, &quot;id&quot;: &quot;ky&quot;, &quot;title&quot;: &quot;Cayman Islands&quot;, &quot;name&quot;: &quot;Cayman Islands&quot; },
+    { &quot;code&quot;: &quot;kz&quot;, &quot;id&quot;: &quot;kz&quot;, &quot;title&quot;: &quot;Kazakhstan&quot;, &quot;name&quot;: &quot;Kazakhstan&quot; },
+    { &quot;code&quot;: &quot;la&quot;, &quot;id&quot;: &quot;la&quot;, &quot;title&quot;: &quot;Laos&quot;, &quot;name&quot;: &quot;Laos&quot; },
+    { &quot;code&quot;: &quot;lb&quot;, &quot;id&quot;: &quot;lb&quot;, &quot;title&quot;: &quot;Lebanon&quot;, &quot;name&quot;: &quot;Lebanon&quot; },
+    { &quot;code&quot;: &quot;lc&quot;, &quot;id&quot;: &quot;lc&quot;, &quot;title&quot;: &quot;Saint Lucia&quot;, &quot;name&quot;: &quot;Saint Lucia&quot; },
+    { &quot;code&quot;: &quot;li&quot;, &quot;id&quot;: &quot;li&quot;, &quot;title&quot;: &quot;Liechtenstein&quot;, &quot;name&quot;: &quot;Liechtenstein&quot; },
+    { &quot;code&quot;: &quot;lk&quot;, &quot;id&quot;: &quot;lk&quot;, &quot;title&quot;: &quot;Sri Lanka&quot;, &quot;name&quot;: &quot;Sri Lanka&quot; },
+    { &quot;code&quot;: &quot;lr&quot;, &quot;id&quot;: &quot;lr&quot;, &quot;title&quot;: &quot;Liberia&quot;, &quot;name&quot;: &quot;Liberia&quot; },
+    { &quot;code&quot;: &quot;ls&quot;, &quot;id&quot;: &quot;ls&quot;, &quot;title&quot;: &quot;Lesotho&quot;, &quot;name&quot;: &quot;Lesotho&quot; },
+    { &quot;code&quot;: &quot;lt&quot;, &quot;id&quot;: &quot;lt&quot;, &quot;title&quot;: &quot;Lithuania&quot;, &quot;name&quot;: &quot;Lithuania&quot; },
+    { &quot;code&quot;: &quot;lu&quot;, &quot;id&quot;: &quot;lu&quot;, &quot;title&quot;: &quot;Luxembourg&quot;, &quot;name&quot;: &quot;Luxembourg&quot; },
+    { &quot;code&quot;: &quot;lv&quot;, &quot;id&quot;: &quot;lv&quot;, &quot;title&quot;: &quot;Latvia&quot;, &quot;name&quot;: &quot;Latvia&quot; },
+    { &quot;code&quot;: &quot;ly&quot;, &quot;id&quot;: &quot;ly&quot;, &quot;title&quot;: &quot;Libya&quot;, &quot;name&quot;: &quot;Libya&quot; },
+    { &quot;code&quot;: &quot;ma&quot;, &quot;id&quot;: &quot;ma&quot;, &quot;title&quot;: &quot;Morocco&quot;, &quot;name&quot;: &quot;Morocco&quot; },
+    { &quot;code&quot;: &quot;mc&quot;, &quot;id&quot;: &quot;mc&quot;, &quot;title&quot;: &quot;Monaco&quot;, &quot;name&quot;: &quot;Monaco&quot; },
+    { &quot;code&quot;: &quot;md&quot;, &quot;id&quot;: &quot;md&quot;, &quot;title&quot;: &quot;Moldova&quot;, &quot;name&quot;: &quot;Moldova&quot; },
+    { &quot;code&quot;: &quot;mg&quot;, &quot;id&quot;: &quot;mg&quot;, &quot;title&quot;: &quot;Madagascar&quot;, &quot;name&quot;: &quot;Madagascar&quot; },
+    { &quot;code&quot;: &quot;mh&quot;, &quot;id&quot;: &quot;mh&quot;, &quot;title&quot;: &quot;Marshall Islands&quot;, &quot;name&quot;: &quot;Marshall Islands&quot; },
+    { &quot;code&quot;: &quot;mk&quot;, &quot;id&quot;: &quot;mk&quot;, &quot;title&quot;: &quot;Macedonia&quot;, &quot;name&quot;: &quot;Macedonia&quot; },
+    { &quot;code&quot;: &quot;ml&quot;, &quot;id&quot;: &quot;ml&quot;, &quot;title&quot;: &quot;Mali&quot;, &quot;name&quot;: &quot;Mali&quot; },
+    { &quot;code&quot;: &quot;mm&quot;, &quot;id&quot;: &quot;mm&quot;, &quot;title&quot;: &quot;Myanmar&quot;, &quot;name&quot;: &quot;Myanmar&quot; },
+    { &quot;code&quot;: &quot;mn&quot;, &quot;id&quot;: &quot;mn&quot;, &quot;title&quot;: &quot;Mongolia&quot;, &quot;name&quot;: &quot;Mongolia&quot; },
+    { &quot;code&quot;: &quot;mo&quot;, &quot;id&quot;: &quot;mo&quot;, &quot;title&quot;: &quot;Macao&quot;, &quot;name&quot;: &quot;Macao&quot; },
+    { &quot;code&quot;: &quot;mp&quot;, &quot;id&quot;: &quot;mp&quot;, &quot;title&quot;: &quot;Northern Mariana Islands&quot;, &quot;name&quot;: &quot;Northern Mariana Islands&quot; },
+    { &quot;code&quot;: &quot;mq&quot;, &quot;id&quot;: &quot;mq&quot;, &quot;title&quot;: &quot;Martinique&quot;, &quot;name&quot;: &quot;Martinique&quot; },
+    { &quot;code&quot;: &quot;mr&quot;, &quot;id&quot;: &quot;mr&quot;, &quot;title&quot;: &quot;Mauritania&quot;, &quot;name&quot;: &quot;Mauritania&quot; },
+    { &quot;code&quot;: &quot;ms&quot;, &quot;id&quot;: &quot;ms&quot;, &quot;title&quot;: &quot;Montserrat&quot;, &quot;name&quot;: &quot;Montserrat&quot; },
+    { &quot;code&quot;: &quot;mt&quot;, &quot;id&quot;: &quot;mt&quot;, &quot;title&quot;: &quot;Malta&quot;, &quot;name&quot;: &quot;Malta&quot; },
+    { &quot;code&quot;: &quot;mu&quot;, &quot;id&quot;: &quot;mu&quot;, &quot;title&quot;: &quot;Mauritius&quot;, &quot;name&quot;: &quot;Mauritius&quot; },
+    { &quot;code&quot;: &quot;mv&quot;, &quot;id&quot;: &quot;mv&quot;, &quot;title&quot;: &quot;Maldives&quot;, &quot;name&quot;: &quot;Maldives&quot; },
+    { &quot;code&quot;: &quot;mw&quot;, &quot;id&quot;: &quot;mw&quot;, &quot;title&quot;: &quot;Malawi&quot;, &quot;name&quot;: &quot;Malawi&quot; },
+    { &quot;code&quot;: &quot;mx&quot;, &quot;id&quot;: &quot;mx&quot;, &quot;title&quot;: &quot;Mexico&quot;, &quot;name&quot;: &quot;Mexico&quot; },
+    { &quot;code&quot;: &quot;my&quot;, &quot;id&quot;: &quot;my&quot;, &quot;title&quot;: &quot;Malaysia&quot;, &quot;name&quot;: &quot;Malaysia&quot; },
+    { &quot;code&quot;: &quot;mz&quot;, &quot;id&quot;: &quot;mz&quot;, &quot;title&quot;: &quot;Mozambique&quot;, &quot;name&quot;: &quot;Mozambique&quot; },
+    { &quot;code&quot;: &quot;na&quot;, &quot;id&quot;: &quot;na&quot;, &quot;title&quot;: &quot;Namibia&quot;, &quot;name&quot;: &quot;Namibia&quot; },
+    { &quot;code&quot;: &quot;nc&quot;, &quot;id&quot;: &quot;nc&quot;, &quot;title&quot;: &quot;New Caledonia&quot;, &quot;name&quot;: &quot;New Caledonia&quot; },
+    { &quot;code&quot;: &quot;ne&quot;, &quot;id&quot;: &quot;ne&quot;, &quot;title&quot;: &quot;Niger&quot;, &quot;name&quot;: &quot;Niger&quot; },
+    { &quot;code&quot;: &quot;nf&quot;, &quot;id&quot;: &quot;nf&quot;, &quot;title&quot;: &quot;Norfolk Island&quot;, &quot;name&quot;: &quot;Norfolk Island&quot; },
+    { &quot;code&quot;: &quot;ng&quot;, &quot;id&quot;: &quot;ng&quot;, &quot;title&quot;: &quot;Nigeria&quot;, &quot;name&quot;: &quot;Nigeria&quot; },
+    { &quot;code&quot;: &quot;ni&quot;, &quot;id&quot;: &quot;ni&quot;, &quot;title&quot;: &quot;Nicaragua&quot;, &quot;name&quot;: &quot;Nicaragua&quot; },
+    { &quot;code&quot;: &quot;nl&quot;, &quot;id&quot;: &quot;nl&quot;, &quot;title&quot;: &quot;Netherlands&quot;, &quot;name&quot;: &quot;Netherlands&quot; },
+    { &quot;code&quot;: &quot;no&quot;, &quot;id&quot;: &quot;no&quot;, &quot;title&quot;: &quot;Norway&quot;, &quot;name&quot;: &quot;Norway&quot; },
+    { &quot;code&quot;: &quot;np&quot;, &quot;id&quot;: &quot;np&quot;, &quot;title&quot;: &quot;Nepal&quot;, &quot;name&quot;: &quot;Nepal&quot; },
+    { &quot;code&quot;: &quot;nr&quot;, &quot;id&quot;: &quot;nr&quot;, &quot;title&quot;: &quot;Nauru&quot;, &quot;name&quot;: &quot;Nauru&quot; },
+    { &quot;code&quot;: &quot;nu&quot;, &quot;id&quot;: &quot;nu&quot;, &quot;title&quot;: &quot;Niue&quot;, &quot;name&quot;: &quot;Niue&quot; },
+    { &quot;code&quot;: &quot;nz&quot;, &quot;id&quot;: &quot;nz&quot;, &quot;title&quot;: &quot;New Zealand (Aotearoa)&quot;, &quot;name&quot;: &quot;New Zealand (Aotearoa)&quot; },
+    { &quot;code&quot;: &quot;om&quot;, &quot;id&quot;: &quot;om&quot;, &quot;title&quot;: &quot;Oman&quot;, &quot;name&quot;: &quot;Oman&quot; },
+    { &quot;code&quot;: &quot;pa&quot;, &quot;id&quot;: &quot;pa&quot;, &quot;title&quot;: &quot;Panama&quot;, &quot;name&quot;: &quot;Panama&quot; },
+    { &quot;code&quot;: &quot;pe&quot;, &quot;id&quot;: &quot;pe&quot;, &quot;title&quot;: &quot;Peru&quot;, &quot;name&quot;: &quot;Peru&quot; },
+    { &quot;code&quot;: &quot;pf&quot;, &quot;id&quot;: &quot;pf&quot;, &quot;title&quot;: &quot;French Polynesia&quot;, &quot;name&quot;: &quot;French Polynesia&quot; },
+    { &quot;code&quot;: &quot;pg&quot;, &quot;id&quot;: &quot;pg&quot;, &quot;title&quot;: &quot;Papua New Guinea&quot;, &quot;name&quot;: &quot;Papua New Guinea&quot; },
+    { &quot;code&quot;: &quot;ph&quot;, &quot;id&quot;: &quot;ph&quot;, &quot;title&quot;: &quot;Philippines&quot;, &quot;name&quot;: &quot;Philippines&quot; },
+    { &quot;code&quot;: &quot;pk&quot;, &quot;id&quot;: &quot;pk&quot;, &quot;title&quot;: &quot;Pakistan&quot;, &quot;name&quot;: &quot;Pakistan&quot; },
+    { &quot;code&quot;: &quot;pl&quot;, &quot;id&quot;: &quot;pl&quot;, &quot;title&quot;: &quot;Poland&quot;, &quot;name&quot;: &quot;Poland&quot; },
+    { &quot;code&quot;: &quot;pm&quot;, &quot;id&quot;: &quot;pm&quot;, &quot;title&quot;: &quot;Saint Pierre and Miquelon&quot;, &quot;name&quot;: &quot;Saint Pierre and Miquelon&quot; },
+    { &quot;code&quot;: &quot;pn&quot;, &quot;id&quot;: &quot;pn&quot;, &quot;title&quot;: &quot;Pitcairn&quot;, &quot;name&quot;: &quot;Pitcairn&quot; },
+    { &quot;code&quot;: &quot;pr&quot;, &quot;id&quot;: &quot;pr&quot;, &quot;title&quot;: &quot;Puerto Rico&quot;, &quot;name&quot;: &quot;Puerto Rico&quot; },
+    { &quot;code&quot;: &quot;ps&quot;, &quot;id&quot;: &quot;ps&quot;, &quot;title&quot;: &quot;Palestinian Territory&quot;, &quot;name&quot;: &quot;Palestinian Territory&quot; },
+    { &quot;code&quot;: &quot;pt&quot;, &quot;id&quot;: &quot;pt&quot;, &quot;title&quot;: &quot;Portugal&quot;, &quot;name&quot;: &quot;Portugal&quot; },
+    { &quot;code&quot;: &quot;pw&quot;, &quot;id&quot;: &quot;pw&quot;, &quot;title&quot;: &quot;Palau&quot;, &quot;name&quot;: &quot;Palau&quot; },
+    { &quot;code&quot;: &quot;py&quot;, &quot;id&quot;: &quot;py&quot;, &quot;title&quot;: &quot;Paraguay&quot;, &quot;name&quot;: &quot;Paraguay&quot; },
+    { &quot;code&quot;: &quot;qa&quot;, &quot;id&quot;: &quot;qa&quot;, &quot;title&quot;: &quot;Qatar&quot;, &quot;name&quot;: &quot;Qatar&quot; },
+    { &quot;code&quot;: &quot;re&quot;, &quot;id&quot;: &quot;re&quot;, &quot;title&quot;: &quot;Reunion&quot;, &quot;name&quot;: &quot;Reunion&quot; },
+    { &quot;code&quot;: &quot;ro&quot;, &quot;id&quot;: &quot;ro&quot;, &quot;title&quot;: &quot;Romania&quot;, &quot;name&quot;: &quot;Romania&quot; },
+    { &quot;code&quot;: &quot;ru&quot;, &quot;id&quot;: &quot;ru&quot;, &quot;title&quot;: &quot;Russian Federation&quot;, &quot;name&quot;: &quot;Russian Federation&quot; },
+    { &quot;code&quot;: &quot;rw&quot;, &quot;id&quot;: &quot;rw&quot;, &quot;title&quot;: &quot;Rwanda&quot;, &quot;name&quot;: &quot;Rwanda&quot; },
+    { &quot;code&quot;: &quot;sa&quot;, &quot;id&quot;: &quot;sa&quot;, &quot;title&quot;: &quot;Saudi Arabia&quot;, &quot;name&quot;: &quot;Saudi Arabia&quot; },
+    { &quot;code&quot;: &quot;sb&quot;, &quot;id&quot;: &quot;sb&quot;, &quot;title&quot;: &quot;Solomon Islands&quot;, &quot;name&quot;: &quot;Solomon Islands&quot; },
+    { &quot;code&quot;: &quot;sc&quot;, &quot;id&quot;: &quot;sc&quot;, &quot;title&quot;: &quot;Seychelles&quot;, &quot;name&quot;: &quot;Seychelles&quot; },
+    { &quot;code&quot;: &quot;sd&quot;, &quot;id&quot;: &quot;sd&quot;, &quot;title&quot;: &quot;Sudan&quot;, &quot;name&quot;: &quot;Sudan&quot; },
+    { &quot;code&quot;: &quot;se&quot;, &quot;id&quot;: &quot;se&quot;, &quot;title&quot;: &quot;Sweden&quot;, &quot;name&quot;: &quot;Sweden&quot; },
+    { &quot;code&quot;: &quot;sg&quot;, &quot;id&quot;: &quot;sg&quot;, &quot;title&quot;: &quot;Singapore&quot;, &quot;name&quot;: &quot;Singapore&quot; },
+    { &quot;code&quot;: &quot;sh&quot;, &quot;id&quot;: &quot;sh&quot;, &quot;title&quot;: &quot;Saint Helena&quot;, &quot;name&quot;: &quot;Saint Helena&quot; },
+    { &quot;code&quot;: &quot;si&quot;, &quot;id&quot;: &quot;si&quot;, &quot;title&quot;: &quot;Slovenia&quot;, &quot;name&quot;: &quot;Slovenia&quot; },
+    { &quot;code&quot;: &quot;sj&quot;, &quot;id&quot;: &quot;sj&quot;, &quot;title&quot;: &quot;Svalbard and Jan Mayen&quot;, &quot;name&quot;: &quot;Svalbard and Jan Mayen&quot; },
+    { &quot;code&quot;: &quot;sk&quot;, &quot;id&quot;: &quot;sk&quot;, &quot;title&quot;: &quot;Slovakia&quot;, &quot;name&quot;: &quot;Slovakia&quot; },
+    { &quot;code&quot;: &quot;sl&quot;, &quot;id&quot;: &quot;sl&quot;, &quot;title&quot;: &quot;Sierra Leone&quot;, &quot;name&quot;: &quot;Sierra Leone&quot; },
+    { &quot;code&quot;: &quot;sm&quot;, &quot;id&quot;: &quot;sm&quot;, &quot;title&quot;: &quot;San Marino&quot;, &quot;name&quot;: &quot;San Marino&quot; },
+    { &quot;code&quot;: &quot;sn&quot;, &quot;id&quot;: &quot;sn&quot;, &quot;title&quot;: &quot;Senegal&quot;, &quot;name&quot;: &quot;Senegal&quot; },
+    { &quot;code&quot;: &quot;so&quot;, &quot;id&quot;: &quot;so&quot;, &quot;title&quot;: &quot;Somalia&quot;, &quot;name&quot;: &quot;Somalia&quot; },
+    { &quot;code&quot;: &quot;sr&quot;, &quot;id&quot;: &quot;sr&quot;, &quot;title&quot;: &quot;Suriname&quot;, &quot;name&quot;: &quot;Suriname&quot; },
+    { &quot;code&quot;: &quot;st&quot;, &quot;id&quot;: &quot;st&quot;, &quot;title&quot;: &quot;Sao Tome and Principe&quot;, &quot;name&quot;: &quot;Sao Tome and Principe&quot; },
+    { &quot;code&quot;: &quot;su&quot;, &quot;id&quot;: &quot;su&quot;, &quot;title&quot;: &quot;USSR (former)&quot;, &quot;name&quot;: &quot;USSR (former)&quot; },
+    { &quot;code&quot;: &quot;sv&quot;, &quot;id&quot;: &quot;sv&quot;, &quot;title&quot;: &quot;El Salvador&quot;, &quot;name&quot;: &quot;El Salvador&quot; },
+    { &quot;code&quot;: &quot;sy&quot;, &quot;id&quot;: &quot;sy&quot;, &quot;title&quot;: &quot;Syria&quot;, &quot;name&quot;: &quot;Syria&quot; },
+    { &quot;code&quot;: &quot;sz&quot;, &quot;id&quot;: &quot;sz&quot;, &quot;title&quot;: &quot;Swaziland&quot;, &quot;name&quot;: &quot;Swaziland&quot; },
+    { &quot;code&quot;: &quot;tc&quot;, &quot;id&quot;: &quot;tc&quot;, &quot;title&quot;: &quot;Turks and Caicos Islands&quot;, &quot;name&quot;: &quot;Turks and Caicos Islands&quot; },
+    { &quot;code&quot;: &quot;td&quot;, &quot;id&quot;: &quot;td&quot;, &quot;title&quot;: &quot;Chad&quot;, &quot;name&quot;: &quot;Chad&quot; },
+    { &quot;code&quot;: &quot;tf&quot;, &quot;id&quot;: &quot;tf&quot;, &quot;title&quot;: &quot;French Southern Territories&quot;, &quot;name&quot;: &quot;French Southern Territories&quot; },
+    { &quot;code&quot;: &quot;tg&quot;, &quot;id&quot;: &quot;tg&quot;, &quot;title&quot;: &quot;Togo&quot;, &quot;name&quot;: &quot;Togo&quot; },
+    { &quot;code&quot;: &quot;th&quot;, &quot;id&quot;: &quot;th&quot;, &quot;title&quot;: &quot;Thailand&quot;, &quot;name&quot;: &quot;Thailand&quot; },
+    { &quot;code&quot;: &quot;tj&quot;, &quot;id&quot;: &quot;tj&quot;, &quot;title&quot;: &quot;Tajikistan&quot;, &quot;name&quot;: &quot;Tajikistan&quot; },
+    { &quot;code&quot;: &quot;tk&quot;, &quot;id&quot;: &quot;tk&quot;, &quot;title&quot;: &quot;Tokelau&quot;, &quot;name&quot;: &quot;Tokelau&quot; },
+    { &quot;code&quot;: &quot;tl&quot;, &quot;id&quot;: &quot;tl&quot;, &quot;title&quot;: &quot;Timor-Leste&quot;, &quot;name&quot;: &quot;Timor-Leste&quot; },
+    { &quot;code&quot;: &quot;tm&quot;, &quot;id&quot;: &quot;tm&quot;, &quot;title&quot;: &quot;Turkmenistan&quot;, &quot;name&quot;: &quot;Turkmenistan&quot; },
+    { &quot;code&quot;: &quot;tn&quot;, &quot;id&quot;: &quot;tn&quot;, &quot;title&quot;: &quot;Tunisia&quot;, &quot;name&quot;: &quot;Tunisia&quot; },
+    { &quot;code&quot;: &quot;to&quot;, &quot;id&quot;: &quot;to&quot;, &quot;title&quot;: &quot;Tonga&quot;, &quot;name&quot;: &quot;Tonga&quot; },
+    { &quot;code&quot;: &quot;tp&quot;, &quot;id&quot;: &quot;tp&quot;, &quot;title&quot;: &quot;East Timor&quot;, &quot;name&quot;: &quot;East Timor&quot; },
+    { &quot;code&quot;: &quot;tr&quot;, &quot;id&quot;: &quot;tr&quot;, &quot;title&quot;: &quot;Turkey&quot;, &quot;name&quot;: &quot;Turkey&quot; },
+    { &quot;code&quot;: &quot;tt&quot;, &quot;id&quot;: &quot;tt&quot;, &quot;title&quot;: &quot;Trinidad and Tobago&quot;, &quot;name&quot;: &quot;Trinidad and Tobago&quot; },
+    { &quot;code&quot;: &quot;tv&quot;, &quot;id&quot;: &quot;tv&quot;, &quot;title&quot;: &quot;Tuvalu&quot;, &quot;name&quot;: &quot;Tuvalu&quot; },
+    { &quot;code&quot;: &quot;tw&quot;, &quot;id&quot;: &quot;tw&quot;, &quot;title&quot;: &quot;Taiwan&quot;, &quot;name&quot;: &quot;Taiwan&quot; },
+    { &quot;code&quot;: &quot;tz&quot;, &quot;id&quot;: &quot;tz&quot;, &quot;title&quot;: &quot;Tanzania&quot;, &quot;name&quot;: &quot;Tanzania&quot; },
+    { &quot;code&quot;: &quot;ua&quot;, &quot;id&quot;: &quot;ua&quot;, &quot;title&quot;: &quot;Ukraine&quot;, &quot;name&quot;: &quot;Ukraine&quot; },
+    { &quot;code&quot;: &quot;ug&quot;, &quot;id&quot;: &quot;ug&quot;, &quot;title&quot;: &quot;Uganda&quot;, &quot;name&quot;: &quot;Uganda&quot; },
+    { &quot;code&quot;: &quot;uk&quot;, &quot;id&quot;: &quot;uk&quot;, &quot;title&quot;: &quot;United Kingdom&quot;, &quot;name&quot;: &quot;United Kingdom&quot; },
+    { &quot;code&quot;: &quot;um&quot;, &quot;id&quot;: &quot;um&quot;, &quot;title&quot;: &quot;United States Minor Outlying Islands&quot;, &quot;name&quot;: &quot;United States Minor Outlying Islands&quot; },
+    { &quot;code&quot;: &quot;us&quot;, &quot;id&quot;: &quot;us&quot;, &quot;title&quot;: &quot;United States&quot;, &quot;name&quot;: &quot;United States&quot; },
+    { &quot;code&quot;: &quot;uy&quot;, &quot;id&quot;: &quot;uy&quot;, &quot;title&quot;: &quot;Uruguay&quot;, &quot;name&quot;: &quot;Uruguay&quot; },
+    { &quot;code&quot;: &quot;uz&quot;, &quot;id&quot;: &quot;uz&quot;, &quot;title&quot;: &quot;Uzbekistan&quot;, &quot;name&quot;: &quot;Uzbekistan&quot; },
+    { &quot;code&quot;: &quot;va&quot;, &quot;id&quot;: &quot;va&quot;, &quot;title&quot;: &quot;Vatican City State (Holy See)&quot;, &quot;name&quot;: &quot;Vatican City State (Holy See)&quot; },
+    { &quot;code&quot;: &quot;vc&quot;, &quot;id&quot;: &quot;vc&quot;, &quot;title&quot;: &quot;Saint Vincent and the Grenadines&quot;, &quot;name&quot;: &quot;Saint Vincent and the Grenadines&quot; },
+    { &quot;code&quot;: &quot;ve&quot;, &quot;id&quot;: &quot;ve&quot;, &quot;title&quot;: &quot;Venezuela&quot;, &quot;name&quot;: &quot;Venezuela&quot; },
+    { &quot;code&quot;: &quot;vg&quot;, &quot;id&quot;: &quot;vg&quot;, &quot;title&quot;: &quot;Virgin Islands (British)&quot;, &quot;name&quot;: &quot;Virgin Islands (British)&quot; },
+    { &quot;code&quot;: &quot;vi&quot;, &quot;id&quot;: &quot;vi&quot;, &quot;title&quot;: &quot;Virgin Islands (U.S.)&quot;, &quot;name&quot;: &quot;Virgin Islands (U.S.)&quot; },
+    { &quot;code&quot;: &quot;vn&quot;, &quot;id&quot;: &quot;vn&quot;, &quot;title&quot;: &quot;Viet Nam&quot;, &quot;name&quot;: &quot;Viet Nam&quot; },
+    { &quot;code&quot;: &quot;vu&quot;, &quot;id&quot;: &quot;vu&quot;, &quot;title&quot;: &quot;Vanuatu&quot;, &quot;name&quot;: &quot;Vanuatu&quot; },
+    { &quot;code&quot;: &quot;wf&quot;, &quot;id&quot;: &quot;wf&quot;, &quot;title&quot;: &quot;Wallis and Futuna&quot;, &quot;name&quot;: &quot;Wallis and Futuna&quot; },
+    { &quot;code&quot;: &quot;ws&quot;, &quot;id&quot;: &quot;ws&quot;, &quot;title&quot;: &quot;Samoa&quot;, &quot;name&quot;: &quot;Samoa&quot; },
+    { &quot;code&quot;: &quot;ye&quot;, &quot;id&quot;: &quot;ye&quot;, &quot;title&quot;: &quot;Yemen&quot;, &quot;name&quot;: &quot;Yemen&quot; },
+    { &quot;code&quot;: &quot;yt&quot;, &quot;id&quot;: &quot;yt&quot;, &quot;title&quot;: &quot;Mayotte&quot;, &quot;name&quot;: &quot;Mayotte&quot; },
+    { &quot;code&quot;: &quot;yu&quot;, &quot;id&quot;: &quot;yu&quot;, &quot;title&quot;: &quot;Yugoslavia (former)&quot;, &quot;name&quot;: &quot;Yugoslavia (former)&quot; },
+    { &quot;code&quot;: &quot;za&quot;, &quot;id&quot;: &quot;za&quot;, &quot;title&quot;: &quot;South Africa&quot;, &quot;name&quot;: &quot;South Africa&quot; },
+    { &quot;code&quot;: &quot;zm&quot;, &quot;id&quot;: &quot;zm&quot;, &quot;title&quot;: &quot;Zambia&quot;, &quot;name&quot;: &quot;Zambia&quot; },
+    { &quot;code&quot;: &quot;zr&quot;, &quot;id&quot;: &quot;zr&quot;, &quot;title&quot;: &quot;Zaire (former)&quot;, &quot;name&quot;: &quot;Zaire (former)&quot; },
+    { &quot;code&quot;: &quot;zw&quot;, &quot;id&quot;: &quot;zw&quot;, &quot;title&quot;: &quot;Zimbabwe&quot;, &quot;name&quot;: &quot;Zimbabwe&quot; }
+]</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/environments/environment.prod.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="environment"></a>
+                        <span class="name">
+                            <b>
+                            environment</b>
+                            <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  production: true
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/environments/environment.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="environment"></a>
+                        <span class="name">
+                            <b>
+                            environment</b>
+                            <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  production: false
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/app/core/http-interceptors/index.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="httpInterceptorProviders"></a>
+                        <span class="name">
+                            <b>
+                            httpInterceptorProviders</b>
+                            <a href="#httpInterceptorProviders"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: UrlInterceptor,
+        multi: true
+    },
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+    }    
+]</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/app/shared/sw-map/map-config.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="MAP_API_CONFIG"></a>
+                        <span class="name">
+                            <b>
+                            MAP_API_CONFIG</b>
+                            <a href="#MAP_API_CONFIG"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new InjectionToken(&#x27;MAP_API_CONFIG&#x27;)</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

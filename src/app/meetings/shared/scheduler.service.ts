@@ -10,6 +10,7 @@ export class SchedulerService {
   private eventSavedSource: Subject<EventViewModel> = new Subject<EventViewModel>();
   private eventSavingErrorSource: Subject<any> = new Subject<any>();
   private saveEventSource: Subject<any> = new Subject<any>();
+  private eventAtMainAddressSource = new Subject<boolean>();
 
   addNewEvent$ = this.addNewEventSource.asObservable();
   deleteEvent$ = this.deleteEventSource.asObservable();
@@ -17,6 +18,7 @@ export class SchedulerService {
   eventSaved$ = this.eventSavedSource.asObservable();
   eventSavingError$ = this.eventSavingErrorSource.asObservable();
   saveEvent$ = this.saveEventSource.asObservable();
+  eventAtMainAddress$ = this.eventAtMainAddressSource.asObservable();
 
   addNewEvent(event: EventViewModel) {
     this.addNewEventSource.next(event);
@@ -40,5 +42,9 @@ export class SchedulerService {
 
   saveEvent() {
     this.saveEventSource.next(null);
+  }
+
+  eventAtMainAddress(value: boolean) {
+    this.eventAtMainAddressSource.next(value);
   }
 }

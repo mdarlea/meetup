@@ -16,6 +16,9 @@ interface EventArgs {
   view?: string;
 }
 
+/**
+ * @ignore
+ */
 @Component({
   selector: 'jqx-scheduler',
   templateUrl: './jqx-scheduler.component.html',
@@ -32,13 +35,12 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   private deleteEventSubscription: Subscription;
   private renderSubscription: Subscription;
   private deleteCalendarSubscription: Subscription;
-
   private firstClick = true;
 
   @Input() draggable = false;
   @Input() editMode = false;
   @Input() resourceOrientation: string;
-  @Input() ensureEventVisibleId: any;
+  @Input() ensureEventVisible: any;
 
   @Output() viewChanged = new EventEmitter<EventArgs>();
   @Output() dateChanged = new EventEmitter<EventArgs>();
@@ -129,8 +131,8 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
       this.render();
     }
 
-    if (changes && 'ensureEventVisibleId' in changes) {
-      const id = changes.ensureEventVisibleId.currentValue;
+    if (changes && 'ensureEventVisible' in changes) {
+      const id = changes.ensureEventVisible.currentValue;
       if (id) {
         this.ensureAppointmentVisible(id);
       }

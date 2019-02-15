@@ -41,6 +41,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   private addNewEventSubscription: Subscription;
   private eventSavedSubscription: Subscription;
   private eventSavingErrorSubscription: Subscription;
+  private eventAtMainAddressSubscription: Subscription;
 
   getNewEvent = (eventInfo: EventInfo) => {
       return this.getNewEventObject(eventInfo);
@@ -75,6 +76,10 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.loading = false;
         this.ensureFirstEventVisible();
         this.loaderSvc.load(false);
+    }, error => {
+      this.modelState = error;
+      this.loading = false;
+      this.loaderSvc.load(false);
     });
     this.addNewEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
       let found = false;
@@ -103,6 +108,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventSavingErrorSubscription = this.schedulerSvc.eventSavingError$.subscribe(error => {
       this.eventModelState = error;
       this.processingEvent = false;
+    });
+    this.eventAtMainAddressSubscription = this.schedulerSvc.eventAtMainAddress$.subscribe(value => {
+      this.eventModelState = null;
     });
 
     // query the events
@@ -162,6 +170,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modelState = null;
     this.eventModelState = null;
     this.editMode = false;
+    // this.editMode = true;
   }
    onAddEvent(selectedEvent: EventViewModel) {
      this.modelState = null;

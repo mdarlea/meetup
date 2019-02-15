@@ -1,0 +1,455 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>DateFormat</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/shared/form-fields/time-picker/time-picker.component.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#military">military</a>
+                            </li>
+                            <li>
+                                <a href="#momentFormat">momentFormat</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="military"></a>
+                        <span class="name">
+                            <b>
+                            military</b>
+                            <a href="#military"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/shared/form-fields/time-picker/time-picker.component.ts:5</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="momentFormat"></a>
+                        <span class="name">
+                            <b>
+                            momentFormat</b>
+                            <a href="#momentFormat"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/shared/form-fields/time-picker/time-picker.component.ts:6</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input, Output, forwardRef,EventEmitter } from &#x27;@angular/core&#x27;;
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from &#x27;@angular/forms&#x27;;
+
+export class DateFormat {
+    military: boolean;
+    momentFormat:string;
+}
+@Component({
+  selector: &#x27;time-picker&#x27;,
+  templateUrl: &#x27;./time-picker.component.html&#x27;,
+  styleUrls: [&#x27;./time-picker.component.css&#x27;],
+  providers: [{
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() &#x3D;&gt; TimePickerComponent),
+      multi: true
+  }]
+})
+export class TimePickerComponent implements OnInit, ControlValueAccessor {
+   @Input() format: DateFormat;
+   @Input() name: string;
+
+   private _config: any;
+    @Input()
+   get config() {
+        if (!this._config) {
+            this._config &#x3D; {
+                modal: false,
+                inline: false,
+                color: &#x27;rgba(255,255,255,0.75)&#x27;,
+                backgroundColor: &#x27;rgba(0,0,0,0.75)&#x27;
+            };
+            return this._config;
+        }
+        return this._config;
+   }
+    set config(value: any) {
+        this._config &#x3D; value;
+    }
+
+    @Output()
+    change &#x3D; new EventEmitter&lt;Date&gt;()
+
+
+   months: Array&lt;string&gt;;
+   dayNames: Array&lt;string&gt;;
+   state &#x3D; false;
+   tab &#x3D; &#x27;time&#x27;;
+   display: string;
+   minute: moment.Moment; //type is Moment
+   hour:number; //Moment
+   meridian: string;
+   datePreview: string;
+   timePreview: string;
+   displayMonth: string;
+   displayYear: string;
+   day: any;
+   daysInfo:any;
+   days: Array&lt;number&gt;;
+   minutesList: Array&lt;number&gt;;
+    hoursList:Array&lt;number&gt;;
+   private _model: Date;
+   private _onTouched: Function;
+   private _onChange: Function;
+
+   get model(): any {
+       return this._model;
+   };
+
+   //set accessor including call the onchange callback
+   set model(value: any) {
+       if (value !&#x3D;&#x3D; this._model) {
+           this._model &#x3D; value;
+           if (!this._onChange) {
+               this._onModelChange(value);
+           } else {
+               this._onChange(value);
+           }
+       }
+   }
+
+  constructor() { }
+
+    togleTimePicker($event:Event) {
+        $event.preventDefault();
+        this.state &#x3D; !this.state
+    }
+  ngOnInit() {
+      this.minutesList &#x3D; [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 0];
+      this.hoursList &#x3D; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+      this.months &#x3D; [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
+      this.dayNames &#x3D; [&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;];
+
+      this.days &#x3D; new Array&lt;number&gt;();
+      for (var i &#x3D; 1; i &lt;&#x3D; 31; i++) {
+          this.days.push(i);
+      }
+  }
+
+  setTab(tab:string) {
+      this.tab &#x3D; tab;
+  }
+
+  get displayFormat(): string {
+      return this.format &amp;&amp; this.format.momentFormat ? this.format.momentFormat : this.format &amp;&amp; this.format.military ? &#x27;YYYY-MM-DD HH:mm&#x27; : &#x27;YYYY-MM-DD hh:mm A&#x27;;
+  }
+
+ private _onModelChange(value:Date) {
+     var m:any;
+     if (value)
+         m &#x3D; moment(value);
+     else
+         m &#x3D; moment();
+     m &#x3D; m.minute(5 * Math.ceil(m.minute() / 5));
+
+     this.display &#x3D; m.format(this.displayFormat);
+     this.daysInfo &#x3D; this.getDaysInMonth(m.year(), m.month())
+     this.days &#x3D; this.daysInfo.days;
+     this.minute &#x3D; m.minute();
+     this.meridian &#x3D; m.format(&#x27;A&#x27;);
+     this.hour &#x3D; this.meridian &#x3D;&#x3D;&#x3D; &#x27;PM&#x27; ? m.hour() - 12 : m.hour();
+     if (this.hour &#x3D;&#x3D;&#x3D; 0) this.hour &#x3D; 12;
+     this.datePreview &#x3D; m.format(&#x27;YYYY-MM-DD&#x27;);
+     this.timePreview &#x3D; m.format(&#x27;hh:mm A&#x27;);
+     this.displayMonth &#x3D; this.months[m.month()];
+     this.displayYear &#x3D; m.format(&#x27;YYYY&#x27;);
+     this.day &#x3D; m.date();
+
+     this.change.emit(value);
+ }
+
+  setDay(date:number) {
+      this.model &#x3D; moment(this.model).date(date).toDate();
+  }
+
+  setState(state:boolean) {
+      this.state &#x3D; state;
+  }
+
+  setHour(hour:number) {
+      if (this.meridian &#x3D;&#x3D; &#x27;PM&#x27; &amp;&amp; hour &lt; 12)
+          hour &#x3D; hour + 12;
+      if (this.meridian &#x3D;&#x3D; &#x27;AM&#x27; &amp;&amp; hour &#x3D;&#x3D; 12)
+          hour &#x3D; hour - 12;
+      this.model &#x3D; moment(this.model).hour(hour).toDate();
+  }
+
+  setMeridian(meridian:string) {
+      var m &#x3D; moment(this.model);
+
+      if (meridian &#x3D;&#x3D; &#x27;AM&#x27;) {
+          if (m.hours() &gt;&#x3D; 12) {
+              m &#x3D; m.add(-12, &#x27;hours&#x27;);
+              this.model &#x3D; m.toDate();
+          }
+      } else {
+          if (m.hours() &lt; 12) {
+              m &#x3D; m.add(12, &#x27;hours&#x27;);
+              this.model &#x3D; m.toDate();
+          }
+      }
+  }
+
+  setMinutes(minutes:number) {
+      this.model &#x3D; moment(this.model).minute(minutes).toDate();
+  }
+
+
+getDaysInMonth(year:number, month:number) {
+    var firstDayOfWeek &#x3D; 0;
+    var firstDayOfMonth &#x3D; new Date(year, month, 1),
+        lastDayOfMonth &#x3D; new Date(year, month + 1, 0),
+        lastDayOfPreviousMonth &#x3D; new Date(year, month, 0),
+        daysInMonth &#x3D; lastDayOfMonth.getDate(),
+        daysInLastMonth &#x3D; lastDayOfPreviousMonth.getDate(),
+        dayOfWeek &#x3D; firstDayOfMonth.getDay(),
+        leadingDays &#x3D; (dayOfWeek - firstDayOfWeek + 7) % 7 || 7,
+        trailingDays &#x3D; this.days.slice(0, 6 * 7 - (leadingDays + daysInMonth));
+    if (trailingDays.length &gt; 7) {
+        trailingDays &#x3D; trailingDays.slice(0, trailingDays.length - 7);
+    }
+
+    return {
+        year: year,
+        month: month,
+        days: this.days.slice(0, daysInMonth),
+        leadingDays: this.days.slice(- leadingDays - (31 - daysInLastMonth), daysInLastMonth),
+        trailingDays: trailingDays
+    };
+}
+
+addMonth (increment:any) {
+    this.model &#x3D; moment(this.model).add(increment, &#x27;months&#x27;).toDate();
+}
+
+addYear(increment:any) {
+    this.model &#x3D; moment(this.model).add(increment, &#x27;years&#x27;).toDate();
+}
+
+
+//From ControlValueAccessor interface
+//Set touched on blur
+onBlur() {
+    this._onTouched();
+}
+
+//From ControlValueAccessor interface
+    writeValue(value: any) {
+        this.model &#x3D; value;
+    }
+
+//From ControlValueAccessor interface
+registerOnChange(fn: any) {
+    this._onChange &#x3D; (value: any) &#x3D;&gt; {
+        fn(value);
+        this._onModelChange(value);
+    }
+}
+
+//From ControlValueAccessor interface
+registerOnTouched(fn: any) {
+    this._onTouched &#x3D; fn;
+}
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'DateFormat.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -48,58 +48,63 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
     }
 
     queryWeeklyEventsForCurrentUser() {
-      this.findWeeklyEventsForCurrentUser().subscribe(events => this.query(events));
+      this.findWeeklyEventsForCurrentUser().subscribe(events => this.query(events), error => super.error(error));
     }
     queryEventsInTimeRangeForUser(timeRange: TimeRangeDto) {
-      this.findEventsInTimeRangeForUser(timeRange).subscribe(events => this.query(events));
+      this.findEventsInTimeRangeForUser(timeRange).subscribe(events => this.query(events), error => super.error(error));
     }
     queryWeeklyEvents() {
-      this.findWeeklyEvents().subscribe(events => this.query(events));
+      this.findWeeklyEvents().subscribe(events => this.query(events), error => super.error(error));
     }
     queryEventsInTimeRange(timeRange: TimeRangeDto) {
-      this.findEventsInTimeRange(timeRange).subscribe(events => this.query(events));
+      this.findEventsInTimeRange(timeRange).subscribe(events => this.query(events), error => super.error(error));
     }
 
     private findEventsInArea(location: LocationDto): Observable<Array<EventDto>> {
         const url = `${this._route}FindEventsInArea`;
-        return this.http.post<EventDto[]>(url, location).pipe(catchError(this.handleError('findEventsInArea', new Array<EventDto>())));
+        return this.http.post<EventDto[]>(url, location)
+                        .pipe(catchError(this.handleError('findEventsInArea', new Array<EventDto>(), true)));
     }
 
     private findDailyEventsForCurrentUser(): Observable<Array<EventDto>> {
         const url = `${this._route}FindDailyEventsForCurrentUser`;
-        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findDailyEventsForCurrentUser', new Array<EventDto>())));
+        return this.http.get<EventDto[]>(url)
+                        .pipe(catchError(this.handleError('findDailyEventsForCurrentUser', new Array<EventDto>(), true)));
     }
 
     private findWeeklyEventsForCurrentUser(): Observable<Array<EventDto>> {
         const url = `${this._route}FindWeeklyEventsForCurrentUser`;
-        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findWeeklyEventsForCurrentUser', new Array<EventDto>())));
+        return this.http.get<EventDto[]>(url)
+                        .pipe(catchError(this.handleError('findWeeklyEventsForCurrentUser', new Array<EventDto>(), true)));
     }
 
     private findMonthlyEventsForCurrentUser(): Observable<Array<EventDto>> {
         const url = `${this._route}FindMonthlyEventsForCurrentUser`;
-        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findMonthlyEventsForCurrentUser', new Array<EventDto>())));
+        return this.http.get<EventDto[]>(url)
+                        .pipe(catchError(this.handleError('findMonthlyEventsForCurrentUser', new Array<EventDto>(), true)));
     }
 
     private findDailyEvents(): Observable<Array<EventDto>> {
         const url = `${this._route}FindDailyEvents`;
-        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findDailyEvents', new Array<EventDto>())));
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findDailyEvents', new Array<EventDto>(), true)));
     }
 
     private findWeeklyEvents(): Observable<Array<EventDto>> {
         const url = `${this._route}FindWeeklyEvents`;
-        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findWeeklyEvents', new Array<EventDto>())));
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findWeeklyEvents', new Array<EventDto>(), true)));
     }
 
     private findMonthlyEvents(): Observable<Array<EventDto>> {
         const url = `${this._route}FindMonthlyEvents`;
-        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findMonthlyEvents', new Array<EventDto>())));
+        return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findMonthlyEvents', new Array<EventDto>(), true)));
     }
     private findEventsInTimeRange(timeRange:TimeRangeDto): Observable<Array<EventDto>> {
         const url = `${this._route}FindEventsInTimeRange`;
-        return this.http.post<EventDto[]>(url,timeRange).pipe(catchError(this.handleError('', new Array<EventDto>())));
+        return this.http.post<EventDto[]>(url,timeRange).pipe(catchError(this.handleError('', new Array<EventDto>(), true)));
     }
     private findEventsInTimeRangeForUser(timeRange: TimeRangeDto): Observable<Array<EventDto>> {
         const url = `${this._route}FindEventsInTimeRangeForUser`;
-        return this.http.post<EventDto[]>(url, timeRange).pipe(catchError(this.handleError('findEventsInTimeRangeForUser', new Array<EventDto>())));
+        return this.http.post<EventDto[]>(url, timeRange)
+                        .pipe(catchError(this.handleError('findEventsInTimeRangeForUser', new Array<EventDto>(),  true)));
     }
 }

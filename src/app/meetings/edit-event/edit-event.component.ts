@@ -27,6 +27,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     private loaderSubscription: Subscription;
     private saveEventSubscription: Subscription;
 
+    loadingEvent = false;
     showCountry = true;
     isAtMainAddress = false;
     buttonText: string;
@@ -80,6 +81,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
             this.buttonText = this.buttonTextAtMainAddress;
         }
+        this.schedulerSvc.eventAtMainAddress(this.isAtMainAddress);
     }
 
     save() {
@@ -116,16 +118,18 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
             const value = <EventViewModel> changes.event.currentValue;
             if (value) {
               if (value.id <= 0) {
-                Object.assign(this.eventCopy, _.cloneDeep(value));
+                // Object.assign(this.eventCopy, _.cloneDeep(value));
+                this.eventCopy = _.cloneDeep(value);
               } else if (!value.address.latitude) {
                 this.eventCopy = EventViewModel.newEvent();
-                this.disabled = true;
+                this.loadingEvent = true;
                 this.eventSvc.findEvent(value.id).subscribe(result => {
                   this.eventCopy = EventViewModel.fromEventDto(result);
-                  this.disabled = false;
+                  this.loadingEvent = false;
                 });
               } else {
-                Object.assign(this.eventCopy, _.cloneDeep(value));
+                // Object.assign(this.eventCopy, _.cloneDeep(value));
+                this.eventCopy = _.cloneDeep(value);
               }
             } else {
               this.eventCopy = EventViewModel.newEvent();
