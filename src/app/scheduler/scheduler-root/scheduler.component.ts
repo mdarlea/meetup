@@ -166,7 +166,7 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   }
 
   onUpdateEvent(eventInfo: EventInfo) {
-    this.setSelectedEvent(eventInfo);
+    this.selectedEvent = null;
     this.updateEvent.emit(eventInfo);
   }
 
