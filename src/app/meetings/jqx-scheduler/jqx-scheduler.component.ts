@@ -72,7 +72,6 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
             this.calendars.push(group);
           }
         }
-
         this.loading = false;
         this.ensureFirstEventVisible();
         this.loaderSvc.load(false);

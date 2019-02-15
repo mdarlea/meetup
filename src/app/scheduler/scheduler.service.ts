@@ -7,7 +7,7 @@ export class SchedulerService {
     private addOrRemoveEventTemplateSource = new Subject<any>();
     private renderJqxSchedulerSource = new Subject<any>();
     private addJqxEventsSource = new Subject<JqxCalendar>();
-    private updateJqxEventsSource = new Subject<Array<Jqx.Appointment>>();
+    private updateJqxEventsSource = new Subject<JqxCalendar>();
     private deleteJqxEventsSource = new Subject<Array<any>>();
     private deleteJqxCalendarSource = new Subject<string>();
     private addCalendarSource = new Subject<JqxCalendar>();
@@ -32,7 +32,7 @@ export class SchedulerService {
       this.addJqxEventsSource.next(events);
     }
 
-    updateJqxEvents(events: Array<Jqx.Appointment>) {
+    updateJqxEvents(events: JqxCalendar) {
       this.updateJqxEventsSource.next(events);
     }
 

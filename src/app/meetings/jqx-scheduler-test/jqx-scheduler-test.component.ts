@@ -28,6 +28,8 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
   processingEvent = false;
   view = 'weekView';
   date = new Date();
+  calendar: string;
+  calendarName = "Room 2";
 
   roomOne = new Array<{id: number, subject: string, start: Date, end: Date}>();
   roomTwo = new Array<{id: number, subject: string, start: Date, end: Date}>();
@@ -130,5 +132,13 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
     start.setHours(13, 0, 0, 0);
     end.setHours(14, 0, 0, 0);
     this.roomTwo.push({id: 3, subject: '3rd subject', start: start, end: end});
+  }
+
+  updateCalendar() {
+    if (!this.calendar) {
+      return;
+    }
+
+    this.calendarName = this.calendar;
   }
 }

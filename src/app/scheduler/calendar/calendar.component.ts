@@ -33,7 +33,7 @@ export class CalendarComponent implements OnChanges, OnInit, AfterContentInit, A
         for (const jqxAppointment of this.jqxAppointments) {
           jqxAppointment.calendar = calendar;
         }
-        this.schedulerSvc.updateJqxEvents(this.jqxAppointments);
+        this.schedulerSvc.updateJqxEvents({calendar: calendar, appointments: this.jqxAppointments});
       }
     }
 
@@ -48,7 +48,7 @@ export class CalendarComponent implements OnChanges, OnInit, AfterContentInit, A
       });
       this.updateEventSubscription = this.calendarSvc.updateEvent$.subscribe(jqxAppointment => {
         jqxAppointment.calendar = this.name;
-        this.schedulerSvc.updateJqxEvents([jqxAppointment]);
+        this.schedulerSvc.updateJqxEvents({calendar: this.name, appointments: [jqxAppointment]});
       });
       this.deleteEventSubscription = this.calendarSvc.deleteEvent$.subscribe(id => {
         for (let i = 0; i < this.jqxAppointments.length; i++) {

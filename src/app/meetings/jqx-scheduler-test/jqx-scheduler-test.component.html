@@ -1,3 +1,7 @@
+<button (click)="updateCalendar()">Update Calendar</button>
+<div>
+  <input name="calendar" [(ngModel)]="calendar" />
+</div>
 <spinner *ngIf="loading"></spinner>
 <validation-errors [model-state]="modelState"></validation-errors>
 <sw-scheduler [editMode]="editMode"
@@ -12,7 +16,7 @@
               (dateChanged)="onDateChanged($event)">
   <sw-calendar name="Room 1" [events]="roomOne">
   </sw-calendar>
-  <sw-calendar name="Room 2" [events]="roomTwo">
+  <sw-calendar [name]="calendarName" [events]="roomTwo">
   </sw-calendar>
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>

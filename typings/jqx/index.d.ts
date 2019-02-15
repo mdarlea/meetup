@@ -15,6 +15,7 @@ interface JqxExtensions {
 declare module Jqx {
   interface DataAdapter {
     new(source: Jqx.Source, settings?:DataAdapterSettings): any;
+    dataBind();
   }
   interface DataAdapterSettings {
     async?: boolean,

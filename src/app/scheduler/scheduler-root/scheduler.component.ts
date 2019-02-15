@@ -272,4 +272,8 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   onDateChanged(args: any) {
     this.dateChanged.emit(args);
   }
+
+  deleteCalendar() {
+    // this.jqxScheduler.deleteCalendar('Michelle Darlea');
+  }
 }
