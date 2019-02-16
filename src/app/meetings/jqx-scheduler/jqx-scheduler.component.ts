@@ -121,7 +121,6 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     $('body').css('overflow', 'hidden');
-
     this.initialized = true;
   }
 
@@ -244,7 +243,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventsQuerySvc.reset();
 
     this.loading = true;
-    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from, toDate));
+    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from.toLocaleString(), toDate.toLocaleString()));
   }
 
   ensureFirstEventVisible() {

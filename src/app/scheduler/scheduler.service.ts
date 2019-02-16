@@ -11,6 +11,7 @@ export class SchedulerService {
     private deleteJqxEventsSource = new Subject<Array<any>>();
     private deleteJqxCalendarSource = new Subject<string>();
     private addCalendarSource = new Subject<JqxCalendar>();
+    private sendMessageSource = new Subject<string>();
 
     addOrRemoveEventTemplate$ = this.addOrRemoveEventTemplateSource.asObservable();
     renderJqxScheduler$ = this.renderJqxSchedulerSource.asObservable();
@@ -19,6 +20,7 @@ export class SchedulerService {
     deleteJqxEvents$ = this.deleteJqxEventsSource.asObservable();
     deleteJqxCalendar$ = this.deleteJqxCalendarSource.asObservable();
     addCalendar$ = this.addCalendarSource.asObservable();
+    sendMessage$ = this.sendMessageSource.asObservable();
 
     addOrRemoveEventTemplate() {
       this.addOrRemoveEventTemplateSource.next(null);
@@ -46,5 +48,9 @@ export class SchedulerService {
 
     addCalendar(calendar: JqxCalendar) {
       this.addCalendarSource.next(calendar);
+    }
+
+    sendMessage(value: string) {
+      this.sendMessageSource.next(value);
     }
 }

@@ -157,6 +157,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
 
     if (changes && 'ensureEventVisible' in changes) {
       const id = changes.ensureEventVisible.currentValue;
+      this.schedulerSvc.sendMessage(`completed ngOnChanges. Param id = : ${id}`);
       if (id) {
         this.ensureAppointmentVisible(id);
       }

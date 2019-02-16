@@ -5,8 +5,6 @@ import { MeetingsRoutingModule } from './meetings-routing.module';
 import { EventService} from './shared/event.service';
 import { EventsQueryService} from './shared/events-query.service';
 import { SchedulerComponent } from './scheduler/scheduler.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { CalendarEditComponent } from './calendar-edit/calendar-edit.component';
 import { SharedModule} from '../shared/shared.module';
 import { EditEventComponent } from './edit-event/edit-event.component';
 import { PreviewEventComponent } from './preview-event/preview-event.component';
@@ -27,8 +25,6 @@ import { TestTimeComponent } from './test-time/test-time.component';
   ],
   declarations: [
     SchedulerComponent,
-    CalendarEditComponent,
-    CalendarComponent,
     EditEventComponent,
     PreviewEventComponent,
     MeetingsComponent,

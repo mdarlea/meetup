@@ -82,6 +82,7 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
    * @ignore
    */
   private subscription: Subscription;
+  private messageSubscription: Subscription;
 
   /**
    * @ignore
@@ -90,6 +91,7 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   private jqxCalendars = new Array<JqxCalendar>();
 
   selectedEvent: any;
+  messages = new Array<string>();
 
   @Input() draggable = false;
 
@@ -173,6 +175,9 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
         }
       }
     });
+    // this.messageSubscription = this.schedulerSvc.sendMessage$.subscribe(message => {
+    //    this.messages.push(message);
+    //  });
    }
 
   ngOnInit() {
@@ -207,6 +212,10 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.addCalendarSubscription.unsubscribe();
+
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
   }
 
   onSelectEvent(eventInfo: EventInfo) {
@@ -237,6 +246,10 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
   onUpdateEvent(eventInfo: EventInfo) {
     this.selectedEvent = null;
     this.updateEvent.emit(eventInfo);
+  }
+
+  clearMessages() {
+    this.messages = [];
   }
 
   private hideModal() {
