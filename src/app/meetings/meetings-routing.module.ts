@@ -5,6 +5,7 @@ import { JqxSchedulerComponent} from './jqx-scheduler/jqx-scheduler.component';
 import {CalendarEditComponent} from './calendar-edit/calendar-edit.component';
 import {MeetingsComponent} from './meetings/meetings.component';
 import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-test.component';
+// import { TestTimeComponent} from './test-time/test-time.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path: 'calendar/schedule', component: CalendarEditComponent},
       {path: 'm/calendar', component: JqxSchedulerComponent},
       {path: 'm/calendar-test', component: JqxSchedulerTestComponent}
+      // {path: 'm/test-time', component: TestTimeComponent}
     ]
   }
 ];

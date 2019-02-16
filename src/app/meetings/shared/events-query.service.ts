@@ -89,7 +89,7 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
         return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findDailyEvents', new Array<EventDto>(), true)));
     }
 
-    private findWeeklyEvents(): Observable<Array<EventDto>> {
+    public findWeeklyEvents(): Observable<Array<EventDto>> {
         const url = `${this._route}FindWeeklyEvents`;
         return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findWeeklyEvents', new Array<EventDto>(), true)));
     }

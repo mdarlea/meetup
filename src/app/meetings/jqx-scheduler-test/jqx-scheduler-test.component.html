@@ -1,4 +1,5 @@
 <button (click)="updateCalendar()">Update Calendar</button>
+<button (click)="deleteCalendar()">Delete Calendar</button>
 <div>
   <input name="calendar" [(ngModel)]="calendar" />
 </div>
@@ -17,6 +18,8 @@
   <sw-calendar name="Room 1" [events]="roomOne">
   </sw-calendar>
   <sw-calendar [name]="calendarName" [events]="roomTwo">
+  </sw-calendar>
+  <sw-calendar [name]="calendar" *ngFor="let calendar of calendars">
   </sw-calendar>
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>

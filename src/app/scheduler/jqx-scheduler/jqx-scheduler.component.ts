@@ -444,7 +444,9 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
 
       // calendar for this user was not added; refresh resources
       this.adapter.dataBind();
-      $(this.calendarContainer.nativeElement).jqxScheduler('addAppointment');
+      if (jqxAppointments.appointments.length > 0) {
+        $(this.calendarContainer.nativeElement).jqxScheduler('addAppointment');
+      }
       $(this.calendarContainer.nativeElement).jqxScheduler('render');
     }
   }
@@ -458,6 +460,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
 
     const filter = this.jqxAppointments.filter(appointment => appointment.calendar === name);
     if (filter.length === 0) {
+      $(this.calendarContainer.nativeElement).jqxScheduler('render');
       return;
     }
 

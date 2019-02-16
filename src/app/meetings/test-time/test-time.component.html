@@ -1,0 +1,15 @@
+
+<table class="table">
+  <tr *ngFor="let event of events | async">
+    <td>{{event.id}}</td>
+    <td>{{event.name}}</td>
+    <td>{{event.startTime}}</td>
+    <td>{{event.endTime}}</td>
+    <td>{{getTime(event.startTime)}}</td>
+    <td>{{getTime(event.endTime)}}</td>
+    <td>{{getMoment(event.startTime)}}</td>
+    <td>{{getMoment(event.endTime)}}</td>
+  </tr>
+</table>
+
+

@@ -16,6 +16,7 @@ import {SchedulerService} from './shared/scheduler.service';
 import { JqxSchedulerComponent } from './jqx-scheduler/jqx-scheduler.component';
 import { SchedulerModule} from '../scheduler/scheduler.module';
 import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-test.component';
+import { TestTimeComponent } from './test-time/test-time.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-tes
     MeetingsComponent,
     NavbarComponent,
     JqxSchedulerComponent,
-    JqxSchedulerTestComponent],
+    JqxSchedulerTestComponent,
+    TestTimeComponent],
   providers: [
     EventService,
     EventsQueryService,

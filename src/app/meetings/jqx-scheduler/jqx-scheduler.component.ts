@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Subscription} from 'rxjs';
 
 import { EventsQueryService} from '../shared/events-query.service';
@@ -50,7 +50,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
               private eventSvc: EventService,
               private userSvc: UserService,
               private schedulerSvc: SchedulerService,
-              private loaderSvc: LoaderService) {
+              private loaderSvc: LoaderService,
+              private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -107,6 +108,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.eventSavingErrorSubscription = this.schedulerSvc.eventSavingError$.subscribe(error => {
       this.eventModelState = error;
       this.processingEvent = false;
+      this.ref.detectChanges();
     });
     this.eventAtMainAddressSubscription = this.schedulerSvc.eventAtMainAddress$.subscribe(value => {
       this.eventModelState = null;
@@ -235,7 +237,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onViewChanged(args: any) {
     const toDate: Date = args.to;
-    toDate.setDate(toDate.getDate() - 1);
+    if (args.view !== 'monthView') {
+      toDate.setDate(toDate.getDate() - 1);
+    }
 
     this.eventsQuerySvc.reset();
 

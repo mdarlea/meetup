@@ -18,7 +18,7 @@ import { TimeRangeDto} from '../shared/time-range-dto';
   templateUrl: './jqx-scheduler-test.component.html'
 })
 export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestroy {
-  calendars = new Array<EventGroup>();
+  calendars = new Array<string>();
   modelState: any = null;
   eventModelState: any = null;
   editMode = false;
@@ -49,12 +49,11 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnInit() {
     this.prepareTestData();
+    this.calendars.push('Room 3');
   }
 
   ngAfterViewInit() {
     $('body').css('overflow', 'hidden');
-
-    this.roomTwo[0].subject = 'After view init';
     this.initialized = true;
   }
 
@@ -140,5 +139,9 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     this.calendarName = this.calendar;
+  }
+
+  deleteCalendar() {
+    this.calendars.splice(0, 1);
   }
 }
