@@ -9,7 +9,7 @@ import { UserService} from '../../core/services/user.service';
 import {SchedulerService} from '../shared/scheduler.service';
 import { EventService} from '../shared/event.service';
 import { LoaderService} from '../../core/services/loader.service';
-import { SchedulerComponent } from '../../scheduler/scheduler-root/scheduler.component';
+import { SchedulerComponent } from 'sw-scheduler';
 import { TimeRangeDto} from '../shared/time-range-dto';
 
 @Component({

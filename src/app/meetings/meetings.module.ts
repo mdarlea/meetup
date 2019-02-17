@@ -12,7 +12,7 @@ import { MeetingsComponent } from './meetings/meetings.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {SchedulerService} from './shared/scheduler.service';
 import { JqxSchedulerComponent } from './jqx-scheduler/jqx-scheduler.component';
-import { SchedulerModule} from '../scheduler/scheduler.module';
+import { SchedulerModule } from 'sw-scheduler';
 import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-test.component';
 import { TestTimeComponent } from './test-time/test-time.component';
 import { RecurringEventComponent } from './recurring-event/recurring-event.component';
