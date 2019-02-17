@@ -35,14 +35,15 @@ declare module Jqx {
     new(args: string): any;
   }
   export interface Appointment {
-        id?: any,
+        id: any,
         description?: string,
         location?: string,
         subject?: string,
         calendar?: string,
-        start?: Date,
-        end?: Date,
+        start: Date,
+        end: Date,
         recurrencePattern?: string,
+        recurrenceException?: string,
         instructor?: string,
         draggable?: boolean,
         color?: string
@@ -52,7 +53,7 @@ declare module Jqx {
     dataType: string,
     dataFields: Array<any>,
     id: string,
-    localData: Array<Appointment>
+    localData: Array<any>
   }
 }
 

@@ -240,10 +240,11 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       toDate.setDate(toDate.getDate() - 1);
     }
 
-    this.eventsQuerySvc.reset();
+    // ToDo: uncomment when done with recurring test
+    // this.eventsQuerySvc.reset();
 
-    this.loading = true;
-    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from.toLocaleString(), toDate.toLocaleString()));
+    // this.loading = true;
+    // this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from.toLocaleString(), toDate.toLocaleString()));
   }
 
   ensureFirstEventVisible() {
@@ -275,5 +276,10 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   eventTemplate() {
     this.enabled = !this.enabled;
+  }
+  changeView() {
+    // this.view = 'monthView';
+    this.date = new Date(2019, 3, 11);
+
   }
 }

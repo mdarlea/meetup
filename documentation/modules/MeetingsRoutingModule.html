@@ -72,11 +72,10 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
-import {CalendarComponent} from &#x27;./calendar/calendar.component&#x27;;
 import { JqxSchedulerComponent} from &#x27;./jqx-scheduler/jqx-scheduler.component&#x27;;
-import {CalendarEditComponent} from &#x27;./calendar-edit/calendar-edit.component&#x27;;
 import {MeetingsComponent} from &#x27;./meetings/meetings.component&#x27;;
 import { JqxSchedulerTestComponent} from &#x27;./jqx-scheduler-test/jqx-scheduler-test.component&#x27;;
+// import { TestTimeComponent} from &#x27;./test-time/test-time.component&#x27;;
 
 const routes: Routes &#x3D; [
   {
@@ -84,10 +83,9 @@ const routes: Routes &#x3D; [
     component: MeetingsComponent,
     children: [
       {path: &#x27;&#x27;, redirectTo: &#x27;m/calendar&#x27;, pathMatch: &#x27;full&#x27;},
-      {path: &#x27;calendar&#x27;, component: CalendarComponent},
-      {path: &#x27;calendar/schedule&#x27;, component: CalendarEditComponent},
       {path: &#x27;m/calendar&#x27;, component: JqxSchedulerComponent},
       {path: &#x27;m/calendar-test&#x27;, component: JqxSchedulerTestComponent}
+      // {path: &#x27;m/test-time&#x27;, component: TestTimeComponent}
     ]
   }
 ];

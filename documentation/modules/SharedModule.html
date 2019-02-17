@@ -367,6 +367,7 @@ import { AddressModule} from &#x27;./address/address.module&#x27;;
 import { FormFieldsModule} from &#x27;./form-fields/form-fields.module&#x27;;
 import { LoaderComponent } from &#x27;./loader/loader.component&#x27;;
 import { SpinnerComponent } from &#x27;./spinner/spinner.component&#x27;;
+import { ScrollToModule } from &#x27;ng2-scroll-to-el&#x27;;
 
 @NgModule({
   imports: [
@@ -376,7 +377,8 @@ import { SpinnerComponent } from &#x27;./spinner/spinner.component&#x27;;
     swMapModule,
     ImageSliderModule,
     AddressModule,
-    FormFieldsModule
+    FormFieldsModule,
+    ScrollToModule.forRoot()
   ],
   exports: [
     CommonModule,
@@ -387,7 +389,8 @@ import { SpinnerComponent } from &#x27;./spinner/spinner.component&#x27;;
     AddressModule,
     FormFieldsModule,
     LoaderComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ScrollToModule
   ],
   declarations: [
   LoaderComponent,

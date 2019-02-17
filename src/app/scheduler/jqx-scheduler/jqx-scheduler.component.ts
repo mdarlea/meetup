@@ -32,6 +32,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   private jqxCalendars = new Array<{calendar: string}>();
   private renderAppointments = false;
   private newJqxAppointment: Jqx.Appointment = null;
+  private changedView = false;
 
   private addEventSubscription: Subscription;
   private updateEventSubscription: Subscription;
@@ -44,6 +45,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   @Input() editMode = false;
   @Input() resourceOrientation: string;
   @Input() ensureEventVisible: any;
+  @Input() date: Date;
 
   @Output() viewChanged = new EventEmitter<EventArgs>();
   @Output() dateChanged = new EventEmitter<EventArgs>();
@@ -54,6 +56,7 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   set view (value: string) {
     if (value !== this.viewValue) {
       this.viewValue = value;
+      this.changedView = true;
       this.viewChange.emit(value);
     }
   }
@@ -63,18 +66,6 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
   }
 
   @Output() dateChange = new EventEmitter<Date>();
-
-  private dateValue: Date;
-  set date (value: Date) {
-    if (value !== this.dateValue) {
-      this.dateValue = value;
-      this.dateChange.emit(value);
-    }
-  }
-  @Input()
-  get date() {
-    return this.dateValue;
-  }
 
   private eventTemplateValue: TemplateRef<any>;
   set eventTemplate(value: TemplateRef<any>) {
@@ -155,9 +146,19 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
       this.render();
     }
 
+    if (changes && 'view' in changes && this.changedView) {
+      $(this.calendarContainer.nativeElement).jqxScheduler('view', changes.view.currentValue);
+    }
+
+    if (changes && 'date' in changes) {
+      const date = changes.date.currentValue;
+      const jqxDate = (date) ? new $.jqx.date(date.getFullYear(), date.getMonth() + 1, date.getDate())
+                             : new $.jqx.date('todayDate');
+      $(this.calendarContainer.nativeElement).jqxScheduler({date: jqxDate});
+    }
+
     if (changes && 'ensureEventVisible' in changes) {
       const id = changes.ensureEventVisible.currentValue;
-      this.schedulerSvc.sendMessage(`completed ngOnChanges. Param id = : ${id}`);
       if (id) {
         this.ensureAppointmentVisible(id);
       }
@@ -198,7 +199,9 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
             { name: 'subject', type: 'string' },
             { name: 'calendar', type: 'string' },
             { name: 'start', type: 'date' },
-            { name: 'end', type: 'date' }
+            { name: 'end', type: 'date' },
+            { name: 'recurrencePattern', type: 'string' },
+            { name: 'recurrenceException', type: 'string' }
         ],
         id: 'id',
         localData: this.jqxAppointments
@@ -247,7 +250,8 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
             subject: 'subject',
             resourceId: 'calendar',
             draggable: this.draggable,
-            recurrencePattern: 'recurrencePattern'
+            recurrencePattern: 'recurrencePattern',
+            recurrenceException: 'recurrenceException'
         },
          views: [
             {
@@ -334,12 +338,12 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
     });
     $(this.calendarContainer.nativeElement).on('dateChange', (event: any) => {
       const args = event.args;
-      this.date = args.date.toDate();
+      const dateValue = args.date.toDate();
       const from = args.from.toDate();
       const to = args.to.toDate();
       const view = $(this.calendarContainer.nativeElement).jqxScheduler('view');
       this.dateChanged.emit({
-        date: date,
+        date: dateValue,
         from: from,
         to: to,
         view: view
@@ -347,8 +351,8 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
     });
     $(this.calendarContainer.nativeElement).on('viewChange', (event: any) => {
       const args = event.args;
-      this.date = args.date.toDate();
       this.view = args.newViewType;
+      this.changedView = false;
       this.viewChanged.emit({
         from: args.from.toDate(),
         to: args.to.toDate(),
@@ -500,7 +504,10 @@ export class JqxSchedulerComponent implements OnChanges, OnInit, AfterViewInit, 
         $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'location', appointment.location);
         $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'subject', appointment.subject);
         $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'resourceId', appointment.calendar);
-        // $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'recurrencePattern', appointment.calendar);
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'recurrencePattern'
+          , appointment.recurrencePattern);
+        $(this.calendarContainer.nativeElement).jqxScheduler('setAppointmentProperty', id, 'recurrenceException'
+          , appointment.recurrenceException);
         $(this.calendarContainer.nativeElement).jqxScheduler('endAppointmentsUpdate');
 
       }

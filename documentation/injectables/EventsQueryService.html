@@ -122,7 +122,7 @@
                                 <a href="#findMonthlyEventsForCurrentUser">findMonthlyEventsForCurrentUser</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Public</span>
                                 <a href="#findWeeklyEvents">findWeeklyEvents</a>
                             </li>
                             <li>
@@ -606,7 +606,7 @@
                         <a name="findWeeklyEvents"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Private</span>
+                                <span class="modifier">Public</span>
                             findWeeklyEvents
                             </b>
                             <a href="#findWeeklyEvents"><span class="icon ion-ios-link"></span></a>
@@ -1166,7 +1166,7 @@ export class EventsQueryService extends BehaviorSubject&lt;EventGroup[]&gt; {
         return this.http.get&lt;EventDto[]&gt;(url).pipe(catchError(this.handleError(&#x27;findDailyEvents&#x27;, new Array&lt;EventDto&gt;(), true)));
     }
 
-    private findWeeklyEvents(): Observable&lt;Array&lt;EventDto&gt;&gt; {
+    public findWeeklyEvents(): Observable&lt;Array&lt;EventDto&gt;&gt; {
         const url &#x3D; &#x60;${this._route}FindWeeklyEvents&#x60;;
         return this.http.get&lt;EventDto[]&gt;(url).pipe(catchError(this.handleError(&#x27;findWeeklyEvents&#x27;, new Array&lt;EventDto&gt;(), true)));
     }

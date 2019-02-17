@@ -10,6 +10,8 @@ import { Subscription,  Observable} from 'rxjs';
 import { Address} from '../../core/models/address';
 import {LoaderService} from '../../core/services/loader.service';
 import { EventDto } from '../shared/event-dto';
+import { RecurringEventViewModel } from '../shared/recurring-event-view-model';
+
 import * as _ from 'lodash';
 
 @Component({
@@ -20,6 +22,7 @@ import * as _ from 'lodash';
 export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     @Input() event: EventViewModel;
     eventCopy: EventViewModel = EventViewModel.newEvent();
+    recurring = new RecurringEventViewModel();
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
 

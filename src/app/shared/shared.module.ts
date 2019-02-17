@@ -8,6 +8,7 @@ import { AddressModule} from './address/address.module';
 import { FormFieldsModule} from './form-fields/form-fields.module';
 import { LoaderComponent } from './loader/loader.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ScrollToModule } from 'ng2-scroll-to-el';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     swMapModule,
     ImageSliderModule,
     AddressModule,
-    FormFieldsModule
+    FormFieldsModule,
+    ScrollToModule.forRoot()
   ],
   exports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     AddressModule,
     FormFieldsModule,
     LoaderComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ScrollToModule
   ],
   declarations: [
   LoaderComponent,

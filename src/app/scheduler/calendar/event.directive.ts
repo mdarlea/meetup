@@ -13,6 +13,7 @@ export class EventDirective implements OnChanges, OnInit, OnDestroy {
     @Input() start: Date;
     @Input() end: Date;
     @Input() recurrencePattern: string;
+    @Input() recurrenceException: string;
 
     private event: Jqx.Appointment;
 

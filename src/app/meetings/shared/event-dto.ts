@@ -11,4 +11,6 @@ export class EventDto {
     startTime: string;
     endTime: string;
     repeat: boolean;
+    recurrencePattern: string;
+    recurrenceException: string;
 }

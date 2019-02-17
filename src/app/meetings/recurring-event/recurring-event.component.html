@@ -1,0 +1,58 @@
+<div class="card">
+  <article class="card-group-item">
+		<header class="card-header">
+      <a [ngClass]="{'collapsed': !viewModel.recurring}" (click)="recurringSection($event)"
+         [scrollTo]="cardbody">
+				<i class="icon-action fa fa-chevron-down"></i>
+				<h6 class="title">Repeat event </h6>
+			</a>
+		</header>
+		<div class="filter-content collapse" [ngClass]="{'show': viewModel.recurring}" style="">
+			<div class="card-body" #cardbody>
+              <div>test</div>
+				<div class="row">
+          <div class="col-sm-4">
+            <div class="funkyradio">
+              <div class="funkyradio-primary">
+                <input type="radio" name="repeat-type" id="repeat-daily" />
+                <label for="repeat-daily">Daily</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="funkyradio">
+              <div class="funkyradio-primary">
+                <input type="radio" name="repeat-type" id="repeat-weekly" />
+                <label for="repeat-weekly">Weekly</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="funkyradio">
+              <div class="funkyradio-primary">
+                <input type="radio" name="repeat-type" id="repeat-monthly" />
+                <label for="repeat-monthly">Monthly</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <input-simple name="count"
+                          [(ngModel)]="viewModel.count"
+                          label="Number of occurrences"
+                          placeholder="Count">
+            </input-simple>
+          </div>
+          <div class="col-sm-6">
+             <label>Repeat until</label>
+            <time-picker name="startTime"
+                         [(ngModel)]="viewModel.until"
+                         format="{momentFormat:'lll'}">
+            </time-picker>
+          </div>
+        </div>
+			</div> <!-- card-body.// -->
+		</div>
+	</article>
+</div>

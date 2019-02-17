@@ -22,8 +22,9 @@ export class EventViewModel {
     }
 
     readOnly: boolean;
-    repeatedEventId: number;
     group: EventGroup;
+    recurrencePattern: string;
+    recurrenceException: string;
 
     static newEvent(): EventViewModel {
       const startTime = new Date();
@@ -78,6 +79,9 @@ export class EventViewModel {
             event.address || new Address(),
             event.repeat);
 
+        newEvent.recurrencePattern = event.recurrencePattern;
+        newEvent.recurrenceException = event.recurrenceException;
+
         return newEvent;
     }
 
@@ -102,7 +106,9 @@ export class EventViewModel {
         event.address = this.address;
         event.addressId = this.addressId;
         event.userId = this.userId;
-        event.repeat = this.repeat;
+        event.repeat = this.recurrencePattern ? true : false;
+        event.recurrencePattern = this.recurrencePattern;
+        event.recurrenceException = this.recurrenceException;
 
         return event;
     }

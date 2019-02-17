@@ -50,17 +50,9 @@
                   placeholder="The event description">
     </input-simple>
 
-<div class="panel panel-info">
-    <div class="panel-body">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" [(ngModel)]="eventCopy.repeat">
-                Repeat this event every week
-            </label>
-        </div>
-    </div>
-</div>
-    <div class="panel panel-info">
+ <recurring-event [viewModel]="recurring"></recurring-event>
+
+ <div class="panel panel-info">
         <div class="panel-heading">Event Location</div>
         <div class="panel-body">
             <div class="row">
@@ -76,5 +68,5 @@
             </div>
             <address *ngIf="!isAtMainAddress" [address]="eventCopy.address" [showCountry]="showCountry" class="address" [disabled]="disabled"></address>
         </div>
-    </div>
+ </div>
 </ng-container>

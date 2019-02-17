@@ -15,6 +15,7 @@ import { JqxSchedulerComponent } from './jqx-scheduler/jqx-scheduler.component';
 import { SchedulerModule} from '../scheduler/scheduler.module';
 import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-test.component';
 import { TestTimeComponent } from './test-time/test-time.component';
+import { RecurringEventComponent } from './recurring-event/recurring-event.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { TestTimeComponent } from './test-time/test-time.component';
     NavbarComponent,
     JqxSchedulerComponent,
     JqxSchedulerTestComponent,
-    TestTimeComponent],
+    TestTimeComponent,
+    RecurringEventComponent],
   providers: [
     EventService,
     EventsQueryService,
