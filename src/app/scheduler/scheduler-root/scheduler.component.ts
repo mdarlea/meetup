@@ -184,13 +184,25 @@ export class SchedulerComponent implements OnInit, AfterContentInit, AfterConten
 
   /**
    * Event fired when the user double clicks a cell in the calendar
-   * @param {any} $event the new event object created when the user double clicks a cell in the calendar.
+   * The $event parameter is the new event object created when the user double clicks a cell in the calendar.
    * This event object is returned by the function bound to the getNewEvent input property
    */
   @Output() addEvent = new EventEmitter<any>();
+
+  /**
+   * Event fired when a user selects (clicks) an event in the calendar.
+   * The $event parameter is the event object selected by the user.
+   * The selectedEvent property is set to this object as well.
+   */
   @Output() selectEvent = new EventEmitter<any>();
+
   @Output() updateEvent = new EventEmitter<EventInfo>();
+
+  /**
+   * Event fired when the dialog box associated with the selected event is closed
+   */
   @Output() closeEventModal = new EventEmitter<any>();
+
   @Output() viewChanged = new EventEmitter<any>();
   @Output() dateChanged = new EventEmitter<any>();
 
