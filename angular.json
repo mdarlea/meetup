@@ -196,41 +196,6 @@
           }
         }
       }
-    },
-    "scheduler": {
-      "root": "projects/scheduler",
-      "sourceRoot": "projects/scheduler/src",
-      "projectType": "library",
-      "prefix": "sw",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/scheduler/tsconfig.lib.json",
-            "project": "projects/scheduler/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/scheduler/src/test.ts",
-            "tsConfig": "projects/scheduler/tsconfig.spec.json",
-            "karmaConfig": "projects/scheduler/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/scheduler/tsconfig.lib.json",
-              "projects/scheduler/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
     }
   },
   "defaultProject": "client",

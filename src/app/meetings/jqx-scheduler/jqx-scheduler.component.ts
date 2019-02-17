@@ -235,16 +235,19 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onViewChanged(args: any) {
+    this.modelState = null;
+    this.eventModelState = null;
+
     const toDate: Date = args.to;
     if (args.view !== 'monthView') {
       toDate.setDate(toDate.getDate() - 1);
     }
 
     // ToDo: uncomment when done with recurring test
-    // this.eventsQuerySvc.reset();
+    this.eventsQuerySvc.reset();
 
-    // this.loading = true;
-    // this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from.toLocaleString(), toDate.toLocaleString()));
+    this.loading = true;
+    this.eventsQuerySvc.queryEventsInTimeRange(new TimeRangeDto(args.from.toLocaleString(), toDate.toLocaleString()));
   }
 
   ensureFirstEventVisible() {
