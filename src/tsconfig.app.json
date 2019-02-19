@@ -4,7 +4,7 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "module": "es2015",
-    "types": ["amplifyjs", "web2cal", "jqx", "moment","jquery-extensions", "jquery", "googlemaps", "metismenu", "scrollreveal"]
+    "types": ["amplifyjs", "web2cal", "moment","jquery-extensions", "jquery", "googlemaps", "metismenu", "scrollreveal"]
   },
   "exclude": [
     "test.ts",
