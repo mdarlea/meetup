@@ -70,6 +70,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     eventAtMainAddress() {
+      this.eventModelState = null;
         if (!this.isAtMainAddress) {
             this.isAtMainAddress = true;
             if (!this.mainAddress) {
@@ -89,6 +90,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     private save() {
+      this.eventModelState = null;
       const dto = this.eventCopy.toEventDto();
       const isNewEvent = (dto.id <= 0);
       const observable = (!this.isAtMainAddress)
