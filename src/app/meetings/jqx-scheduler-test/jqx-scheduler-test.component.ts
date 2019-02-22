@@ -29,7 +29,7 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
   view = 'weekView';
   date = new Date();
   calendar: string;
-  calendarName = "Room 2";
+  calendarName = 'Room 2';
 
   roomOne = new Array<{id: number, subject: string, start: Date, end: Date}>();
   roomTwo = new Array<{id: number, subject: string, start: Date, end: Date}>();

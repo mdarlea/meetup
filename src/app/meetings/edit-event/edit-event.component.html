@@ -2,7 +2,8 @@
   <spinner></spinner>
   <br/>
 </div>
-<ng-container *ngIf="!loadingEvent">
+<form class="form-group" #form="ngForm" (ngSubmit)="onSave()" ngNativeValidate>
+  <ng-container *ngIf="!loadingEvent">
     <input-group name="name"
                  [(ngModel)]="eventCopy.subject"
                  fa-icon="calendar"
@@ -50,9 +51,9 @@
                   placeholder="The event description">
     </input-simple>
 
- <recurring-event [viewModel]="recurring"></recurring-event>
+    <recurring-event [viewModel]="recurring"></recurring-event>
 
- <div class="panel panel-info">
+    <div class="panel panel-info">
         <div class="panel-heading">Event Location</div>
         <div class="panel-body">
             <div class="row">
@@ -68,5 +69,22 @@
             </div>
             <address *ngIf="!isAtMainAddress" [address]="eventCopy.address" [showCountry]="showCountry" class="address" [disabled]="disabled"></address>
         </div>
- </div>
-</ng-container>
+    </div>
+
+    <validation-errors [model-state]="eventModelState"></validation-errors>
+    <div class="modal-footer">
+      <spinner *ngIf="processingEvent"></spinner>
+      <ng-container *ngIf="!processingEvent">
+        <button type="submit" class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span>Save
+        </button>
+        <button *ngIf="event.id > 0" type="button" (click)="delete()" class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span>Delete
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <span class="glyphicon glyphicon-log-out"></span>Close
+        </button>
+      </ng-container>
+    </div>
+  </ng-container>
+</form>

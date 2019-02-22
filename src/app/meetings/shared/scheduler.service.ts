@@ -4,28 +4,18 @@ import {EventViewModel} from '../shared/event-view-model';
 
 @Injectable()
 export class SchedulerService {
-  private addNewEventSource: Subject<EventViewModel> = new Subject<EventViewModel>();
-  private deleteEventSource: Subject<EventViewModel> = new Subject<EventViewModel>();
+  private deleteEventSource: Subject<number> = new Subject<number>();
   private cancelAddEventSource: Subject<any> = new Subject<any>();
   private eventSavedSource: Subject<EventViewModel> = new Subject<EventViewModel>();
   private eventSavingErrorSource: Subject<any> = new Subject<any>();
-  private saveEventSource: Subject<any> = new Subject<any>();
-  private eventAtMainAddressSource = new Subject<boolean>();
 
-  addNewEvent$ = this.addNewEventSource.asObservable();
   deleteEvent$ = this.deleteEventSource.asObservable();
   cancelAddEvent$ = this.cancelAddEventSource.asObservable();
   eventSaved$ = this.eventSavedSource.asObservable();
   eventSavingError$ = this.eventSavingErrorSource.asObservable();
-  saveEvent$ = this.saveEventSource.asObservable();
-  eventAtMainAddress$ = this.eventAtMainAddressSource.asObservable();
 
-  addNewEvent(event: EventViewModel) {
-    this.addNewEventSource.next(event);
-  }
-
-  deleteEvent(event: EventViewModel) {
-    this.deleteEventSource.next(event);
+  deleteEvent(eventId: number) {
+    this.deleteEventSource.next(eventId);
   }
 
   cancelAddEvent() {
@@ -38,13 +28,5 @@ export class SchedulerService {
 
   eventSavingError(error: any) {
     this.eventSavingErrorSource.next(error);
-  }
-
-  saveEvent() {
-    this.saveEventSource.next(null);
-  }
-
-  eventAtMainAddress(value: boolean) {
-    this.eventAtMainAddressSource.next(value);
   }
 }

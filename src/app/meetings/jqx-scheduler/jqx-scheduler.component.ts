@@ -16,17 +16,15 @@ import { TimeRangeDto} from '../shared/time-range-dto';
   // tslint:disable-next-line:component-selector
   selector: 'jqx-scheduler',
   templateUrl: './jqx-scheduler.component.html',
-  styleUrls: ['./jqx-scheduler.component.css']
+  styleUrls: ['./jqx-scheduler.component.css'],
+  providers: [SchedulerService]
 })
 export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   calendars = new Array<EventGroup>();
   modelState: any = null;
-  eventModelState: any = null;
   editMode = false;
-  readOnly = false;
   enabled = true;
   loading = false;
-  processingEvent = false;
   view = 'weekView';
   date = new Date();
   ensureEventVisibleId: any;
@@ -38,10 +36,9 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(SchedulerComponent) scheduler: SchedulerComponent;
 
   private eventsQuerySubscription: Subscription;
-  private addNewEventSubscription: Subscription;
   private eventSavedSubscription: Subscription;
   private eventSavingErrorSubscription: Subscription;
-  private eventAtMainAddressSubscription: Subscription;
+  private deleteEventSubscription: Subscription;
 
   getNewEvent = (eventInfo: EventInfo) => {
       return this.getNewEventObject(eventInfo);
@@ -81,11 +78,15 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loading = false;
       this.loaderSvc.load(false);
     });
-    this.addNewEventSubscription = this.schedulerSvc.addNewEvent$.subscribe(event => {
+    this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
+      // check if this is a new event
       let found = false;
       for (const calendar of this.calendars) {
         if (calendar.id === event.groupId) {
-          calendar.events.push(event);
+          const events = calendar.events.filter(e => e.id === event.id);
+          if (events.length === 0) {
+            calendar.events.push(event);
+          }
           found = true;
           break;
         }
@@ -100,19 +101,26 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         // a new calendar was added so the view will be refreshed
         this.ensureEventVisibleId = event.id;
       }
-    });
-    this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
-      this.processingEvent = false;
+
       this.scheduler.closeSelectedEvent();
     });
     this.eventSavingErrorSubscription = this.schedulerSvc.eventSavingError$.subscribe(error => {
-      this.eventModelState = error;
-      this.processingEvent = false;
-      this.ref.detectChanges();
+
     });
-    this.eventAtMainAddressSubscription = this.schedulerSvc.eventAtMainAddress$.subscribe(value => {
-      this.eventModelState = null;
+    this.deleteEventSubscription = this.schedulerSvc.deleteEvent$.subscribe(id => {
+      for (const calendar of this.calendars) {
+          for (let i = 0; i < calendar.events.length; i++) {
+            if (calendar.events[i].id === id) {
+              calendar.events.splice(i, 1);
+              break;
+            }
+          }
+      }
+      if (this.scheduler) {
+        this.scheduler.closeSelectedEvent();
+      }
     });
+
 
     // query the events
     this.loaderSvc.load(true);
@@ -128,14 +136,14 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.eventsQuerySubscription) {
       this.eventsQuerySubscription.unsubscribe();
     }
-    if (this.addNewEventSubscription) {
-      this.addNewEventSubscription.unsubscribe();
-    }
     if (this.eventSavedSubscription) {
       this.eventSavedSubscription.unsubscribe();
     }
     if (this.eventSavingErrorSubscription) {
       this.eventSavingErrorSubscription.unsubscribe();
+    }
+    if (this.deleteEventSubscription) {
+      this.deleteEventSubscription.unsubscribe();
     }
   }
 
@@ -168,55 +176,20 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSelectEvent(selectedEvent: EventViewModel) {
     this.modelState = null;
-    this.eventModelState = null;
     this.editMode = false;
     // this.editMode = true;
   }
    onAddEvent(selectedEvent: EventViewModel) {
      this.modelState = null;
-     this.eventModelState = null;
      this.editMode = true;
-   }
-   onSave() {
-    this.modelState = null;
-    this.processingEvent = true;
-    this.schedulerSvc.saveEvent();
    }
 
    onCloseEventModal() {
-     this.eventModelState = null;
+
    }
 
    edit() {
     this.editMode = true;
-   }
-
-   delete(selectedEvent: EventViewModel) {
-    // tslint:disable-next-line:curly
-    if (!selectedEvent || selectedEvent.id < 1) return;
-
-    this.modelState = null;
-    this.eventModelState = null;
-    this.processingEvent = true;
-    this.eventSvc.removeEvent(selectedEvent.id).subscribe(
-      () => {
-        for (const calendar of this.calendars) {
-          for (let i = 0; i < calendar.events.length; i++) {
-            if (calendar.events[i] === selectedEvent) {
-              calendar.events.splice(i, 1);
-              break;
-            }
-          }
-        }
-        this.processingEvent = false;
-        if (this.scheduler) {
-          this.scheduler.closeSelectedEvent();
-        }
-      },
-      error => {
-        this.modelState = error;
-        this.processingEvent = false;
-      });
    }
 
   private getNewEventObject(eventInfo: EventInfo) {
@@ -226,17 +199,12 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       return event;
   }
 
-  setTemplate() {
-    this.enabled = !this.enabled;
-  }
-
   onDateChanged(args: any) {
     return this.onViewChanged(args);
   }
 
   onViewChanged(args: any) {
     this.modelState = null;
-    this.eventModelState = null;
 
     const toDate: Date = args.to;
     if (args.view !== 'monthView') {
@@ -276,13 +244,5 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.ensureEventVisibleId = null;
     }
-  }
-  eventTemplate() {
-    this.enabled = !this.enabled;
-  }
-  changeView() {
-    // this.view = 'monthView';
-    this.date = new Date(2019, 3, 11);
-
   }
 }

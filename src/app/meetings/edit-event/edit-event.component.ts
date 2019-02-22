@@ -28,9 +28,9 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
     private addressSubscription: Subscription;
     private loaderSubscription: Subscription;
-    private saveEventSubscription: Subscription;
 
     loadingEvent = false;
+    processingEvent = false;
     showCountry = true;
     isAtMainAddress = false;
     buttonText: string;
@@ -39,12 +39,14 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     mainAddress: Address = null;
     disabled = false;
     loading = false;
+    eventModelState: any = null;
 
     constructor(
       private addressSvc: UserAddressService,
       private eventSvc: EventService,
       private schedulerSvc: SchedulerService,
-      private loaderSvc: LoaderService) {
+      private loaderSvc: LoaderService,
+      private ref: ChangeDetectorRef) {
       this.loaderSubscription = loaderSvc.loading$.subscribe(value => this.disabled = value);
     }
 
@@ -84,24 +86,26 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
             this.buttonText = this.buttonTextAtMainAddress;
         }
-        this.schedulerSvc.eventAtMainAddress(this.isAtMainAddress);
     }
 
-    save() {
+    private save() {
       const dto = this.eventCopy.toEventDto();
       const isNewEvent = (dto.id <= 0);
       const observable = (!this.isAtMainAddress)
           ? this.addressComponent.getGeolocation().pipe(switchMap(result => this.getSaveEventObservable(dto)))
           : this.getSaveEventObservable(dto);
+
+      this.processingEvent = true;
       observable.subscribe(result => {
         this.eventCopy = EventViewModel.fromEventDto(result);
         Object.assign(this.event, _.cloneDeep(this.eventCopy));
-        if (isNewEvent) {
-          this.schedulerSvc.addNewEvent(this.event);
-        }
+        this.processingEvent = false;
         // notify subscribers
         this.schedulerSvc.eventSaved(this.event);
       }, error => {
+        this.eventModelState = error;
+        this.processingEvent = false;
+        this.ref.detectChanges();
         this.schedulerSvc.eventSavingError(error);
       });
     }
@@ -149,9 +153,6 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
               this.setEventAddressFromMainAddress();
             }
         });
-        this.saveEventSubscription = this.schedulerSvc.saveEvent$.subscribe(value => {
-          this.save();
-        });
     }
 
     ngOnDestroy() {
@@ -161,8 +162,26 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       if (this.loaderSubscription) {
         this.loaderSubscription.unsubscribe();
       }
-      if (this.saveEventSubscription) {
-        this.saveEventSubscription.unsubscribe();
-      }
     }
+
+    onSave() {
+      this.eventModelState = null;
+      this.save();
+   }
+
+    delete() {
+      if (this.event.id < 1) { return; }
+
+      this.eventModelState = null;
+      this.processingEvent = true;
+      this.eventSvc.removeEvent(this.event.id).subscribe(
+        () => {
+          this.processingEvent = false;
+          this.schedulerSvc.deleteEvent(this.event.id);
+      },
+      error => {
+        this.eventModelState = error;
+        this.processingEvent = false;
+      });
+   }
 }
