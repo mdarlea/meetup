@@ -11,11 +11,11 @@ import {UserService} from '../services/user.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private userSvc: UserService) {
-    }    
+    }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {        
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const user = this.userSvc.getUser();
-        if (!UserService.tokenIsExpired(user)) {            
+        if (!UserService.tokenIsExpired(user)) {
           const authRequest = req.clone({
             setHeaders: {
                 'Content-Type': 'application/json',
@@ -26,10 +26,10 @@ export class AuthInterceptor implements HttpInterceptor {
         } else {
           const request = req.clone({
             setHeaders: {
-                'Content-Type': 'application/json'             
+                'Content-Type': 'application/json'
             }
           });
           return next.handle(request);
-        }    
+        }
     }
 }

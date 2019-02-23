@@ -79,6 +79,7 @@ export class EventViewModel {
             event.address || new Address(),
             event.repeat);
 
+        newEvent.address.id = event.addressId;
         newEvent.recurrencePattern = event.recurrencePattern;
         newEvent.recurrenceException = event.recurrenceException;
 

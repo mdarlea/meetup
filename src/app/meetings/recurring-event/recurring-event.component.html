@@ -1,20 +1,19 @@
 <div class="card">
   <article class="card-group-item">
 		<header class="card-header">
-      <a [ngClass]="{'collapsed': !viewModel.recurring}" (click)="recurringSection($event)"
-         [scrollTo]="cardbody">
+      <a [ngClass]="{'collapsed': !viewModel.recurring}" (click)="recurringSection($event)">
 				<i class="icon-action fa fa-chevron-down"></i>
 				<h6 class="title">Repeat event </h6>
 			</a>
 		</header>
 		<div class="filter-content collapse" [ngClass]="{'show': viewModel.recurring}" style="">
-			<div class="card-body" #cardbody>
-              <div>test</div>
+			<div class="card-body">
 				<div class="row">
           <div class="col-sm-4">
             <div class="funkyradio">
               <div class="funkyradio-primary">
-                <input type="radio" name="repeat-type" id="repeat-daily" />
+                <input type="radio" name="repeat-type" id="repeat-daily" [checked]="isType('daily')"
+                       value="daily" (change)="onTypeChange('daily')" />
                 <label for="repeat-daily">Daily</label>
               </div>
             </div>
@@ -22,7 +21,8 @@
           <div class="col-sm-4">
             <div class="funkyradio">
               <div class="funkyradio-primary">
-                <input type="radio" name="repeat-type" id="repeat-weekly" />
+                <input type="radio" name="repeat-type" id="repeat-weekly" [checked]="isType('weekly')"
+                       value="weekly" (change)="onTypeChange('weekly')" />
                 <label for="repeat-weekly">Weekly</label>
               </div>
             </div>
@@ -30,7 +30,8 @@
           <div class="col-sm-4">
             <div class="funkyradio">
               <div class="funkyradio-primary">
-                <input type="radio" name="repeat-type" id="repeat-monthly" />
+                <input type="radio" name="repeat-type" id="repeat-monthly" [checked]="isType('monthly')"
+                       value="monthly" (change)="onTypeChange('monthly')" />
                 <label for="repeat-monthly">Monthly</label>
               </div>
             </div>
@@ -38,16 +39,20 @@
         </div>
         <div class="row">
           <div class="col-sm-6">
-            <input-simple name="count"
-                          [(ngModel)]="viewModel.count"
-                          label="Number of occurrences"
-                          placeholder="Count">
-            </input-simple>
+            <div class="form-group">
+              <label for="occurrencesCount">Number of occurrences</label>
+              <input type="number" class="form-control"
+                     id="occurrencesCount"
+                     name="occurrencesCount"
+                     [(ngModel)]="viewModel.count"
+                     placeholder="Count" />
+            </div>
           </div>
           <div class="col-sm-6">
              <label>Repeat until</label>
-            <time-picker name="startTime"
+            <time-picker name="until"
                          [(ngModel)]="viewModel.until"
+                         (toggle)="toggleTime($event)"
                          format="{momentFormat:'lll'}">
             </time-picker>
           </div>

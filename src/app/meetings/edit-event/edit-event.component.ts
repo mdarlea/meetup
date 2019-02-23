@@ -91,8 +91,16 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
     private save() {
       this.eventModelState = null;
+
+      // check if this is a recurring event
+      if (this.recurring.recurring) {
+        this.eventCopy.recurrencePattern = this.recurring.toString();
+      } else {
+        this.eventCopy.recurrencePattern = null;
+      }
       const dto = this.eventCopy.toEventDto();
       const isNewEvent = (dto.id <= 0);
+
       const observable = (!this.isAtMainAddress)
           ? this.addressComponent.getGeolocation().pipe(switchMap(result => this.getSaveEventObservable(dto)))
           : this.getSaveEventObservable(dto);
@@ -127,21 +135,23 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
             const value = <EventViewModel> changes.event.currentValue;
             if (value) {
               if (value.id <= 0) {
-                // Object.assign(this.eventCopy, _.cloneDeep(value));
                 this.eventCopy = _.cloneDeep(value);
+                this.recurring = RecurringEventViewModel.parse(value.recurrencePattern);
               } else if (!value.address.latitude) {
                 this.eventCopy = EventViewModel.newEvent();
                 this.loadingEvent = true;
                 this.eventSvc.findEvent(value.id).subscribe(result => {
                   this.eventCopy = EventViewModel.fromEventDto(result);
+                  this.recurring = RecurringEventViewModel.parse(result.recurrencePattern);
                   this.loadingEvent = false;
                 });
               } else {
-                // Object.assign(this.eventCopy, _.cloneDeep(value));
                 this.eventCopy = _.cloneDeep(value);
+                this.recurring = RecurringEventViewModel.parse(value.recurrencePattern);
               }
             } else {
               this.eventCopy = EventViewModel.newEvent();
+              this.recurring = new RecurringEventViewModel();
             }
         }
     }

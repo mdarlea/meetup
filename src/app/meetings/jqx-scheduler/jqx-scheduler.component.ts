@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Subscription} from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 import { EventsQueryService} from '../shared/events-query.service';
 import { EventViewModel} from '../shared/event-view-model';
@@ -28,6 +30,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   view = 'weekView';
   date = new Date();
   ensureEventVisibleId: any;
+  processingEvent = false;
 
   private initialized = false;
 
@@ -108,17 +111,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     });
     this.deleteEventSubscription = this.schedulerSvc.deleteEvent$.subscribe(id => {
-      for (const calendar of this.calendars) {
-          for (let i = 0; i < calendar.events.length; i++) {
-            if (calendar.events[i].id === id) {
-              calendar.events.splice(i, 1);
-              break;
-            }
-          }
-      }
-      if (this.scheduler) {
-        this.scheduler.closeSelectedEvent();
-      }
+      this.removeEventFromCalendar(id);
     });
 
 
@@ -149,6 +142,49 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     onUpdateEvent(event: EventInfo) {
       this.modelState = null;
+
+      // check if this is a recurring event
+      if (event.rootAppointment && event.rootAppointment.id) {
+
+        // updates the recurrence exception on the root appointment
+        for (const calendar of this.calendars) {
+          for (const ev of calendar.events) {
+            if (ev.id === event.rootAppointment.id) {
+              if (event.rootAppointment.recurrenceException) {
+                if (ev.recurrenceException) {
+                  ev.recurrenceException += ',';
+                } else {
+                  ev.recurrenceException = '';
+                }
+                ev.recurrenceException += event.rootAppointment.recurrenceException;
+              }
+
+              this.loading = true;
+              this.eventSvc.updateEvent(ev.toEventDto())
+                           .pipe(switchMap(eventDto => {
+                              const newEvent = EventViewModel.fromEventDto(eventDto);
+                              newEvent.id = -1;
+                              newEvent.start = event.startTime;
+                              newEvent.end = event.endTime;
+                              newEvent.recurrenceException = null;
+                              newEvent.recurrencePattern = null;
+                              return this.eventSvc.addNewEvent(newEvent.toEventDto());
+                         }))
+                         .subscribe(eventDto => {
+                            const newEvent = EventViewModel.fromEventDto(eventDto);
+                            calendar.events.push(newEvent);
+                            this.ensureEventVisibleId = newEvent.id;
+                            this.loading = false;
+                         }, error => {
+                           this.modelState = error;
+                           this.loading = false;
+                         }) ;
+              }
+            }
+          }
+          return;
+      }
+
       this.loading = true;
       for (const calendar of this.calendars) {
         for (const ev of calendar.events) {
@@ -245,4 +281,34 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ensureEventVisibleId = null;
     }
   }
+
+   delete(event: EventViewModel) {
+      if (event.id < 1) { return; }
+
+      this.modelState = null;
+      this.processingEvent = true;
+      this.eventSvc.removeEvent(event.id).subscribe(
+        () => {
+          this.removeEventFromCalendar(event.id);
+          this.processingEvent = false;
+      },
+      error => {
+        this.modelState = error;
+        this.processingEvent = false;
+      });
+   }
+
+   private removeEventFromCalendar(id: number) {
+     for (const calendar of this.calendars) {
+          for (let i = 0; i < calendar.events.length; i++) {
+            if (calendar.events[i].id === id) {
+              calendar.events.splice(i, 1);
+              break;
+            }
+          }
+      }
+      if (this.scheduler) {
+        this.scheduler.closeSelectedEvent();
+      }
+   }
 }
