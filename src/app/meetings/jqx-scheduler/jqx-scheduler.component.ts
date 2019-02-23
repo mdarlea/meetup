@@ -260,16 +260,18 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
     let startTime = new Date();
     for (const calendar of this.calendars) {
       for (const event of calendar.events) {
-        if (!last) {
-          last = event;
-          startTime.setHours(event.start.getHours(), event.start.getMinutes(), 0);
-        } else {
-          const start = new Date();
-          start.setHours(event.start.getHours(), event.start.getMinutes(), 0);
-
-          if (start < startTime) {
-            startTime = start;
+        if (!event.recurrencePattern) {
+          if (!last) {
             last = event;
+            startTime.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+          } else {
+            const start = new Date();
+            start.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+
+            if (start < startTime) {
+              startTime = start;
+              last = event;
+            }
           }
         }
       }
