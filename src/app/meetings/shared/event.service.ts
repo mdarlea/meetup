@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {map, catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { EventDto } from '../shared/event-dto';
 import {TimeRangeDto} from '../shared/time-range-dto';
 import {LocationDto} from '../shared/location-dto';
@@ -39,5 +39,14 @@ export class EventService {
     findEvent(eventId: number): Observable<EventDto> {
         const url = `${this.route}FindEvent/${eventId}`;
         return this.http.get<EventDto>(url).pipe(catchError(this.handleError('findEvent', new EventDto())));
+    }
+    updateRecurringEvent(recurringEvent: EventDto, newEvent: EventDto): Observable<EventDto[]> {
+      let url = `${this.route}UpdateEvent`;
+      const updateResponse = this.http.post<EventDto>(url, recurringEvent);
+
+      url = `${this.route}AddNewEvent`;
+      const addResponse = this.http.post<EventDto>(url, newEvent);
+
+      return forkJoin([updateResponse, addResponse]).pipe(catchError(this.handleError('updateRecurringEvent', [], true)));
     }
 }
