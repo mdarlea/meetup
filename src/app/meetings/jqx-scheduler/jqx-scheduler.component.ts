@@ -149,31 +149,38 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         // updates the recurrence exception on the root appointment
         for (const calendar of this.calendars) {
           for (const ev of calendar.events) {
+            const updatedEvent = EventViewModel.newEvent();
+            Object.assign(updatedEvent, _.cloneDeep(ev));
+
             if (ev.id === event.rootAppointment.id) {
               if (event.rootAppointment.recurrenceException) {
                 if (ev.recurrenceException) {
-                  ev.recurrenceException += ',';
+                  updatedEvent.recurrenceException += ',';
                 } else {
-                  ev.recurrenceException = '';
+                  updatedEvent.recurrenceException = '';
                 }
-                ev.recurrenceException += event.rootAppointment.recurrenceException;
+                updatedEvent.recurrenceException += event.rootAppointment.recurrenceException;
               }
 
+              // creates new event and updates the recurring event
+              const newEvent = EventViewModel.newEvent();
+              Object.assign(newEvent, _.cloneDeep(ev));
+              newEvent.id = 0;
+              newEvent.start = event.startTime;
+              newEvent.end = event.endTime;
+              newEvent.repeat = null;
+              newEvent.recurrenceException = null;
+              newEvent.recurrencePattern = null;
+
               this.loading = true;
-              this.eventSvc.updateEvent(ev.toEventDto())
-                           .pipe(switchMap(eventDto => {
-                              const newEvent = EventViewModel.fromEventDto(eventDto);
-                              newEvent.id = -1;
-                              newEvent.start = event.startTime;
-                              newEvent.end = event.endTime;
-                              newEvent.recurrenceException = null;
-                              newEvent.recurrencePattern = null;
-                              return this.eventSvc.addNewEvent(newEvent.toEventDto());
-                         }))
-                         .subscribe(eventDto => {
-                            const newEvent = EventViewModel.fromEventDto(eventDto);
-                            calendar.events.push(newEvent);
-                            this.ensureEventVisibleId = newEvent.id;
+              this.eventSvc.updateRecurringEvent(updatedEvent.toEventDto(), newEvent.toEventDto())
+                         .subscribe(eventDtos => {
+                            // updates the recurring event
+                            ev.recurrenceException = eventDtos[0].recurrenceException;
+
+                            const eventVm = EventViewModel.fromEventDto(eventDtos[1]);
+                            calendar.events.push(eventVm);
+                            this.ensureEventVisibleId = eventVm.id;
                             this.loading = false;
                          }, error => {
                            this.modelState = error;
