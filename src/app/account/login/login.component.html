@@ -53,7 +53,9 @@
                             </div>
                             <div class="col-xs-6">
                                 <button id="google"
+                                        #google
                                         [disabled]="processing"
+                                        (click)="preventDefault($event)"
                                         name="google" value="Google"
                                         class="btn btn-lg btn-block onl_btn-google-plus provider"
                                         data-toggle="tooltip"

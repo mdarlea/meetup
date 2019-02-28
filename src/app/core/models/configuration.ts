@@ -2,9 +2,11 @@ export class Configuration {
   apiBaseUrl: string;
   baseUrl: string;
   clientId: string;
-  url: Object;
+  url: any;
   facebook: {
-    appId: string,
-    oauthRedirectUri: string
+    appId: string
+  };
+  google: {
+    clientId: string
   };
 }

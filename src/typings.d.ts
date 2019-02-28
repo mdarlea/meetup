@@ -26,3 +26,4 @@ declare class CountrySelector {
 
 declare var System: any;
 declare var FB: any;
+declare var gapi: any;

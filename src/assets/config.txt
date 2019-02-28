@@ -4,10 +4,14 @@
   "clientId": "SocialMediaApp",
   "url": {
     "address": "api/address",
-    "account": "api/account"
+    "account": "api/account",
+    "auth": "api/auth",
+    "event" : "api/event"
   },
   "facebook": {
-    "appId": "822182081727248",
-    "oauthRedirectUri": "https://localhost:4200/meetup/facebook-auth.html"
+    "appId": "822182081727248"
+  },
+  "google": {
+    "clientId": "237634769595-ni11m1mj724d70morptgj3io4bjoemc1"
   }
 }

@@ -13,9 +13,7 @@ import { AuthUser } from '../../core/models/auth-user';
 
 @Injectable()
 export class AccountService  {
-    private route = 'api/account/';
-    private authRoute = 'api/auth/';
-
+    private route;
     private handleError: HandleError;
 
     constructor(private httpSvc: HttpClient,
@@ -23,6 +21,7 @@ export class AccountService  {
                 private settings: Settings,
                 private userSvc: UserService) {
        this.handleError = exceptionSvc.createHandleError('AccountService');
+       this.route = `${settings.configuration.url.account}/`;
     }
 
     private storeUser(user: AuthUser) {
