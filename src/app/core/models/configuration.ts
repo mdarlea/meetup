@@ -3,4 +3,8 @@ export class Configuration {
   baseUrl: string;
   clientId: string;
   url: Object;
+  facebook: {
+    appId: string,
+    oauthRedirectUri: string
+  };
 }

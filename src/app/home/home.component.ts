@@ -16,8 +16,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   logOut(event: Event) {
         event.preventDefault();
-        this.userSvc.removeUser();
-        this.router.navigate(['/account/login']);
+
+        FB.getLoginStatus((response) => {
+          if (response.status === 'connected') {
+            FB.logout((r) => {
+              this.userSvc.removeUser();
+              this.router.navigate(['/account/login']);
+            });
+          } else {
+              this.userSvc.removeUser();
+              this.router.navigate(['/account/login']);
+          }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -29,9 +39,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
         // jQuery for page scrolling feature - requires jQuery Easing plugin
         $('a.page-scroll').bind('click', function (event) {
             const $anchor = $(this);
-            $('html, body').stop().animate({
-                scrollTop: ($($anchor.attr('href')).offset().top - 50)
-            }, 1250, 'easeInOutExpo');
+            const offset = $($anchor.attr('href')).offset();
+            if (offset) {
+              $('html, body').stop().animate({
+                scrollTop: (offset.top - 50)
+              }, 1250, 'easeInOutExpo');
+            }
             event.preventDefault();
         });
 

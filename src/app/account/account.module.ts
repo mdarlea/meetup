@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { AccountService } from './shared/account.service';
-import { ExternalLoginCallbackComponent} from './external-login-callback/external-login-callback.component';
+import { AuthService } from './shared/auth.service';
 import { PassResetComponent } from './login/pass-reset.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -10,19 +10,19 @@ import { AccountRoutingModule } from './account-routing.module';
 import { SharedModule} from '../shared/shared.module';
 
 @NgModule({
-    imports: [        
+    imports: [
         AccountRoutingModule,
         SharedModule
     ],
     declarations: [
-        ExternalLoginCallbackComponent,
         PassResetComponent,
         LoginComponent,
         RegisterComponent,
         RegisterExternalComponent,
         ThankYouComponent],
     providers: [
-        AccountService
+        AccountService,
+        AuthService
     ]
 })
 export class AccountModule { }

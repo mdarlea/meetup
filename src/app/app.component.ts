@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 import { LoaderService} from './core/services/loader.service';
+import { Settings } from './core/settings';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,20 @@ import { LoaderService} from './core/services/loader.service';
 })
 export class AppComponent {
   constructor(private loaderSvc: LoaderService,
-              private router: Router) {
+              private router: Router,
+              settings: Settings) {
+      const configuration = settings.configuration;
+      FB.init({
+        appId: configuration.facebook.appId,
+        cookie: true,  // enable cookies to allow the server to access
+        // the session
+        xfbml: true,  // parse social plugins on this page
+        version: 'v3.2' // use graph api version 2.5
+      });
 
-        router.events.subscribe((routerEvent: Event) => {
+      router.events.subscribe((routerEvent: Event) => {
             this.checkRouterEvent(routerEvent);
-        });
+      });
     }
 
     checkRouterEvent(routerEvent: Event): void {

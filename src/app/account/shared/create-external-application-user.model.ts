@@ -7,7 +7,7 @@ export class CreateExternalApplicationUserModel extends CreateUserModel {
     address: Address;
     provider: string;
 
-    constructor(email: string, userName: string) {
+    constructor(public providerKey: string, email: string, userName: string) {
         super(email, userName);
         this.address = new Address();
     }

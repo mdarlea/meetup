@@ -2,7 +2,7 @@
 import {switchMap} from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CreateExternalApplicationUserModel } from '../shared/create-external-application-user.model'
-import { AccountService } from '../shared/account.service';
+import { AuthService } from '../shared/auth.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AuthUser } from '../../core/models/auth-user';
 import { AddressComponent } from '../../shared/address/address.component';
@@ -21,24 +21,16 @@ export class RegisterExternalComponent implements OnInit {
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
 
-    constructor(private _authService: AccountService, private _route: ActivatedRoute, private _router: Router) {
+    constructor(private authService: AuthService, private route: ActivatedRoute, private _router: Router) {
 
     }
 
     ngOnInit(): void {
         // check if name was provided
-        const name = this._route.snapshot.params['name'];
-        const provider: string = this._route.snapshot.params['provider'];
-        var first = "";
-        var last = name;
-        var i = name.indexOf(" ");
-        if (i > 0) {
-            first = name.substr(0, i);
-            last = name.substr(i + 1);
-        }
-        this.user = new CreateExternalApplicationUserModel(null, null);
-        this.user.firstName = first;
-        this.user.lastName = last;
+        const providerKey = this.route.snapshot.params['providerKey'];
+        const provider: string = this.route.snapshot.params['provider'];
+
+        this.user = new CreateExternalApplicationUserModel(providerKey, null, null);
         this.user.provider = provider;
     }
 
@@ -46,7 +38,7 @@ export class RegisterExternalComponent implements OnInit {
         this.modelState = null;
         this.registering = true;
 
-        let x = this.addressComponent.getGeolocation().pipe(switchMap(result => this._authService.registerExternal(this.user)))        
+        this.addressComponent.getGeolocation().pipe(switchMap(result => this.authService.registerExternal(this.user)))
                             .subscribe((u: AuthUser) => {
                                 this._router.navigate(['/']);
                             },

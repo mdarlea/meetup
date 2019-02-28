@@ -32,6 +32,7 @@
                         </div>
                         <div class="row">
                             <validation-errors class="col-xs-12" [model-state]="modelState"></validation-errors>
+                            <spinner *ngIf="processing"></spinner>
                         </div>
                     </div>
 
@@ -39,7 +40,7 @@
                         <div class="row onl_social_buttons">
                             <div class="col-xs-6">
                                 <button id="facebook"
-                                        (click)='loginExternal("Facebook")'
+                                        (click)='launchFbLogin($event)'
                                         [disabled]="processing"
                                         name="facebook" value="Facebook"
                                         class="btn btn-lg btn-block onl_btn-facebook provider"
@@ -52,7 +53,6 @@
                             </div>
                             <div class="col-xs-6">
                                 <button id="google"
-                                        (click)='loginExternal("Google")'
                                         [disabled]="processing"
                                         name="google" value="Google"
                                         class="btn btn-lg btn-block onl_btn-google-plus provider"

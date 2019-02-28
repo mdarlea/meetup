@@ -8,10 +8,10 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class ThankYouComponent implements OnInit {
     email: string;
 
-    constructor(private _route: ActivatedRoute, private _router: Router) {
+    constructor(private route: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit() {
-        this.email = this._route.snapshot.params['email'];
+        this.email = this.route.snapshot.params['email'];
     }
 }

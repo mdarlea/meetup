@@ -6,7 +6,6 @@ import { AccountService } from '../shared/account.service';
 import { Router } from '@angular/router';
 import { AddressComponent } from '../../shared/address/address.component';
 
-
 @Component({
     selector: 'register',
     templateUrl: './register.component.html',
@@ -20,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
 
-    constructor(private _authService: AccountService, private _router: Router) {
+    constructor(private authService: AccountService, private _router: Router) {
+
     }
 
     ngOnInit(): void {
@@ -31,9 +31,9 @@ export class RegisterComponent implements OnInit {
         this.modelState = null;
         this.registering = true;
 
-       this.addressComponent.getGeolocation().pipe(switchMap(result => this._authService.register(this.user)))
+       this.addressComponent.getGeolocation().pipe(switchMap(result => this.authService.register(this.user)))
                             .subscribe((u: any) => {
-                              this._router.navigate(['./thank-you', this.user.email]);
+                              this._router.navigate(['/account/thank-you', this.user.email]);
                             },
                             (error) => {
                               this.modelState = error;

@@ -1,8 +1,0 @@
-﻿    <div class="container">
-       <div *ngIf="!modelState">
-          <loader></loader>
-       </div>
-       <div class="danger" *ngIf="modelState">
-          <validation-errors [model-state]="modelState"></validation-errors>
-       </div>
-    </div>

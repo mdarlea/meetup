@@ -4,14 +4,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterExternalComponent } from './register/register-external.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
-import { ExternalLoginCallbackComponent } from './external-login-callback/external-login-callback.component';
 
 const accountRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'registerexternal/:provider/:name', component: RegisterExternalComponent },
-    { path: 'thank-you/:email', component: ThankYouComponent },
-    { path: 'externallogin', component: ExternalLoginCallbackComponent }
+    { path: 'registerexternal/:provider/:providerKey', component: RegisterExternalComponent },
+    { path: 'thank-you/:email', component: ThankYouComponent }
 ];
 
 @NgModule({

@@ -19,12 +19,6 @@
                             <err-required message="The e-mail address is required"></err-required>
                             <err-email message="Invalid e-mail address"></err-email>
                         </input-group>
-                        <input-group name="userName" *ngIf="!isExternal"
-                                     [(ngModel)]="user.userName"
-                                     fa-icon="user"
-                                     label="User Name"
-                                     placeholder="User name if different than e-mail">
-                        </input-group>
                         <input-group name="password" *ngIf="!isExternal"
                                      type="password"
                                      [(ngModel)]="user.password"
@@ -69,6 +63,7 @@
                                         class="btn btn-xl btn-success sr-button pull-right" routerLink="/account/login" routerLinkActive="active">Sign In</button>
                             </div>
                         </div>
+                        <spinner *ngIf="registering"></spinner>
                     </form>
                 </div>
                 <div id="verse" class="col-md-6 col-sm-2">
