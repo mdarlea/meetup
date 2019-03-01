@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserService} from '../core/services/user.service';
 import { Router} from '@angular/router';
+import { environment} from '../../environments/environment';
 
 @Component({
   selector: 'home',
@@ -15,8 +16,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   logOut(event: Event) {
-        event.preventDefault();
+      event.preventDefault();
 
+      if (environment.production) {
+        this.userSvc.removeUser();
+        this.router.navigate(['/account/login']);
+      } else {
         FB.getLoginStatus((response) => {
           if (response.status === 'connected') {
             FB.logout((r) => {
@@ -28,6 +33,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
               this.router.navigate(['/account/login']);
           }
         });
+      }
     }
 
     ngAfterViewInit(): void {

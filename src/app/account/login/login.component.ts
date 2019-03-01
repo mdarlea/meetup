@@ -4,6 +4,7 @@ import { LoginViewModel } from '../shared/login-view.model';
 import { Router } from '@angular/router';
 import { Settings } from '../../core/settings';
 import { Configuration } from '../../core/models/configuration';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: "login",
@@ -13,6 +14,7 @@ import { Configuration } from '../../core/models/configuration';
 export class LoginComponent implements OnInit, AfterViewInit {
     private configuration: Configuration;
 
+    isProduction = false;
     isPassReset = false;
     modelState: any = null;
     user: LoginViewModel;
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         private router: Router,
         settings: Settings) {
       this.configuration = settings.configuration;
+      this.isProduction = environment.production;
     }
 
     ngOnInit(): void {
