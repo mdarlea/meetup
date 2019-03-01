@@ -105,8 +105,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
         //    }
         // });
     }
-
-    goToSearchEvents(event: Event) {
-        event.preventDefault();
-    }
 }

@@ -1,0 +1,9 @@
+<google-map [lat]="lat" [lng]="lng" [zoom]="zoom">
+  <marker *ngFor="let marker of markers"
+          [id]="marker.id"
+          [lat]="marker.lat"
+          [lng]="marker.lng"
+          [title]="marker.title"
+          [marker]="marker">
+  </marker>
+</google-map>

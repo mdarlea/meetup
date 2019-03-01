@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { FormValidationModule} from './form-validation/form-validation.module';
-import { swMapModule } from './sw-map/sw-map.module';
+import { MapModule } from './sw-map/map.module';
 import { ImageSliderModule} from './image-slider/image-slider.module';
 import { AddressModule} from './address/address.module';
 import { FormFieldsModule} from './form-fields/form-fields.module';
@@ -15,7 +15,7 @@ import { ScrollToModule } from 'ng2-scroll-to-el';
     CommonModule,
     FormsModule,
     FormValidationModule,
-    swMapModule,
+    MapModule,
     ImageSliderModule,
     AddressModule,
     FormFieldsModule,
@@ -25,7 +25,7 @@ import { ScrollToModule } from 'ng2-scroll-to-el';
     CommonModule,
     FormsModule,
     FormValidationModule,
-    swMapModule,
+    MapModule,
     ImageSliderModule,
     AddressModule,
     FormFieldsModule,

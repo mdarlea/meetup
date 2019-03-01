@@ -6,6 +6,9 @@ import { LOCATION_INITIALIZED } from '@angular/common';
 import { MapsApiLoaderService } from './maps-api-loader.service';
 import { GeolocationService } from './geolocation.service';
 import { MapApiConfig, MAP_API_CONFIG} from './map-config';
+import { MapComponent } from './map/map.component';
+import { MarkerDirective } from './map/marker.directive';
+import { GoogleMapComponent } from './google-map/google-map.component';
 
 export function mapsInitializerFactory(apiLoaderSvc: MapsApiLoaderService, injector: Injector) {
     return () => new Promise<any>((resolve: any) => {
@@ -20,12 +23,13 @@ export function mapsInitializerFactory(apiLoaderSvc: MapsApiLoaderService, injec
   imports: [
     CommonModule
   ],
-  declarations: []
+  declarations: [MapComponent, MarkerDirective, GoogleMapComponent],
+  exports: [MapComponent, MarkerDirective]
 })
-export class swMapModule {
+export class MapModule {
   static forRoot(config?: MapApiConfig): ModuleWithProviders {
     return {
-      ngModule: swMapModule,
+      ngModule: MapModule,
       providers: [
         MapsApiLoaderService,
         GeolocationService,

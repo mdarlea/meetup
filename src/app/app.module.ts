@@ -7,7 +7,7 @@ import { CoreModule} from './core/core.module';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule} from './app-routing.module';
 import { SharedModule} from './shared/shared.module';
-import { swMapModule } from './shared/sw-map/sw-map.module';
+import { MapModule } from './shared/sw-map/map.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { swMapModule } from './shared/sw-map/sw-map.module';
     AppRoutingModule,
     BrowserModule,
     CoreModule,
-    swMapModule.forRoot({
+    MapModule.forRoot({
       mapsApiKey: 'AIzaSyAHI8Ipk9hdcaX9ZZxBi4ve1ZuJxfTQ61Q'
     }),
     SharedModule

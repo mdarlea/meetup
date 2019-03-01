@@ -13,6 +13,11 @@ const routes: Routes = [
       path: 'meetings',
       loadChildren: 'app/meetings/meetings.module#MeetingsModule',
       canLoad: [AuthGuard]
+    },
+    {
+      path: 'dashboard',
+      loadChildren: 'app/dashboard/dashboard.module#DashboardModule',
+      canLoad: [AuthGuard]
     }
 ];
 

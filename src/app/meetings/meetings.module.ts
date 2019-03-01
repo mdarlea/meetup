@@ -6,7 +6,7 @@ import { EventsQueryService} from './shared/events-query.service';
 import { SharedModule} from '../shared/shared.module';
 import { EditEventComponent } from './edit-event/edit-event.component';
 import { PreviewEventComponent } from './preview-event/preview-event.component';
-import { MeetingsComponent } from './meetings/meetings.component';
+import { MeetingsComponent } from './meetings-root/meetings.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { JqxSchedulerComponent } from './jqx-scheduler/jqx-scheduler.component';
 import { SchedulerModule } from 'sw-scheduler';
