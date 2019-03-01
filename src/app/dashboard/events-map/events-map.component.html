@@ -1,2 +1,6 @@
-<sw-map [lat]="lat" [lng]="lng">
+<button (click)="toggleShow($event)">Set Template</button>
+<sw-map [lat]="lat" [lng]="lng" [markers]="events | async">
+  <ng-template mapInfowindowTemplate let-data="data" *ngIf="show">
+    <div>{{data.title}}</div>
+  </ng-template>
 </sw-map>

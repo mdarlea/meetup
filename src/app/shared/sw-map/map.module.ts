@@ -7,8 +7,9 @@ import { MapsApiLoaderService } from './maps-api-loader.service';
 import { GeolocationService } from './geolocation.service';
 import { MapApiConfig, MAP_API_CONFIG} from './map-config';
 import { MapComponent } from './map/map.component';
-import { MarkerDirective } from './map/marker.directive';
+import { MarkerDirective } from './google-map/marker.directive';
 import { GoogleMapComponent } from './google-map/google-map.component';
+import { MapInfowindowTemplateDirective } from './map/map-infowindow-template.directive';
 
 export function mapsInitializerFactory(apiLoaderSvc: MapsApiLoaderService, injector: Injector) {
     return () => new Promise<any>((resolve: any) => {
@@ -23,8 +24,8 @@ export function mapsInitializerFactory(apiLoaderSvc: MapsApiLoaderService, injec
   imports: [
     CommonModule
   ],
-  declarations: [MapComponent, MarkerDirective, GoogleMapComponent],
-  exports: [MapComponent, MarkerDirective]
+  declarations: [MapComponent, MarkerDirective, GoogleMapComponent, MapInfowindowTemplateDirective],
+  exports: [MapComponent, MapInfowindowTemplateDirective]
 })
 export class MapModule {
   static forRoot(config?: MapApiConfig): ModuleWithProviders {

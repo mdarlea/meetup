@@ -1,6 +1,6 @@
 import { OnChanges, OnInit, AfterContentInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Directive, Host, Input } from '@angular/core';
-import { MapService } from './map.service';
+import { GoogleMapService } from './google-map.service';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -15,7 +15,7 @@ export class MarkerDirective implements OnChanges, OnInit, AfterContentInit, Aft
 
   private initialized = false;
 
-  constructor(@Host() private mapSvc: MapService) { }
+  constructor(@Host() private mapSvc: GoogleMapService) { }
 
   ngOnChanges(changes: any) {
     if (!this.initialized) { return; }

@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable , BehaviorSubject} from 'rxjs';
 import { EventDto } from '../shared/event-dto';
 import {TimeRangeDto} from '../shared/time-range-dto';
-import {LocationDto} from '../shared/location-dto';
 import {EventGroup} from '../shared/event-group';
 import { EventViewModel} from '../shared/event-view-model';
 import { Settings } from '../../core/settings';
@@ -62,12 +61,6 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
       this.findEventsInTimeRange(timeRange).subscribe(events => this.query(events), error => super.error(error));
     }
 
-    private findEventsInArea(location: LocationDto): Observable<Array<EventDto>> {
-        const url = `${this.route}FindEventsInArea`;
-        return this.http.post<EventDto[]>(url, location)
-                        .pipe(catchError(this.handleError('findEventsInArea', new Array<EventDto>(), true)));
-    }
-
     private findDailyEventsForCurrentUser(): Observable<Array<EventDto>> {
         const url = `${this.route}FindDailyEventsForCurrentUser`;
         return this.http.get<EventDto[]>(url)
@@ -100,9 +93,9 @@ export class EventsQueryService extends BehaviorSubject<EventGroup[]> {
         const url = `${this.route}FindMonthlyEvents`;
         return this.http.get<EventDto[]>(url).pipe(catchError(this.handleError('findMonthlyEvents', new Array<EventDto>(), true)));
     }
-    private findEventsInTimeRange(timeRange:TimeRangeDto): Observable<Array<EventDto>> {
+    private findEventsInTimeRange(timeRange: TimeRangeDto): Observable<Array<EventDto>> {
         const url = `${this.route}FindEventsInTimeRange`;
-        return this.http.post<EventDto[]>(url,timeRange).pipe(catchError(this.handleError('', new Array<EventDto>(), true)));
+        return this.http.post<EventDto[]>(url, timeRange).pipe(catchError(this.handleError('', new Array<EventDto>(), true)));
     }
     private findEventsInTimeRangeForUser(timeRange: TimeRangeDto): Observable<Array<EventDto>> {
         const url = `${this.route}FindEventsInTimeRangeForUser`;

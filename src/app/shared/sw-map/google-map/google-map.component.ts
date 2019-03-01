@@ -2,12 +2,13 @@ import { Subscription } from 'rxjs';
 
 import { OnChanges, OnInit, AfterContentInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Component, ViewChild, ElementRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { MapService } from '../map/map.service';
+import { GoogleMapService } from './google-map.service';
 
 @Component({
   selector: 'google-map',
   templateUrl: './google-map.component.html',
-  styleUrls: ['./google-map.component.css']
+  styleUrls: ['./google-map.component.css'],
+  providers: [GoogleMapService]
 })
 export class GoogleMapComponent implements OnChanges, OnInit, AfterContentInit, AfterViewInit, OnDestroy {
   @Input() lat: number;
@@ -47,7 +48,7 @@ export class GoogleMapComponent implements OnChanges, OnInit, AfterContentInit, 
     return this.infowindowTemplateValue;
   }
 
-  constructor(private mapSvc: MapService) {
+  constructor(private mapSvc: GoogleMapService) {
     this.addMarkerSubscription = this.mapSvc.addMarker$.subscribe(markerInfo => {
       const marker = new google.maps.Marker({
           position: {lat: markerInfo.lat, lng: markerInfo.lng},

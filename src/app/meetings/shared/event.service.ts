@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { EventDto } from '../shared/event-dto';
 import {TimeRangeDto} from '../shared/time-range-dto';
-import {LocationDto} from '../shared/location-dto';
 import { Settings } from '../../core/settings';
 import {HttpErrorHandlerService, HandleError} from '../../core/services/http-error-handler.service';
 
