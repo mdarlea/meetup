@@ -1,6 +1,44 @@
 <button (click)="toggleShow($event)">Set Template</button>
 <sw-map [lat]="lat" [lng]="lng" [markers]="events | async">
-  <ng-template mapInfowindowTemplate let-data="data" *ngIf="show">
-    <div>{{data.title}}</div>
+  <ng-template mapInfowindowTemplate let-data="data">
+    <div class="row">
+      <div class="col-xs-6">
+        <label class="pull-right">Hosted By</label>
+      </div>
+      <div class="col-xs-6">
+        <span class="text-info">{{data.instructor}}</span>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label class="pull-right">Start Time</label>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-info">{{data.startTime | format:"LLL"}}</span>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <label class="pull-right">End Time</label>
+      </div>
+      <div class="col-xs-6">
+        <span class="text-info">{{data.endTime  | format:"LLL"}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <label class="pull-right">Location</label>
+      </div>
+      <div class="col-xs-6">
+        <div class="text-info">{{getStreetAddress(data)}}</div>
+        <div class="text-info">{{data.city}}, {{data.state}} {{data.zip}}</div>
+      </div>
+    </div>
+    <div class="panel panel-info info-box" *ngIf="data.repeat">
+      <div class="info-tab"></div>
+      <div class="panel-body">
+        <p class="text-center"> This is a recurring event</p>
+      </div>
+    </div>
   </ng-template>
 </sw-map>
