@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { EventViewModel} from '../shared/event-view-model';
+import { EventViewModel} from '../event-view-model';
 import { AddressService} from '../../core/services/address.service';
 
 @Component({

@@ -11,7 +11,7 @@ import { EventsInAreaService} from '../shared/events-in-area.service';
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent implements OnInit {
-  private events: Observable<EventAndAddress[]>;
+  events: Observable<EventAndAddress[]>;
 
   constructor(private eventSvc: EventsInAreaService) {
     this.events = eventSvc;

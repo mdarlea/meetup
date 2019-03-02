@@ -1,16 +1,17 @@
 
 import {switchMap} from 'rxjs/operators';
 import { Component, OnInit, ViewChild, Input, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { EventViewModel} from '../shared/event-view-model';
-import { AddressComponent} from '../../shared/address/address.component';
-import { UserAddressService} from '../../core/services/user-address.service';
-import { EventService} from '../shared/event.service';
-import {SchedulerService} from '../shared/scheduler.service';
 import { Subscription,  Observable} from 'rxjs';
+
+import { EventViewModel} from '../event-view-model';
+import { AddressComponent} from '../address/address.component';
+import { UserAddressService} from '../../core/services/user-address.service';
+import { EventService} from '../../core/services/event.service';
+import {SchedulerService} from '../scheduler.service';
 import { Address} from '../../core/models/address';
 import {LoaderService} from '../../core/services/loader.service';
-import { EventDto } from '../shared/event-dto';
-import { RecurringEventViewModel } from '../shared/recurring-event-view-model';
+import { EventDto } from '../../core/models/event-dto';
+import { RecurringEventViewModel } from '../recurring-event-view-model';
 
 import * as _ from 'lodash';
 

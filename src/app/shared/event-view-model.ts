@@ -1,5 +1,5 @@
-import { Address } from '../../core/models/address';
-import { EventDto } from './event-dto';
+import { Address } from '../core/models/address';
+import { EventDto } from '../core/models/event-dto';
 import { EventInfo } from './event-info';
 import { EventGroup } from './event-group';
 import * as _ from 'lodash';

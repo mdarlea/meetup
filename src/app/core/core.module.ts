@@ -16,6 +16,7 @@ import {httpInterceptorProviders } from './http-interceptors/index';
 import {LoaderService} from './services/loader.service';
 import { HttpErrorHandlerService} from './services/http-error-handler.service';
 import { MessageService} from './services/message.service';
+import { EventService } from './services/event.service';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { MessageService} from './services/message.service';
         AddressService,
         UserAddressService,
         MessageService,
+        EventService,
         HttpErrorHandlerService,
         {
           provide: APP_INITIALIZER,

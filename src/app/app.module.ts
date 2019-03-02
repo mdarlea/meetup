@@ -8,13 +8,11 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule} from './app-routing.module';
 import { SharedModule} from './shared/shared.module';
 import { MapModule } from './shared/sw-map/map.module';
-import { EventComponent } from './event/event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    EventComponent
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,

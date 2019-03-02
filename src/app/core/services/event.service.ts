@@ -4,8 +4,8 @@ import {map, catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
-import { EventDto } from '../shared/event-dto';
-import {TimeRangeDto} from '../shared/time-range-dto';
+import { EventDto } from '../models/event-dto';
+import {TimeRangeDto} from '../models/time-range-dto';
 import { Settings } from '../../core/settings';
 import {HttpErrorHandlerService, HandleError} from '../../core/services/http-error-handler.service';
 

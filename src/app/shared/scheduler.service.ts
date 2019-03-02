@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { Subject } from 'rxjs';
-import {EventViewModel} from '../shared/event-view-model';
+import {EventViewModel} from './event-view-model';
 
 @Injectable()
 export class SchedulerService {

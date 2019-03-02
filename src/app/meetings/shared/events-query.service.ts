@@ -2,11 +2,12 @@
 import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable , BehaviorSubject} from 'rxjs';
-import { EventDto } from '../shared/event-dto';
-import {TimeRangeDto} from '../shared/time-range-dto';
-import {EventGroup} from '../shared/event-group';
-import { EventViewModel} from '../shared/event-view-model';
+import { EventDto } from '../../core/models/event-dto';
+import {TimeRangeDto} from '../../core/models/time-range-dto';
+import {EventGroup} from '../../shared/event-group';
+import { EventViewModel} from '../../shared/event-view-model';
 import { Settings } from '../../core/settings';
 import { HttpErrorHandlerService, HandleError} from '../../core/services/http-error-handler.service';
 

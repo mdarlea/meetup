@@ -1,4 +1,4 @@
-import { Address } from '../../core/models/address';
+import { Address } from './address';
 
 export class EventDto {
     id: number;

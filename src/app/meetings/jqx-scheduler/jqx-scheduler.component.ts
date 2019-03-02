@@ -4,15 +4,15 @@ import { switchMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { EventsQueryService} from '../shared/events-query.service';
-import { EventViewModel} from '../shared/event-view-model';
-import { EventGroup} from '../shared/event-group';
-import {EventInfo} from '../shared/event-info';
+import { EventViewModel} from '../../shared/event-view-model';
+import { EventGroup} from '../../shared/event-group';
+import {EventInfo} from '../../shared/event-info';
 import { UserService} from '../../core/services/user.service';
-import {SchedulerService} from '../shared/scheduler.service';
-import { EventService} from '../shared/event.service';
+import {SchedulerService} from '../../shared/scheduler.service';
+import { EventService} from '../../core/services/event.service';
 import { LoaderService} from '../../core/services/loader.service';
 import { SchedulerComponent } from 'sw-scheduler';
-import { TimeRangeDto} from '../shared/time-range-dto';
+import { TimeRangeDto} from '../../core/models/time-range-dto';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -184,6 +184,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
                             this.loading = false;
                          }, error => {
                            this.modelState = error;
+                           this.scheduler.render();
                            this.loading = false;
                          }) ;
               }

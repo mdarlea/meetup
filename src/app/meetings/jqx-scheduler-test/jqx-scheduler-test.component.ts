@@ -2,15 +2,12 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEm
 import { Subscription} from 'rxjs';
 
 import { EventsQueryService} from '../shared/events-query.service';
-import { EventViewModel} from '../shared/event-view-model';
-import { EventGroup} from '../shared/event-group';
-import {EventInfo} from '../shared/event-info';
+import { EventViewModel} from '../../shared/event-view-model';
+import { EventGroup} from '../../shared/event-group';
+import {EventInfo} from '../../shared/event-info';
 import { UserService} from '../../core/services/user.service';
-import {SchedulerService} from '../shared/scheduler.service';
-import { EventService} from '../shared/event.service';
 import { LoaderService} from '../../core/services/loader.service';
 import { SchedulerComponent } from 'sw-scheduler';
-import { TimeRangeDto} from '../shared/time-range-dto';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -35,8 +32,6 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
   roomTwo = new Array<{id: number, subject: string, start: Date, end: Date}>();
 
   private initialized = false;
-
-  @Output() previewEvent = new EventEmitter<EventViewModel>();
 
   @ViewChild(SchedulerComponent) scheduler: SchedulerComponent;
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef } from '@angular/core';
-import { RecurringEventViewModel} from '../shared/recurring-event-view-model';
+
+import { RecurringEventViewModel} from '../recurring-event-view-model';
 
 @Component({
   selector: 'recurring-event',
