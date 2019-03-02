@@ -19,6 +19,7 @@ export class EventsMapComponent implements OnInit, OnDestroy {
   address: Address;
   events = new Array<EventAndAddress>();
   show = false;
+  styleLeft = 0;
 
   private addressSubscription: Subscription;
   private eventsSubscription: Subscription;
@@ -28,6 +29,7 @@ export class EventsMapComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.eventsSubscription = this.eventSvc.subscribe(events => {
       this.events = events;
+      this.styleLeft = (events.length > 0) ? 310 : 0;
       this.loaderSvc.load(false);
     });
     this.addressSubscription = this.addressSvc.subscribe(addresses => {
