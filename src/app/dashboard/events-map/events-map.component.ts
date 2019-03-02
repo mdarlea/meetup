@@ -5,7 +5,7 @@ import { UserAddressService } from '../../core/services/user-address.service';
 import { LoaderService } from '../../core/services/loader.service';
 import { Address } from '../../core/models/address';
 import { EventAndAddress } from '../shared/event-and-address';
-import { EventAndAddressService } from '../shared/event-and-address.service';
+import { EventsInAreaService } from '../shared/events-in-area.service';
 import { LocationDto } from '../shared/location-dto';
 
 @Component({
@@ -17,17 +17,22 @@ export class EventsMapComponent implements OnInit, OnDestroy {
   lng: number;
   lat: number;
   address: Address;
-  events: Observable<EventAndAddress[]>;
+  events = new Array<EventAndAddress>();
   show = false;
 
   private addressSubscription: Subscription;
+  private eventsSubscription: Subscription;
 
-  constructor(private addressSvc: UserAddressService, private eventSvc: EventAndAddressService, private loaderSvc: LoaderService) { }
+  constructor(private addressSvc: UserAddressService, private eventSvc: EventsInAreaService, private loaderSvc: LoaderService) { }
 
   ngOnInit() {
-    this.addressSubscription = this.addressSvc.subscribe(address => {
-      if (address.length > 0) {
-        const mainAddresses = address.filter(a => a.isMainAddress);
+    this.eventsSubscription = this.eventSvc.subscribe(events => {
+      this.events = events;
+      this.loaderSvc.load(false);
+    });
+    this.addressSubscription = this.addressSvc.subscribe(addresses => {
+      if (addresses.length > 0) {
+        const mainAddresses = addresses.filter(a => a.isMainAddress);
         if (mainAddresses.length > 0) {
           this.address = mainAddresses[0];
           this.lat = this.address.latitude;
@@ -35,19 +40,18 @@ export class EventsMapComponent implements OnInit, OnDestroy {
 
           // get the events
           const location = new LocationDto(this.lng, this.lat, 10000);
-          this.events = this.eventSvc.findEventsInArea(location);
+
+          // queries the events
+          this.eventSvc.query(location);
         }
+      } else {
+        this.loaderSvc.load(false);
       }
-      this.loaderSvc.load(false);
     });
 
     if (!this.address) {
       this.loaderSvc.load(true);
       this.addressSvc.query();
-    } else {
-      // get the events
-      const location = new LocationDto(this.lng, this.lat, 10000);
-      this.events = this.eventSvc.findEventsInArea(location);
     }
   }
 

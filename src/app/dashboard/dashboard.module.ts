@@ -5,15 +5,16 @@ import {SharedModule} from '../shared/shared.module';
 import { GoogleMapRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard-root/dashboard.component';
 import { EventsMapComponent } from './events-map/events-map.component';
-import { EventAndAddressService } from './shared/event-and-address.service';
+import { EventsInAreaService } from './shared/events-in-area.service';
 import { MapMarkerComponent } from './map-marker/map-marker.component';
+import { EventsListComponent } from './events-list/events-list.component';
 
 @NgModule({
-  declarations: [DashboardComponent, EventsMapComponent, MapMarkerComponent],
+  declarations: [DashboardComponent, EventsMapComponent, MapMarkerComponent, EventsListComponent],
   imports: [
     SharedModule,
     GoogleMapRoutingModule
   ],
-  providers: [EventAndAddressService]
+  providers: [EventsInAreaService]
 })
 export class DashboardModule { }

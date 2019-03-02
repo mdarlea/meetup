@@ -16,6 +16,7 @@ export class MapComponent implements OnChanges, OnInit, AfterContentInit, AfterC
   @Input() lng: number;
   @Input() zoom: number;
   @Input() markers = new Array<any>();
+  @Input() styleLeft = 0;
 
   private infowindowTemplateSubscription: Subscription;
   private initialized = false;

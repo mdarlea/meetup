@@ -1,0 +1,14 @@
+h6 {
+  font-size: medium;
+}
+.d-inline {
+  display: inline !important;
+  font-size: smaller;
+  padding-left:5px;
+}
+.bold {
+  font-weight: bold;
+}
+.panel {
+  margin-bottom: 0;
+}

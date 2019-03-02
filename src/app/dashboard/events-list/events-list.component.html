@@ -1,0 +1,19 @@
+  <ul class="list-unstyled">
+    <li class="media mb-2 border border-left-0 border-top-0 border-right-0 pb-2" *ngFor="let event of events | async ">
+      <div class="media-body">
+        <a href="#">
+          <h6 class="mt-0 mb-1">{{event.title}}</h6>
+        </a>
+        <div class="panel">
+            <div class="d-inline text-info bold">From</div>
+            <div class="d-inline">{{event.startTime | format: "MM/DD/YY h:mma" }}</div>
+            <div class="d-inline text-info bold">To</div>
+            <div class="d-inline">{{event.endTime | format: "MM/DD/YY h:mma"}}</div>
+        </div>
+        <div *ngIf="event.description">
+          <span class="text-info">{{getDescription(event)}}</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+

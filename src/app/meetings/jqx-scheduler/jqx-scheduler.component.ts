@@ -219,8 +219,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSelectEvent(selectedEvent: EventViewModel) {
     this.modelState = null;
-    this.editMode = false;
-    // this.editMode = true;
+    this.editMode = this.canEditEvent(selectedEvent);
   }
    onAddEvent(selectedEvent: EventViewModel) {
      this.modelState = null;
@@ -233,6 +232,13 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
    edit() {
     this.editMode = true;
+   }
+
+   canEditEvent(selectedEvent: EventViewModel): boolean {
+    // get current user id
+    const user = this.userSvc.getUser();
+    const now = new Date();
+    return (selectedEvent.userId === user.id && selectedEvent.start >= now) ? true : false;
    }
 
   private getNewEventObject(eventInfo: EventInfo) {

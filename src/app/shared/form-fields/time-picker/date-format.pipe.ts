@@ -5,7 +5,7 @@
 })
 export class DateFormatPipe implements PipeTransform {
     transform(date: Date, args?: string): any {
-        let format = (args) ? args : "LLLL";
+        const format = (args) ? args : 'LLLL';
         return moment(date).format(format);
     }
 }

@@ -22,7 +22,7 @@
     <div class="modal-footer">
       <spinner *ngIf="processingEvent"></spinner>
       <ng-container *ngIf="!processingEvent">
-        <button type="button" *ngIf="!readOnly" (click)="edit()" class="btn btn-success">
+        <button type="button" *ngIf="!readOnly && canEditEvent(selectedEvent)" (click)="edit()" class="btn btn-success">
             Edit
         </button>
         <button *ngIf="!readOnly" type="button" (click)="delete(selectedEvent)" class="btn btn-danger">

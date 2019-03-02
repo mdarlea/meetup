@@ -14,6 +14,7 @@ export class GoogleMapComponent implements OnChanges, OnInit, AfterContentInit, 
   @Input() lat: number;
   @Input() lng: number;
   @Input() zoom: number;
+  @Input() styleLeft = 0;
 
   @ViewChild('map') map: ElementRef;
   @ViewChild('container') container: ElementRef;
