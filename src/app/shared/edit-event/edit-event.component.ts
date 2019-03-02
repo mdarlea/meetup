@@ -51,6 +51,10 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       this.loaderSubscription = loaderSvc.loading$.subscribe(value => this.disabled = value);
     }
 
+    get isChanged(): boolean {
+      return JSON.stringify(this.event) !== JSON.stringify(this.eventCopy);
+    }
+
     private setEventAddressFromMainAddress() {
                 const address = new Address();
                 address.streetAddress = this.mainAddress.streetAddress;

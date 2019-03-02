@@ -1,13 +1,13 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Subscription} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 
 import { SchedulerService } from '../../shared/scheduler.service';
 import { UserService } from '../../core/services/user.service';
-import { LoaderService } from '../../core/services/loader.service';
 import { EventService } from '../../core/services/event.service';
 import { EventViewModel } from '../../shared/event-view-model';
+import { EditEventComponent } from '../../shared/edit-event/edit-event.component';
 
 @Component({
   selector: 'event',
@@ -21,8 +21,10 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
   editMode = false;
   processingEvent = false;
   loading = false;
-  constructor(private loaderSvc: LoaderService,
-              private eventSvc: EventService,
+
+  @ViewChild(EditEventComponent) editEventComponent: EditEventComponent;
+
+  constructor(private eventSvc: EventService,
               private userSvc: UserService,
               private route: ActivatedRoute,
               private router: Router,
@@ -31,20 +33,23 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
    }
 
   ngOnInit() {
-    this.route.params.pipe(switchMap(params => {
-                        this.loading = true;
-                        this.loaderSvc.load(true);
-                        return this.eventSvc.findEvent(params['id']);
-                      }))
-                     .subscribe(eventDto => {
-                        this.event = EventViewModel.fromEventDto(eventDto);
-                        this.editMode = this.canEditEvent();
-                        this.loaderSvc.load(false);
-                        this.loading = false;
+    this.route.data.subscribe(data => {
+                        const resolvedData = data['resolvedData'];
+                        if (resolvedData.error) {
+                          this.loading = true;
+                          this.modelState = resolvedData.error;
+                        } else {
+                          this.event = EventViewModel.fromEventDto(resolvedData.event);
+                          this.editMode = this.canEditEvent();
+                        }
                      }, error => {
                        this.modelState = error;
-                       this.loaderSvc.load(false);
+                       this.loading = true;
                      });
+  }
+
+  get isChanged(): boolean {
+    return (this.editEventComponent) ? this.editEventComponent.isChanged : false;
   }
 
   ngAfterViewInit() {
