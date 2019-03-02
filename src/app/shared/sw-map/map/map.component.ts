@@ -6,7 +6,6 @@ import { MapInfowindowTemplateDirective} from './map-infowindow-template.directi
 import { GoogleMapComponent } from '../google-map/google-map.component';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'sw-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],

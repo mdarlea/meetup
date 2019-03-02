@@ -51,15 +51,6 @@ export class EventsMapComponent implements OnInit, OnDestroy {
     }
   }
 
-    getStreetAddress(data: EventAndAddress): string {
-        let street = data.streetAddress;
-
-        if (data.suiteNumber) {
-            street = `${street} #${data.suiteNumber}`;
-        }
-        return street;
-    }
-
   ngOnDestroy() {
     if (this.addressSubscription) {
       this.addressSubscription.unsubscribe();

@@ -5,7 +5,6 @@ import { UserService } from '../../core/services/user.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
