@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { ScrollToModule } from 'ng2-scroll-to-el';
 
 import { AppComponent } from './app.component';
 import { CoreModule} from './core/core.module';
@@ -18,6 +19,7 @@ import { MapModule } from './shared/sw-map/map.module';
     AppRoutingModule,
     BrowserModule,
     CoreModule,
+    ScrollToModule.forRoot(),
     MapModule.forRoot({
       mapsApiKey: 'AIzaSyAHI8Ipk9hdcaX9ZZxBi4ve1ZuJxfTQ61Q'
     }),

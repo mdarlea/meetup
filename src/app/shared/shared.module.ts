@@ -21,7 +21,7 @@ import { RecurringEventComponent } from './recurring-event/recurring-event.compo
     ImageSliderModule,
     AddressModule,
     FormFieldsModule,
-    ScrollToModule.forRoot()
+    ScrollToModule
   ],
   exports: [
     CommonModule,
