@@ -6,9 +6,7 @@ import {map, catchError} from 'rxjs/operators';
 import {EventDto} from '../../core/models/event-dto';
 import {EventService} from '../../core/services/event.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EventResolver implements Resolve<{event: EventDto, error?: any}> {
   constructor(private eventSvc: EventService) {
 

@@ -5,9 +5,7 @@ import { Observable } from 'rxjs';
 
 import { EventComponent } from './event.component';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EventGuard implements CanDeactivate<EventComponent> {
 
   canDeactivate(component: EventComponent,

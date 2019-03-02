@@ -9,6 +9,8 @@ import { EventsInAreaService } from './shared/events-in-area.service';
 import { MapMarkerComponent } from './map-marker/map-marker.component';
 import { EventsListComponent } from './events-list/events-list.component';
 import { EventComponent } from './event/event.component';
+import { EventGuard} from './event/event.guard';
+import { EventResolver} from './event/event-resolver.service';
 
 @NgModule({
   declarations: [DashboardComponent, EventsMapComponent, MapMarkerComponent, EventsListComponent, EventComponent],
@@ -16,6 +18,6 @@ import { EventComponent } from './event/event.component';
     SharedModule,
     GoogleMapRoutingModule
   ],
-  providers: [EventsInAreaService]
+  providers: [EventsInAreaService, EventGuard, EventResolver]
 })
 export class DashboardModule { }
