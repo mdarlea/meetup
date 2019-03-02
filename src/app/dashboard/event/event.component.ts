@@ -44,7 +44,6 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
                      }, error => {
                        this.modelState = error;
                        this.loaderSvc.load(false);
-                       this.loading = false;
                      });
   }
 
