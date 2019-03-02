@@ -141,18 +141,27 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
     onUpdateEvent(event: EventInfo) {
+      // get the current user
+      const user = this.userSvc.getUser();
+
       this.modelState = null;
 
       // check if this is a recurring event
       if (event.rootAppointment && event.rootAppointment.id) {
-
         // updates the recurrence exception on the root appointment
         for (const calendar of this.calendars) {
           for (const ev of calendar.events) {
-            const updatedEvent = EventViewModel.newEvent();
-            Object.assign(updatedEvent, _.cloneDeep(ev));
-
             if (ev.id === event.rootAppointment.id) {
+              // user can change only his or her events
+              if (ev.userId !== user.id) {
+                this.modelState = {message: 'You cannot update this event'};
+                this.scheduler.render();
+                return;
+              }
+
+              const updatedEvent = EventViewModel.newEvent();
+              Object.assign(updatedEvent, _.cloneDeep(ev));
+
               if (event.rootAppointment.recurrenceException) {
                 if (ev.recurrenceException) {
                   updatedEvent.recurrenceException += ',';
@@ -193,15 +202,22 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
           return;
       }
 
-      this.loading = true;
       for (const calendar of this.calendars) {
         for (const ev of calendar.events) {
           if (ev.id === event.id) {
+            // user can change only his or her events
+            if (ev.userId !== user.id) {
+                this.modelState = {message: 'You cannot update this event'};
+                this.scheduler.render(event.id);
+                return;
+            }
+
             // saves to the database
             const copy = ev.clone();
             copy.start = event.startTime;
             copy.end = event.endTime;
 
+            this.loading = true;
             this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e => {
               // updates the event
               ev.start = event.startTime;
