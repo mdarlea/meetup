@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Address } from '../../core/models/address';
 import { EventAndAddress } from '../shared/event-and-address';
 import { EventsInAreaService} from '../shared/events-in-area.service';
 
@@ -20,6 +21,15 @@ export class EventsListComponent implements OnInit {
   }
 
   getDescription(event: EventAndAddress): string {
-    return (event.description && event.description.length > 100) ? `${event.description.substr(0, 100)} ...` : event.description;
+    const max = 100;
+    let description = event.description;
+    if (event.description && event.description.length > max) {
+      const value = event.description.substr(0, max);
+      const pos = value.lastIndexOf(' ');
+      description = `${value.substr(0, pos)} ...`;
+    }
+    return description;
   }
+
+
 }

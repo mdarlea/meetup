@@ -99,7 +99,7 @@ export class JqxSchedulerTestComponent implements OnInit, AfterViewInit, OnDestr
   private getNewEventObject(eventInfo: EventInfo) {
       const event = EventViewModel.fromEventInfo(eventInfo);
       const user = this.userSvc.getUser();
-      event.groupId = user.userId;
+      event.groupId = user.id;
       return event;
   }
 
