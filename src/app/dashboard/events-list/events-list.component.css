@@ -4,7 +4,7 @@
 }
 .d-inline {
   display: inline !important;
-  font-size: smaller;
+   padding-right:5px;
 }
 .bold {
   font-weight: bold;
@@ -15,6 +15,6 @@
 .panel-body {
   padding-top:0;
 }
-.padding {
-  padding-right:5px;
+.small-font {
+  font-size: 11px;
 }

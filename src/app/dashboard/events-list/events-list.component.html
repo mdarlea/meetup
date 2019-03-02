@@ -8,11 +8,28 @@
             </a>
           </div>
           <div class="panel-body">
-            <div>
-              <div class="d-inline text-info bold padding">From</div>
-              <div class="d-inline padding">{{event.startTime | format: "MM/DD/YY h:mma" }}</div>
-              <div class="d-inline text-info bold padding">To</div>
-              <div class="d-inline">{{event.endTime | format: "MM/DD/YY h:mma"}}</div>
+            <div *ngIf="!event.recurrencePattern">
+              <div class="d-inline text-info bold small-font">From</div>
+              <div class="d-inline small-font">{{event.startTime | format: "M/D/YY h:mma" }}</div>
+              <div class="d-inline text-info bold small-font">To</div>
+              <div class="d-inline small-font">{{event.endTime | format: "M/D/YY h:mma"}}</div>
+            </div>
+            <div *ngIf="isDailyEvent(event)">
+              <div class="small-font">
+                <span class="text-info">Repeats every day</span>
+              </div>
+              <div>
+                <div class="d-inline text-info bold small-font">From</div>
+                <div class="d-inline small-font">{{event.startTime | format: "h:mma" }}</div>
+                <div class="d-inline text-info bold small-font">To</div>
+                <div class="d-inline small-font">{{event.endTime | format: "h:mma"}}</div>
+              </div>
+            </div>
+            <div *ngIf="isWeeklyEvent(event)" class="small-font">
+              <span class="text-info">Repeats every week on {{event.startTime | format: "dddd" }} at {{event.startTime | format: "h:mma" }}</span>
+            </div>
+            <div *ngIf="isMonthlyEvent(event)" class="small-font">
+              <span class="text-info">Repeats every month on {{event.startTime | format: "Do" }}</span>
             </div>
             <address-read-only [address]="event"></address-read-only>
             <div *ngIf="event.description">

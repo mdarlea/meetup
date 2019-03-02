@@ -8,8 +8,8 @@ const routes: Routes = [{
     path: '',
     component: DashboardComponent,
     children: [
-      {path: '', redirectTo: 'map', pathMatch: 'full'},
-      {path: 'map', component: EventsMapComponent }
+      {path: '', redirectTo: 'events-map', pathMatch: 'full'},
+      {path: 'events-map', component: EventsMapComponent }
     ]
 }];
 
