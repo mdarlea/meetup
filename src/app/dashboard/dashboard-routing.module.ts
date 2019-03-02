@@ -3,13 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard-root/dashboard.component';
 import { EventsMapComponent } from './events-map/events-map.component';
+import { EventComponent} from './event/event.component';
 
 const routes: Routes = [{
     path: '',
     component: DashboardComponent,
     children: [
       {path: '', redirectTo: 'events-map', pathMatch: 'full'},
-      {path: 'events-map', component: EventsMapComponent }
+      {path: 'events-map', component: EventsMapComponent },
+      {path: 'event/:id', component: EventComponent}
     ]
 }];
 

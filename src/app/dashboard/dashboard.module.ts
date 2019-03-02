@@ -8,9 +8,10 @@ import { EventsMapComponent } from './events-map/events-map.component';
 import { EventsInAreaService } from './shared/events-in-area.service';
 import { MapMarkerComponent } from './map-marker/map-marker.component';
 import { EventsListComponent } from './events-list/events-list.component';
+import { EventComponent } from './event/event.component';
 
 @NgModule({
-  declarations: [DashboardComponent, EventsMapComponent, MapMarkerComponent, EventsListComponent],
+  declarations: [DashboardComponent, EventsMapComponent, MapMarkerComponent, EventsListComponent, EventComponent],
   imports: [
     SharedModule,
     GoogleMapRoutingModule

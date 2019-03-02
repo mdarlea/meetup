@@ -37,7 +37,7 @@ export class EventService {
     }
     findEvent(eventId: number): Observable<EventDto> {
         const url = `${this.route}FindEvent/${eventId}`;
-        return this.http.get<EventDto>(url).pipe(catchError(this.handleError('findEvent', new EventDto())));
+        return this.http.get<EventDto>(url).pipe(catchError(this.handleError('findEvent', new EventDto(), true)));
     }
     updateRecurringEvent(recurringEvent: EventDto, newEvent: EventDto): Observable<EventDto[]> {
       let url = `${this.route}UpdateEvent`;

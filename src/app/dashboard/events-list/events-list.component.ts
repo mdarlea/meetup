@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Address } from '../../core/models/address';
@@ -13,7 +14,7 @@ import { EventsInAreaService} from '../shared/events-in-area.service';
 export class EventsListComponent implements OnInit {
   events: Observable<EventAndAddress[]>;
 
-  constructor(private eventSvc: EventsInAreaService) {
+  constructor(private eventSvc: EventsInAreaService, private router: Router) {
     this.events = eventSvc;
   }
 
@@ -58,6 +59,10 @@ export class EventsListComponent implements OnInit {
     }
 
     return null;
+  }
+
+  editEvent(id: number) {
+    this.router.navigate(['/dashboard/event', id]);
   }
 
 }

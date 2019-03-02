@@ -1,0 +1,18 @@
+<div id="wrapper" *ngIf="!loading">
+  <h3>{{event.subject}}</h3>
+  <hr/>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div *ngIf="!editMode">
+        <preview-event [event]="event"></preview-event>
+      </div>
+      <div *ngIf="editMode">
+        <edit-event [event]="event"></edit-event>
+      </div>
+      <validation-errors [model-state]="modelState"></validation-errors>
+      <spinner *ngIf="processingEvent"></spinner>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

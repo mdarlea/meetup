@@ -21,7 +21,7 @@ export class RegisterExternalComponent implements OnInit {
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
 
-    constructor(private authService: AuthService, private route: ActivatedRoute, private _router: Router) {
+    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) {
 
     }
 
@@ -40,7 +40,7 @@ export class RegisterExternalComponent implements OnInit {
 
         this.addressComponent.getGeolocation().pipe(switchMap(result => this.authService.registerExternal(this.user)))
                             .subscribe((u: AuthUser) => {
-                                this._router.navigate(['/']);
+                                this.router.navigate(['/']);
                             },
                             (error) => {
                                 this.modelState = error;
