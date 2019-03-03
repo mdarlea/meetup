@@ -20,6 +20,7 @@ export class EventsMapComponent implements OnInit, OnDestroy {
   events = new Array<EventAndAddress>();
   show = false;
   styleLeft = 0;
+  zoom = 11;
 
   private addressSubscription: Subscription;
   private eventsSubscription: Subscription;

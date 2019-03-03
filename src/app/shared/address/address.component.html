@@ -6,6 +6,7 @@
 </input-group>
 <div class="row">
     <input-simple name="streetAddress"
+           #street="ngModel"
            [(ngModel)]="address.streetAddress"
            class="col-sm-9 col-xs-12"
            label="Street Address"
@@ -23,6 +24,7 @@
     </input-simple>
 </div>
 <input-simple name="city"
+       #city="ngModel"
        [(ngModel)]="address.city"
        label="City"
        placeholder="Your city"
@@ -33,7 +35,6 @@
 <div class="row">
     <input-simple name="state"
            [(ngModel)]="address.state"
-           #state="ngModel"
            class="col-xs-8"
            label="State or Province"
            placeholder="State or province"

@@ -22,7 +22,8 @@ export class AddressComponent implements OnInit {
 
     @Output() changeCountry = new EventEmitter<any>();
 
-    @ViewChild('state') state: NgModel;
+    @ViewChild('street') street: NgModel;
+    @ViewChild('city') city: NgModel;
 
   constructor(private _geolocationService: GeolocationService) { }
 
@@ -46,8 +47,11 @@ export class AddressComponent implements OnInit {
     }
 
   reset() {
-    if (this.state) {
-      this.state.reset();
+    if (this.street) {
+      this.street.reset();
+    }
+    if (this.city) {
+      this.city.reset();
     }
   }
 }
