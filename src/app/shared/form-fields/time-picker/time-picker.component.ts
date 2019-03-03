@@ -18,6 +18,7 @@ export class DateFormat {
 export class TimePickerComponent implements OnInit, ControlValueAccessor {
    @Input() format: DateFormat;
    @Input() name: string;
+   @Input() showTimeOnly = false;
 
    private configValue: any;
     @Input()

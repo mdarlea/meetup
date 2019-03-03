@@ -12,13 +12,16 @@
 
        <div class="datetimepicker-tabs">
 
-            <div class="datetimepicker-tab datetimepicker-tab-date" [ngClass]="{'active':tab=='date'}" (click)="setTab('date')"><span>Date</span></div>
+            <div class="datetimepicker-tab datetimepicker-tab-date"
+                 [ngClass]="{'active':tab=='date'}"
+                 *ngIf="!showTimeOnly"
+                 (click)="setTab('date')"><span>Date</span></div>
             <div class="datetimepicker-tab datetimepicker-tab-time" [ngClass]="{'active':tab=='time'}" (click)="setTab('time')"><span>Time</span></div>
 
         </div>
        <div class="datetimepicker-preview" *ngIf="tab=='date'">{{datePreview}}</div>
        <div class="datetimepicker-preview" *ngIf="tab=='time'">{{timePreview}}</div>
-        <div class="datetimepicker-section datetimepicker-date-section" *ngIf="tab=='date'">
+        <div class="datetimepicker-section datetimepicker-date-section" *ngIf="tab=='date' && !showTimeOnly">
             <div class="datetimepicker-month">
                 <div class="datetimepicker-action left" (click)="addMonth(-1)"><</div>
                 <div class="datetimepicker-action right" (click)="addMonth(1)">></div>

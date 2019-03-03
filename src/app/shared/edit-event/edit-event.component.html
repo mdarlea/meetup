@@ -19,7 +19,8 @@
             <time-picker name="startTime"
                          [(ngModel)]="eventCopy.start"
                          required
-                         format="{momentFormat:'lll'}">
+                         [showTimeOnly]="eventCopy.recurrencePattern"
+                         [format]="(eventCopy.recurrencePattern) ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
                 <err-required message="The start time is required"></err-required>
             </time-picker>
         </div>
@@ -28,7 +29,8 @@
             <time-picker name="endTime"
                          [(ngModel)]="eventCopy.end"
                          required
-                         format="{momentFormat:'lll'}">
+                         [showTimeOnly]="eventCopy.recurrencePattern"
+                         [format]="(eventCopy.recurrencePattern) ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
                 <err-required message="The end time is required"></err-required>
             </time-picker>
         </div>
