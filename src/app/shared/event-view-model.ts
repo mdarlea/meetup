@@ -25,6 +25,7 @@ export class EventViewModel {
     group: EventGroup;
     recurrencePattern: string;
     recurrenceException: string;
+    endRecurrenceTime: Date;
 
     static newEvent(): EventViewModel {
       const startTime = new Date();
@@ -83,6 +84,10 @@ export class EventViewModel {
         newEvent.recurrencePattern = event.recurrencePattern;
         newEvent.recurrenceException = event.recurrenceException;
 
+        if (event.endRecurrenceTime) {
+          newEvent.endRecurrenceTime = new Date(event.endRecurrenceTime);
+        }
+
         return newEvent;
     }
 
@@ -116,6 +121,24 @@ export class EventViewModel {
 
     clone(): EventViewModel {
         return _.cloneDeep(this);
+    }
+
+    userCanEditThisEvent(userId: string) {
+      const canEdit = (this.userId === userId);
+
+      if (!canEdit) { return false; }
+
+      const now = new Date();
+
+      if (this.recurrencePattern) {
+        if (this.endRecurrenceTime) {
+          return (this.endRecurrenceTime >= now);
+        } else {
+          return true;
+        }
+      } else {
+        return (this.start >= now) ? true : false;
+      }
     }
 
     private _copyAddress(target: Address, source: Address) {

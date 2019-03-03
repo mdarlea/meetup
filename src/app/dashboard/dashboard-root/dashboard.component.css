@@ -1,3 +1,6 @@
 .navbar {
   margin-bottom: 0;
 }
+ul.nav a {
+  cursor: pointer;
+}

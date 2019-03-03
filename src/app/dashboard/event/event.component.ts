@@ -84,8 +84,7 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
   canEditEvent(): boolean {
     // get current user id
     const user = this.userSvc.getUser();
-    const now = new Date();
-    return (this.event.userId === user.id && this.event.start >= now) ? true : false;
+    return this.event.userCanEditThisEvent(user.id);
   }
 
   canDeleteEvent(): boolean {

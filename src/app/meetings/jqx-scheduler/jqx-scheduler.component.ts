@@ -254,8 +254,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
   canEditEvent(selectedEvent: EventViewModel): boolean {
     // get current user id
     const user = this.userSvc.getUser();
-    const now = new Date();
-    return (selectedEvent.userId === user.id && selectedEvent.start >= now) ? true : false;
+    return selectedEvent.userCanEditThisEvent(user.id);
   }
 
   canDeleteEvent(selectedEvent: EventViewModel): boolean {

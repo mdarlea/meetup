@@ -19,10 +19,8 @@
             <time-picker name="startTime"
                          [(ngModel)]="eventCopy.start"
                          required
-                         future-time
                          format="{momentFormat:'lll'}">
                 <err-required message="The start time is required"></err-required>
-                <err-future-time message="Start time must be in the future"></err-future-time>
             </time-picker>
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -30,10 +28,8 @@
             <time-picker name="endTime"
                          [(ngModel)]="eventCopy.end"
                          required
-                         future-time
                          format="{momentFormat:'lll'}">
                 <err-required message="The end time is required"></err-required>
-                <err-future-time message="End time must be in the future"></err-future-time>
             </time-picker>
         </div>
     </div>
