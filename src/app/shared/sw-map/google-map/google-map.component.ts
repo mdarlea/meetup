@@ -56,7 +56,9 @@ export class GoogleMapComponent implements OnChanges, OnInit, AfterContentInit, 
           map: (this.initialized) ? this.googleMap : null,
           title: markerInfo.title
       });
-      this.attachTemplateToMarker(markerInfo.id, marker, markerInfo.marker);
+      if (this.initialized) {
+        this.attachTemplateToMarker(markerInfo.id, marker, markerInfo.marker);
+      }
       this.markers[markerInfo.id] = marker;
       this.markerData[markerInfo.id] = markerInfo.marker;
     });
@@ -110,6 +112,7 @@ export class GoogleMapComponent implements OnChanges, OnInit, AfterContentInit, 
         this.markers[id].setMap(this.googleMap);
       }
     }
+    this.addInfowindow();
     this.initialized = true;
   }
 
