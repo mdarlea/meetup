@@ -15,7 +15,6 @@
   <ng-template schedulerEventTemplate let-data="data" *ngIf="enabled">
     <div><i>{{data.subject}}</i></div>
     <div>{{data.resourceId}}</div>
-    <div><span>{{data.appointmentId}}</span>&nbsp;<span>{{data.id}}</span></div>
   </ng-template>
   <ng-template schedulerReadSeletedEventTemplate let-selectedEvent="selectedEvent">
     <preview-event [event]="selectedEvent"></preview-event>

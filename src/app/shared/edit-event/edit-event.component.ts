@@ -1,6 +1,7 @@
 
 import {switchMap} from 'rxjs/operators';
 import { Component, OnInit, ViewChild, Input, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { FormGroupDirective, NgForm, NgModel } from '@angular/forms';
 import { Subscription,  Observable} from 'rxjs';
 
 import { EventViewModel} from '../event-view-model';
@@ -26,6 +27,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     recurring = new RecurringEventViewModel();
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
+    @ViewChild('form') form: NgForm;
 
     private addressSubscription: Subscription;
     private loaderSubscription: Subscription;
@@ -139,6 +141,14 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
             const value = <EventViewModel> changes.event.currentValue;
             if (value) {
+              const form = this.form;
+              if (form) {
+                form.form.reset();
+              }
+              if (this.addressComponent) {
+                this.addressComponent.reset();
+              }
+
               if (value.id <= 0) {
                 this.eventCopy = _.cloneDeep(value);
                 this.recurring = RecurringEventViewModel.parse(value.recurrencePattern);
@@ -181,7 +191,8 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       }
     }
 
-    onSave() {
+    onSave(form: any) {
+      if (!form.valid) { return; }
       this.eventModelState = null;
       this.save();
    }

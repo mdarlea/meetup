@@ -10,7 +10,9 @@
            class="col-sm-9 col-xs-12"
            label="Street Address"
            placeholder="Your street address"
-           [disabled]="disabled">
+           [disabled]="disabled"
+           required>
+      <err-required message="Street address is required"></err-required>
     </input-simple>
     <input-simple name="suiteNumber"
            [(ngModel)]="address.suiteNumber"
@@ -24,17 +26,18 @@
        [(ngModel)]="address.city"
        label="City"
        placeholder="Your city"
+       required
        [disabled]="disabled">
+  <err-required message="City is required"></err-required>
 </input-simple>
 <div class="row">
     <input-simple name="state"
            [(ngModel)]="address.state"
+           #state="ngModel"
            class="col-xs-8"
-           label="State"
+           label="State or Province"
            placeholder="State or province"
-           [disabled]="disabled"
-           required>
-        <err-required message="State or province is required"></err-required>
+           [disabled]="disabled">
     </input-simple>
     <input-simple name="zip"
            [(ngModel)]="address.zip"
@@ -42,11 +45,10 @@
            label="Zip"
            placeholder="Zip code"
            [disabled]="disabled"
-           required maxlength="10">
-        <err-required message="Zip code is required"></err-required>
+           maxlength="10">
         <err-maxlength message="Zip code cannot be longer than 10 characters"></err-maxlength>
     </input-simple>
 </div>
 <div class="form-group" *ngIf="showCountry">
-    <select name="countries" [(ngModel)]="address.countryIsoCode" (changecountry)="onChangeCountry($event)" ngCountries></select>
+    <!-- <select name="countries" [(ngModel)]="address.countryIsoCode" (changecountry)="onChangeCountry($event)" ngCountries></select> -->
 </div>

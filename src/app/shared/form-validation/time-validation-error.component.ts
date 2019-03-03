@@ -4,7 +4,7 @@ import { ValidationType, ValidationErrorComponent } from './validation-error.com
 import { TimeValidator } from './validators/time.validator'
 
 @Component({
-    selector: "err-time-range",
+    selector: "err-future-time",
     template: `<div *ngIf="!isValid()" class="alert alert-danger">
                     {{message}}
                   </div>`

@@ -1,6 +1,8 @@
 
 import {tap} from 'rxjs/operators';
-import { EventEmitter, Component, OnInit, Input, Output } from '@angular/core';
+import { EventEmitter, Component, OnInit, Input, Output, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
+
 import { Address } from '../../core/models/address';
 import { GeolocationService } from '../../shared/sw-map/geolocation.service';
 import { Observable} from 'rxjs';
@@ -15,10 +17,12 @@ import { GeolocationResult} from '../../shared/sw-map/geolocation.service';
 })
 export class AddressComponent implements OnInit {
     @Input() address: Address;
-    @Input() showCountry = true;
+    @Input() showCountry = false;
     @Input() disabled = false;
 
     @Output() changeCountry = new EventEmitter<any>();
+
+    @ViewChild('state') state: NgModel;
 
   constructor(private _geolocationService: GeolocationService) { }
 
@@ -40,4 +44,10 @@ export class AddressComponent implements OnInit {
             }
         }));
     }
+
+  reset() {
+    if (this.state) {
+      this.state.reset();
+    }
+  }
 }

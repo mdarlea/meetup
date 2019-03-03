@@ -43,7 +43,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
             cookiepolicy: 'single_host_origin',
             scope: 'profile email'
         });
-        this.attachSignin(this.google.nativeElement);
+        if (this.google) {
+          this.attachSignin(this.google.nativeElement);
+        }
       });
     }
 
