@@ -117,6 +117,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
         this.eventCopy = EventViewModel.fromEventDto(result);
         Object.assign(this.event, _.cloneDeep(this.eventCopy));
         this.processingEvent = false;
+        this.ref.detectChanges();
         // notify subscribers
         this.schedulerSvc.eventSaved(this.event);
       }, error => {
