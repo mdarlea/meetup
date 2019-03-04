@@ -89,6 +89,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
           const events = calendar.events.filter(e => e.id === event.id);
           if (events.length === 0) {
             calendar.events.push(event);
+
+             this.ensureEventVisibleId = event.id;
           }
           found = true;
           break;
