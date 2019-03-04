@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-
 import {map, catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
+
+import { clone } from '../../shared/utils';
 import { EventDto } from '../models/event-dto';
+import { CheckIn } from '../models/check-in';
 import {TimeRangeDto} from '../models/time-range-dto';
 import { Settings } from '../../core/settings';
 import {HttpErrorHandlerService, HandleError} from '../../core/services/http-error-handler.service';
@@ -14,7 +16,7 @@ export class EventService {
     private route;
     private handleError: HandleError;
 
-    constructor(private http: HttpClient, exceptionSvc: HttpErrorHandlerService, settings: Settings) {
+    constructor(private http: HttpClient, exceptionSvc: HttpErrorHandlerService, private settings: Settings) {
          this.handleError = exceptionSvc.createHandleError('EventService');
          this.route = `${settings.configuration.url.event}/`;
     }
@@ -47,5 +49,17 @@ export class EventService {
       const addResponse = this.http.post<EventDto>(url, newEvent);
 
       return forkJoin([updateResponse, addResponse]).pipe(catchError(this.handleError('updateRecurringEvent', [], true)));
+    }
+
+    getEventWithCheckIns(eventId: number): Observable<{event: EventDto, checkIns: CheckIn[]}> {
+        const eventUrl = `${this.route}FindEvent/${eventId}`;
+        const url = `${this.settings.configuration.url.checkin}/${eventId}`;
+
+        const eventResponse = this.http.get<EventDto>(eventUrl);
+        const checkInResponse = this.http.get<CheckIn[]>(url);
+
+        return forkJoin([eventResponse, checkInResponse]).pipe(
+          map(data => ({event: data[0], checkIns: clone(data[1], CheckIn)})),
+          catchError(this.handleError('getEventCheckIns', {event: new EventDto, checkIns: []}, true)));
     }
 }
