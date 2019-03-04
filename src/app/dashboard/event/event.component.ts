@@ -22,6 +22,8 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
   processingEvent = false;
   loading = false;
 
+  deleteEventSubscription: Subscription;
+
   @ViewChild(EditEventComponent) editEventComponent: EditEventComponent;
 
   constructor(private eventSvc: EventService,
@@ -47,6 +49,9 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
                        this.modelState = error;
                        this.loading = true;
                      });
+    this.deleteEventSubscription = this.schedulerSvc.deleteEvent$.subscribe(id => {
+      this.router.navigate(['/dashboard/']);
+    });
   }
 
   get isChanged(): boolean {
