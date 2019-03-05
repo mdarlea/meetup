@@ -13,6 +13,8 @@ import { Address} from '../../core/models/address';
 import {LoaderService} from '../../core/services/loader.service';
 import { EventDto } from '../../core/models/event-dto';
 import { RecurringEventViewModel } from '../recurring-event-view-model';
+import { FoursquareVenue } from '../../core/models/foursquare-venue';
+import { FoursquareService } from '../../core/services/foursquare.service';
 
 import * as _ from 'lodash';
 
@@ -25,6 +27,8 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     @Input() event: EventViewModel;
     eventCopy: EventViewModel = EventViewModel.newEvent();
     recurring = new RecurringEventViewModel();
+    venue: FoursquareVenue = null;
+    venuePhoto: string = null;
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
     @ViewChild('form') form: NgForm;
@@ -49,6 +53,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       private eventSvc: EventService,
       private schedulerSvc: SchedulerService,
       private loaderSvc: LoaderService,
+      private foursquareSvc: FoursquareService,
       private ref: ChangeDetectorRef) {
       this.loaderSubscription = loaderSvc.loading$.subscribe(value => this.disabled = value);
     }
@@ -150,6 +155,8 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
                 this.addressComponent.reset();
               }
 
+              this.venue = null;
+              this.venuePhoto = null;
               if (value.id <= 0) {
                 this.eventCopy = _.cloneDeep(value);
                 this.recurring = RecurringEventViewModel.parse(value.recurrencePattern);
@@ -213,4 +220,24 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
         this.processingEvent = false;
       });
    }
+
+  onVenueChange(venue: FoursquareVenue) {
+    this.venue = venue;
+    this.eventCopy.venueId = (venue) ? venue.id : null;
+    if (!venue) {
+      this.venuePhoto = null;
+      return;
+    }
+
+    // get the venue photo
+    this.foursquareSvc.getVenuePhotos(venue.id).subscribe(photos => {
+      if (photos.length > 0) {
+        const photo = photos[0];
+        this.venuePhoto = `${photo.prefix}300x300${photo.suffix}`;
+      } else {
+        this.venuePhoto = null;
+      }
+      this.ref.detectChanges();
+    });
+  }
 }

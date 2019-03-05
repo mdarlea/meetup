@@ -6,12 +6,17 @@
     "address": "api/address",
     "account": "api/account",
     "auth": "api/auth",
-    "event" : "api/event"
+    "event" : "api/event",
+    "checkin": "api/checkin"
   },
   "facebook": {
     "appId": "822182081727248"
   },
   "google": {
     "clientId": "xxx"
+  },
+  "foursquare": {
+    "clientId": "xxx",
+    "clientSecret": "xxx"
   }
 }

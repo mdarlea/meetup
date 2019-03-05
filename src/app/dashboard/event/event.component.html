@@ -2,8 +2,8 @@
   <h3>{{event.subject}}</h3>
   <hr/>
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-3 col-sm-1"></div>
+    <div class="col-md-6 col-sm-10">
       <div *ngIf="!checkedIn">
         <button type="button" (click)="checkIn()" class="btn btn-labeled btn-success">
           <span class="btn-label"><i class="glyphicon glyphicon-thumbs-up"></i></span>
@@ -19,7 +19,7 @@
       </div>
       <spinner *ngIf="processingEvent"></spinner>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-3 col-sm-1"></div>
   </div>
 </div>
 <validation-errors [model-state]="modelState"></validation-errors>

@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-sm-7">
+    <img width="300" height="300" [src]="photo" *ngIf="photo" />
+  </div>
+  <div class="col-sm-5">
+    <div class="row" *ngFor="let category of item.categories">
+      <div class="col-sm-4">
+        <img [src]="getIcon(category)" [style.width.px]="iconSize">
+      </div>
+      <div class="col-sm-8">
+        <div class="text-info">
+          <strong>{{category.name}}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="text-info" *ngFor="let addr of item.location.formattedAddress">
+      {{addr}}
+    </div>
+  </div>
+</div>

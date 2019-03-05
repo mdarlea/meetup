@@ -26,6 +26,7 @@ export class EventViewModel {
     recurrencePattern: string;
     recurrenceException: string;
     endRecurrenceTime: Date;
+    venueId: string;
 
     static newEvent(): EventViewModel {
       const startTime = new Date();

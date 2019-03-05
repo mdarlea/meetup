@@ -14,8 +14,10 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const exclude = 'https://api.foursquare.com';
+        const url = req.url;
         const user = this.userSvc.getUser();
-        if (!UserService.tokenIsExpired(user)) {
+        if (!UserService.tokenIsExpired(user) && url.indexOf(exclude) < 0) {
           const authRequest = req.clone({
             setHeaders: {
                 'Content-Type': 'application/json',

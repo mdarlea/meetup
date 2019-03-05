@@ -25,7 +25,7 @@ export class AddressComponent implements OnInit {
     @ViewChild('street') street: NgModel;
     @ViewChild('city') city: NgModel;
 
-  constructor(private _geolocationService: GeolocationService) { }
+  constructor(private geolocationService: GeolocationService) { }
 
   ngOnInit() {
   }
@@ -35,7 +35,7 @@ export class AddressComponent implements OnInit {
     }
 
     getGeolocation(): Observable<GeolocationResult> {
-        return this._geolocationService.geoLocationForAddress(this.address).pipe(tap(result => {
+        return this.geolocationService.geoLocationForAddress(this.address).pipe(tap(result => {
             this.address.geolocationStreetNumber = result.streetNumber;
             this.address.geolocationStreet = result.street;
             this.address.latitude = result.latitude;

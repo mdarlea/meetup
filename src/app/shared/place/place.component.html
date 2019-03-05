@@ -1,0 +1,31 @@
+<ng-template #rt let-r="result" let-t="term">
+  <img *ngIf="r.categories && r.categories.length > 0"
+        [src]="getIcon(r.categories[0])" [style.width.px]="iconSize">
+  <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <input id="location"
+             name="location"
+             *ngIf="searchNearLocation"
+             placeholder="I'm looking for"
+             type="text" class="form-control"
+             [ngModel]="searchValue"
+             (ngModelChange)="onModelChange($event)"
+             (selectItem)="onSelectVenue($event)"
+             [ngbTypeahead]="search"
+             [resultTemplate]="rt"
+             [inputFormatter]="formatter" />
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <input-group name="placeName"
+             [(ngModel)]="searchNearLocation"
+             fa-icon="location-arrow"
+             placeholder="Search near"
+             [disabled]="disabled">
+    </input-group>
+  </div>
+</div>
+

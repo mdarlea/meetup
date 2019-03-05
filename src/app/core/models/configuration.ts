@@ -9,4 +9,8 @@ export class Configuration {
   google: {
     clientId: string
   };
+  foursquare: {
+    clientId: string;
+    clientSecret: string;
+  };
 }

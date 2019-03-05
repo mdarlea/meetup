@@ -2,7 +2,7 @@ import { Injectable} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import {map, catchError} from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { clone } from '../../shared/utils';
 import { EventDto} from '../../core/models/event-dto';

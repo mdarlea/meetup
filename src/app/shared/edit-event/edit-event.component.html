@@ -47,7 +47,10 @@
     <div class="panel panel-info">
         <div class="panel-heading">Event Location</div>
         <div class="panel-body">
-            <div class="row">
+            <place [venue]="venue" (venueChange)="onVenueChange($event)"></place>
+            <venue [item]="venue" [photo]="venuePhoto" *ngIf="venue"></venue>
+            <ng-container *ngIf="!venue">
+              <div class="row">
                 <div class="col-sm-6">
                     <input type="button" class="btn btn-info" [disabled]="disabled"
                            [value]="buttonText"
@@ -57,8 +60,9 @@
                     <spinner *ngIf="loading"></spinner>
                     <address-read-only *ngIf="isAtMainAddress && !loading" [address]="eventCopy.address"></address-read-only>
                 </div>
-            </div>
-            <address *ngIf="!isAtMainAddress" [address]="eventCopy.address" showCountry="false" class="address" [disabled]="disabled"></address>
+              </div>
+              <address *ngIf="!isAtMainAddress" [address]="eventCopy.address" showCountry="false" class="address" [disabled]="disabled"></address>
+            </ng-container>
         </div>
     </div>
 

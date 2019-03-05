@@ -1,5 +1,5 @@
 ﻿<div class="form-group">
-    <label [attr.for]="name">{{label}}</label>
+    <label [attr.for]="name" *ngIf="label">{{label}}</label>
     <input *ngIf="type !== 'textarea'"
                [attr.id]="name"
                [attr.name]="name"

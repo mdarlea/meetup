@@ -1,5 +1,5 @@
 ﻿<div class="form-group">
-    <label [attr.for]="name" class="cols-sm-2 control-label">{{label}}</label>
+    <label [attr.for]="name" class="cols-sm-2 control-label" *ngIf="label">{{label}}</label>
     <div [class]="cssCol">
         <div class="input-group">
             <span class="input-group-addon" *ngIf="icon">

@@ -83,25 +83,25 @@ export class GeolocationService {
                 const item = results[0].address_components[i];
                 const types = item.types;
 
-                if (types.indexOf("street_number") != -1) {
+                if (types.indexOf('street_number') !== -1) {
                     streetNumber = +item.short_name;
                 }
-                if (types.indexOf("route") !== -1) {
+                if (types.indexOf('route') !== -1) {
                     street = item.long_name;
                 }
-                if (types.indexOf("administrative_area_level_1") !== -1) {
+                if (types.indexOf('administrative_area_level_1') !== -1) {
                     state = item.long_name;
                 }
-                if (types.indexOf("administrative_area_level_2") !== -1) {
+                if (types.indexOf('administrative_area_level_2') !== -1) {
                     county = item.long_name;
                 }
-                if (types.indexOf("locality") !== -1) {
+                if (types.indexOf('locality') !== -1) {
                     city = item.long_name;
                 }
-                if (types.indexOf("postal_code") !== -1) {
+                if (types.indexOf('postal_code') !== -1) {
                     zip = item.short_name;
                 }
-                if (types.indexOf("country") !== -1) {
+                if (types.indexOf('country') !== -1) {
                     country = {
                         code: item.short_name.toLowerCase(),
                         name: item.long_name
@@ -109,7 +109,7 @@ export class GeolocationService {
                 }
             }
 
-            //get latitude  and longitude
+            // get latitude  and longitude
             const geometry = location.geometry.location;
 
             const result = new GeolocationResult();
