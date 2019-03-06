@@ -337,7 +337,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
       });
    }
 
-   private removeEventFromCalendar(id: number) {
+   private removeEventFromCalendar(id: number|string) {
      for (const calendar of this.calendars) {
           for (let i = 0; i < calendar.events.length; i++) {
             if (calendar.events[i].id === id) {

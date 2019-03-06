@@ -21,12 +21,16 @@ export class EventService {
          this.route = `${settings.configuration.url.event}/`;
     }
 
-    removeEvent(id: number): Observable<any> {
+    removeEvent(id: number|string): Observable<any> {
         const url = `${this.route}RemoveEvent`;
         return this.http.post(url, {id: id}).pipe(catchError(this.handleError('removeEvent')));
     }
     addNewEvent(event: EventDto): Observable<EventDto> {
         const url = `${this.route}AddNewEvent`;
+        return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('addNewEvent', event, true)));
+    }
+    addNewEventAtVenue(event: EventDto): Observable<EventDto> {
+        const url = `${this.route}AddNewEventAtVenue`;
         return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('addNewEvent', event, true)));
     }
     updateEventWithAddress(event: EventDto): Observable<EventDto> {
@@ -37,7 +41,7 @@ export class EventService {
         const url = `${this.route}UpdateEvent`;
         return this.http.post<EventDto>(url, event).pipe(catchError(this.handleError('updateEvent', event, true)));
     }
-    findEvent(eventId: number): Observable<EventDto> {
+    findEvent(eventId: number|string): Observable<EventDto> {
         const url = `${this.route}FindEvent/${eventId}`;
         return this.http.get<EventDto>(url).pipe(catchError(this.handleError('findEvent', new EventDto(), true)));
     }

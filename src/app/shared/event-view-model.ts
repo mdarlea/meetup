@@ -5,7 +5,7 @@ import { EventGroup } from './event-group';
 import * as _ from 'lodash';
 
 export class EventViewModel {
-    constructor(public id: number,
+    constructor(public id: number|string,
         public subject: string,
         public instructor: string,
         public start: Date,
@@ -89,6 +89,9 @@ export class EventViewModel {
           newEvent.endRecurrenceTime = new Date(event.endRecurrenceTime);
         }
 
+        if (event.venue) {
+          newEvent.venueId = event.venue.id;
+        }
         return newEvent;
     }
 

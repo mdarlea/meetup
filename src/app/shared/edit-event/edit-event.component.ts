@@ -113,9 +113,20 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       const dto = this.eventCopy.toEventDto();
       const isNewEvent = (dto.id <= 0);
 
-      const observable = (!this.isAtMainAddress)
+      let observable: Observable<EventDto>;
+      if (this.venue) {
+        dto.venue = {
+          id: this.venue.id,
+          name: this.venue.name,
+          latitude: this.venue.location.lat,
+          longitude: this.venue.location.lng
+        };
+        observable = this.eventSvc.addNewEventAtVenue(dto);
+      } else {
+        observable = (!this.isAtMainAddress)
           ? this.addressComponent.getGeolocation().pipe(switchMap(result => this.getSaveEventObservable(dto)))
           : this.getSaveEventObservable(dto);
+      }
 
       this.processingEvent = true;
       observable.subscribe(result => {

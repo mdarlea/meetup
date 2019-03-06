@@ -1,7 +1,7 @@
 import { Address } from './address';
 
 export class EventDto {
-    id: number;
+    id: number|string;
     name: string;
     instructor: string;
     description: string;
@@ -14,4 +14,10 @@ export class EventDto {
     recurrencePattern: string;
     recurrenceException: string;
     endRecurrenceTime: string;
+    venue?: {
+      id: string;
+      name: string;
+      latitude: number;
+      longitude: number;
+    };
 }

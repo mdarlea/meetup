@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, debounceTime, switchMap } from 'rxjs/operators';
 
@@ -13,7 +13,9 @@ import { FoursquareCategory } from '../../core/models/foursquare-category';
   templateUrl: './place.component.html',
   styleUrls: ['./place.component.css']
 })
-export class PlaceComponent implements OnInit {
+export class PlaceComponent implements OnInit, OnChanges {
+  private changed = false;
+
   @Output() venueChange = new EventEmitter<FoursquareVenue>();
 
   private venueValue: FoursquareVenue;
@@ -21,6 +23,7 @@ export class PlaceComponent implements OnInit {
   set venue (value: FoursquareVenue) {
     if (value !== this.venueValue) {
       this.venueValue = value;
+      this.changed = true;
       this.venueChange.emit(value);
     }
   }
@@ -42,6 +45,13 @@ export class PlaceComponent implements OnInit {
 
   }
 
+  ngOnChanges(changes: any) {
+    if (!this.changed) { return ; }
+
+    if (changes && 'venue' in changes) {
+      this.searchValue = changes.venue.currentValue;
+    }
+  }
   ngOnInit() {
     this.geolocationSvc.geoCurrentLocation().subscribe(result => {
       this.setLocation(result);
@@ -73,12 +83,14 @@ export class PlaceComponent implements OnInit {
 
   onSelectVenue(event: any) {
     this.venue = event.item;
+    this.changed = false;
   }
 
   onModelChange(value: any) {
     this.searchValue = value;
     if (!value) {
       this.venue = null;
+      this.changed = false;
     }
   }
 

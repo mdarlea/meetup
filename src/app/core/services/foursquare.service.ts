@@ -1,7 +1,6 @@
 import { Injectable} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import {map, catchError} from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { Observer, Observable, forkJoin } from 'rxjs';
 
 import { clone } from '../../shared/utils';
@@ -18,7 +17,7 @@ export class FoursquareService {
     private route = 'https://api.foursquare.com/v2/venues/';
     private handleError: HandleError;
 
-    constructor(private http: HttpClient, exceptionSvc: HttpErrorHandlerService, private settings: Settings) {
+    constructor(exceptionSvc: HttpErrorHandlerService, private settings: Settings) {
          this.handleError = exceptionSvc.createHandleError('FoursquareService');
     }
 

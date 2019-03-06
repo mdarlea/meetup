@@ -6,7 +6,7 @@ export class CheckIn
     }
   }
 
-  eventId: number;
+  eventId: number|string;
   eventName: string;
   userId: string;
   userName: string;
