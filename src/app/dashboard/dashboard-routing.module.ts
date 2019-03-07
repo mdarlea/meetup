@@ -6,10 +6,12 @@ import { EventsMapComponent } from './events-map/events-map.component';
 import { EventComponent} from './event/event.component';
 import { EventResolver } from './event/event-resolver.service';
 import { EventGuard } from './event/event.guard';
+import { AuthGuard } from '../../app/auth.guard';
 
 const routes: Routes = [{
     path: '',
     component: DashboardComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {path: '', redirectTo: 'events-map', pathMatch: 'full'},
       {path: 'events-map', component: EventsMapComponent },
