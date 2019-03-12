@@ -1,10 +1,10 @@
-﻿import { Host, SkipSelf, Inject, Component } from '@angular/core'
+﻿import { Host, SkipSelf, Inject, Component } from '@angular/core';
 import { NgControl, NG_VALIDATORS, Validator, ValidatorFn } from '@angular/forms';
-import { ValidationType, ValidationErrorComponent } from './validation-error.component'
-import { TimeValidator } from './validators/time.validator'
+import { ValidationType, ValidationErrorComponent } from './validation-error.component';
+import { TimeValidator } from './validators/time.validator';
 
 @Component({
-    selector: "err-future-time",
+    selector: 'err-future-time',
     template: `<div *ngIf="!isValid()" class="alert alert-danger">
                     {{message}}
                   </div>`

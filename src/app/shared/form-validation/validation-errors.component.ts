@@ -1,7 +1,7 @@
 ﻿import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 @Component({
-    selector:'validation-errors',
+    selector: 'validation-errors',
     template: `<div *ngIf="hasErrors" class="alert alert-danger">
                     <div *ngFor="let msg of messages">{{msg}}</div>
                </div>`

@@ -33,6 +33,8 @@ export class PlaceComponent implements OnInit, OnChanges {
     return this.venueValue;
   }
 
+  @Input() disabled: boolean;
+
   searchValue: any;
   iconSize = 32;
   searchNearLocation: string = null;

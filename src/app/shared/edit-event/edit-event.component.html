@@ -47,7 +47,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">Event Location</div>
         <div class="panel-body">
-            <place [venue]="venue" (venueChange)="onVenueChange($event)"></place>
+            <place [venue]="venue" (venueChange)="onVenueChange($event)" [disabled]="disabled"></place>
             <venue [item]="venue" [photo]="venuePhoto" *ngIf="venue"></venue>
             <ng-container *ngIf="!venue">
               <div class="row">

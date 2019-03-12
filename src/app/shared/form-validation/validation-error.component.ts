@@ -10,24 +10,13 @@ export class ValidationTypeDecorator {
     }
 }
 
-export function ValidationComponent(args: any): TypeDecorator {
-    const opt: any = copyObject(args);
-    if (opt.selector) {
-        opt.selector = `err-${opt.selector}`;
-    }
-    opt.template = `<div *ngIf="!isValid()" class="alert alert-danger">
-                    {{message}}
-                  </div>`;
-    return Component(opt);
-}
-
 // validation type decorator
 export function ValidationType(validatorType: Function) {
     return (target: Function) => {
         const annotations = Reflect.getMetadata('validation:annotations', target) || [];
         annotations.push(new ValidationTypeDecorator(validatorType));
         Reflect.defineMetadata('validation:annotations', annotations, target);
-    }
+    };
 }
 export abstract class ValidationErrorComponent {
 

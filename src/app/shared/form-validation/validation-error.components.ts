@@ -10,7 +10,7 @@ import {
 import { ValidationType, ValidationErrorComponent } from './validation-error.component'
 
 @Component({
-    selector: "err-required",
+    selector: 'err-required',
     template: `<div *ngIf="!isValid()" class="alert alert-danger">
                     {{message}}
                   </div>`
@@ -25,7 +25,7 @@ export class RequiredValidationErrorComponent extends ValidationErrorComponent {
 }
 
 @Component({
-    selector: "err-minlength",
+    selector: 'err-minlength',
     template: `<div *ngIf="!isValid()" class="alert alert-danger">
                     {{message}}
                   </div>`
@@ -40,7 +40,7 @@ export class MinLengthValidationErrorComponent extends ValidationErrorComponent 
 }
 
 @Component({
-    selector: "err-maxlength",
+    selector: 'err-maxlength',
     template: `<div *ngIf="!isValid()" class="alert alert-danger">
                     {{message}}
                   </div>`
@@ -55,7 +55,7 @@ export class MaxLengthValidationErrorComponent extends ValidationErrorComponent 
 }
 
 @Component({
-    selector: "err-pattern",
+    selector: 'err-pattern',
     template: `<div *ngIf="!isValid()" class="alert alert-danger">
                     {{message}}
                   </div>`

@@ -1,10 +1,10 @@
 ﻿import { Host, SkipSelf, Inject, Component } from '@angular/core'
 import { NgControl, NG_VALIDATORS, Validator, ValidatorFn } from '@angular/forms';
-import { ValidationType, ValidationErrorComponent } from './validation-error.component'
-import { EmailValidator } from './validators/email.validator'
+import { ValidationType, ValidationErrorComponent } from './validation-error.component';
+import { EmailValidator } from './validators/email.validator';
 
 @Component({
-    selector: "err-email",
+    selector: 'err-email',
     template: `<div *ngIf="!isValid()" class="alert alert-danger">
                     {{message}}
                   </div>`
