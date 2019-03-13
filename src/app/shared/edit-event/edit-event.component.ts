@@ -52,10 +52,8 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       private addressSvc: UserAddressService,
       private eventSvc: EventService,
       private schedulerSvc: SchedulerService,
-      private loaderSvc: LoaderService,
       private foursquareSvc: FoursquareService,
       private ref: ChangeDetectorRef) {
-      this.loaderSubscription = loaderSvc.loading$.subscribe(value => this.disabled = value);
     }
 
     get isChanged(): boolean {
