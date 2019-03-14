@@ -47,6 +47,7 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
                           this.modelState = resolvedData.error;
                         } else {
                           this.loading = false;
+                          this.modelState = null;
                           this.event = EventViewModel.fromEventDto(resolvedData.event);
 
                           const user = this.userSvc.getUser();
