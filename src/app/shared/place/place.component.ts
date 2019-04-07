@@ -96,6 +96,14 @@ export class PlaceComponent implements OnInit, OnChanges {
     }
   }
 
+  searchNearLocationChange(event: any) {
+    this.geolocationSvc.getLocationFor(this.searchNearLocation).subscribe(result => {
+      this.lat = result.latitude;
+      this.lng = result.longitude;
+      this.ref.detectChanges();
+    });
+  }
+
   private setLocation(result: GeolocationResult) {
       this.searchNearLocation = `${result.city}, ${result.country.code.toUpperCase()}`;
       this.lat = result.latitude;

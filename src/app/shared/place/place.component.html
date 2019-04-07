@@ -22,6 +22,7 @@
   <div class="col-sm-6">
     <input-group name="placeName"
              [(ngModel)]="searchNearLocation"
+             (change)="searchNearLocationChange($event)"
              fa-icon="location-arrow"
              placeholder="Search near"
              [disabled]="disabled">

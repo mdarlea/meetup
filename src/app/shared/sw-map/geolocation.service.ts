@@ -26,6 +26,14 @@ export class GeolocationService {
     constructor() {
     }
 
+    getLocationFor(address: string) {
+      return new Observable<GeolocationResult>((observer: Observer<GeolocationResult>) => {
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: address }, (results, status) => {
+                this._getGeocodingResults(results, status, observer);
+            });
+      });
+    }
     geoLocationForAddress(address: Address): Observable<GeolocationResult> {
         return new Observable<GeolocationResult>((observer: Observer<GeolocationResult>) => {
             const geocoder = new google.maps.Geocoder();
