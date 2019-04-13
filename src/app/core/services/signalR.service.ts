@@ -112,14 +112,14 @@ export abstract class SignalRService  {
       return;
     }
 
-    const user = this.userSvc.getUser();
-    if (!user) { return; }
-
-    const token = user.token;
-    if (!token) { return; }
-
     this.hubConnection = new signalR.HubConnectionBuilder()
-                            .withUrl(`${this.settings.configuration.apiBaseUrl}/hubs/${this.hubName}`, { accessTokenFactory: () => token })
+                            .withUrl(`${this.settings.configuration.apiBaseUrl}/hubs/${this.hubName}`, {
+                              accessTokenFactory: () => {
+                                const user = this.userSvc.getUser();
+                                if (!user) { return null; }
+                                return user.token;
+                              }
+                            })
                             .build();
 
     this.hubConnection.onclose(() => {
