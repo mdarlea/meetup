@@ -7,6 +7,7 @@ import { Settings} from '../settings';
 export abstract class SignalRService  {
   protected hubConnection: signalR.HubConnection;
   private isConnected = false;
+  private handlers = new Array<string>();
 
   protected constructor(protected settings: Settings, protected userSvc: UserService, protected hubName: string) {
   }
@@ -34,11 +35,16 @@ export abstract class SignalRService  {
   }
 
   on<T>(methodName: string): Observable<T> {
-    this.buildConnection();
     return new Observable<T>(subscriber => {
+      this.buildConnection();
+
       this.hubConnection.on(methodName, data => {
         subscriber.next(data as T);
       });
+
+      if (this.handlers.filter(h => h === methodName).length < 1) {
+        this.handlers.push(methodName);
+      }
     });
   }
 
@@ -46,6 +52,13 @@ export abstract class SignalRService  {
     if (!this.isConnected) {
         return;
     }
+
+     // removes all handlers
+    this.handlers.forEach(h => {
+      this.hubConnection.off(h);
+    });
+
+    this.handlers = new Array<string>();
 
     this.hubConnection
         .stop()
