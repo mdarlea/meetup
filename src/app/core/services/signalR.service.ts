@@ -17,7 +17,7 @@ export abstract class SignalRService  {
     return;
    }
 
-   this.buildConnection();
+   this.ensureConnection();
 
    this.hubConnection
         .start()
@@ -36,7 +36,7 @@ export abstract class SignalRService  {
 
   on<T>(methodName: string): Observable<T> {
     return new Observable<T>(subscriber => {
-      this.buildConnection();
+      this.ensureConnection();
 
       this.hubConnection.on(methodName, data => {
         subscriber.next(data as T);
@@ -81,7 +81,7 @@ export abstract class SignalRService  {
         }
       }
 
-      this.buildConnection();
+      this.ensureConnection();
 
       this.hubConnection
         .start()
@@ -104,10 +104,13 @@ export abstract class SignalRService  {
   private invokeMethod<T>(subscriber: Subscriber<T>, methodName: string, args?: any) {
     this.hubConnection.invoke(methodName, args)
                       .then(data => subscriber.next(data as T))
-                      .catch(error => subscriber.error(error));
+                      .catch(error => {
+                        console.error(error);
+                        subscriber.error(error);
+                      });
   }
 
-  private buildConnection() {
+  protected ensureConnection() {
     if (this.hubConnection) {
       return;
     }
