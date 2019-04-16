@@ -1,5 +1,6 @@
 import {BehaviorSubject, Observable, Observer, of, Subscriber } from 'rxjs';
 import * as signalR from '@aspnet/signalr';
+import * as _ from 'lodash';
 
 import { UserService } from './user.service';
 import { Settings} from '../settings';
@@ -127,6 +128,24 @@ export abstract class SignalRService  {
 
     this.hubConnection.onclose(() => {
       this.isConnected = false;
+    });
+  }
+
+  subscribe(methodName, callback: (data: any) => void) {
+      this.ensureConnection();
+
+      this.hubConnection.on(methodName, callback);
+
+      if (!this.handlers.some(h => h === methodName)) {
+        this.handlers.push(methodName);
+      }
+  }
+
+  unsubscribe(methodName) {
+    this.hubConnection.off(methodName);
+
+    _.remove(this.handlers, (current) => {
+      return current === methodName;
     });
   }
 }
