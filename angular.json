@@ -12,7 +12,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "baseHref": "/meetup/",
-            "outputPath": "dist",
+            "outputPath": "../Social_Media/SocialMedia.Host/wwwroot/meetup",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",

@@ -1,4 +1,4 @@
 {
-  "apiBaseUrl" : "/services",
-  "baseUrl" : "http://www.swaksoft.com/meetup"
+  "apiBaseUrl" : "",
+  "baseUrl" : "http://www.swaksoft.com"
 }
