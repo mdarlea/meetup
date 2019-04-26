@@ -3,7 +3,7 @@ import { NG_VALIDATORS, Validator, FormControl} from '@angular/forms'
 
 
 @Directive({
-    selector: '[future-time][ngModel],[future-time][formControl]',
+    selector: '[future-time][ngModel],[future-time][formControl],[future-time][formControlName]',
     providers: [
         {
             provide: NG_VALIDATORS,

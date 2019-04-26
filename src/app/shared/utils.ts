@@ -31,3 +31,20 @@ export function clone<T>(array: Array<T>, type: new (obj: T) => T): Array<T> {
 
   return items;
 }
+
+export function getModelState(error: any): any {
+  if (!error) {
+    return null;
+  }
+
+  if (Object.keys(error).length > 0) {
+    for (const property in error) {
+      if (property !== '0' && error.hasOwnProperty(property)) {
+          return error;
+      } else {
+        return {message: error};
+      }
+    }
+  }
+  return error;
+}
