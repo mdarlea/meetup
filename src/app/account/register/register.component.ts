@@ -1,10 +1,16 @@
 
-import {switchMap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as _ from 'lodash';
+
 import { CreateApplicationUserModel } from '../shared/create-application-user.model';
 import { AccountService } from '../shared/account.service';
-import { Router } from '@angular/router';
 import { AddressComponent } from '../../shared/address/address.component';
+import { Address } from '../../core/models/address';
+import { GeolocationService } from '../../shared/sw-map/geolocation.service';
+import { getModelState, validateAllFormFields } from '../../shared/utils';
 
 @Component({
     selector: 'register',
@@ -12,31 +18,48 @@ import { AddressComponent } from '../../shared/address/address.component';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    user: CreateApplicationUserModel;
+    registerForm: FormGroup;
     modelState: any = null;
     registering = false;
     isExternal = false;
 
-    @ViewChild(AddressComponent) addressComponent: AddressComponent;
-
-    constructor(private authService: AccountService, private _router: Router) {
+    constructor(private authSvc: AccountService,
+                private geolocationSvc: GeolocationService,
+                private fb: FormBuilder,
+                private router: Router) {
 
     }
 
     ngOnInit(): void {
-        this.user = new CreateApplicationUserModel(null, null, null);
+        this.registerForm = this.fb.group({
+          email: [null, [Validators.required, Validators.email]],
+          password: [null, [Validators.required, Validators.minLength(10)]],
+          firstName: [null, Validators.required],
+          lastName: [null, Validators.required],
+          address: AddressComponent.buildAddress(this.fb, new Address())
+        });
     }
 
     onSubmit(event: any): void {
-        this.modelState = null;
-        this.registering = true;
+      this.modelState = null;
 
-       this.addressComponent.getGeolocation().pipe(switchMap(result => this.authService.register(this.user)))
+      if (!this.registerForm.valid) {
+        validateAllFormFields(this.registerForm);
+        return;
+      }
+
+      this.registering = true;
+
+      const user = _.cloneDeep(this.registerForm.value) as CreateApplicationUserModel;
+
+      this.geolocationSvc.geoLocationForAddress(user.address).pipe(
+         tap(result => Address.setGeoLocation(user.address, result)),
+         switchMap(result => this.authSvc.register(user)))
                             .subscribe((u: any) => {
-                              this._router.navigate(['/account/thank-you', this.user.email]);
+                              this.router.navigate(['/account/thank-you', user.email]);
                             },
                             (error) => {
-                              this.modelState = error;
+                              this.modelState = getModelState(error);
                               this.registering = false;
                             }, () => {
                               this.registering = false;

@@ -7,7 +7,6 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AuthUser } from '../../core/models/auth-user';
 import { AddressComponent } from '../../shared/address/address.component';
 
-
 @Component({
     selector: 'register-external',
     templateUrl: './register.component.html',
@@ -37,14 +36,5 @@ export class RegisterExternalComponent implements OnInit {
     onSubmit(event: any): void {
         this.modelState = null;
         this.registering = true;
-
-        this.addressComponent.getGeolocation().pipe(switchMap(result => this.authService.registerExternal(this.user)))
-                            .subscribe((u: AuthUser) => {
-                                this.router.navigate(['/']);
-                            },
-                            (error) => {
-                                this.modelState = error;
-                                this.registering = false;
-                            });
     }
 }

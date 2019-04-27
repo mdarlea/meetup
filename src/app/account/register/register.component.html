@@ -9,51 +9,55 @@
         <div class="container-page">
             <div class="row">
                 <div class="col-md-6 col-sm-10 col-xs-12">
-                    <form class="form-group" #form="ngForm" (ngSubmit)="onSubmit($event)">
+                    <form class="form-group" [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
                         <input-group name="email"
-                                     [(ngModel)]="user.email"
+                                     formControlName="email"
                                      fa-icon="envelope"
                                      label="E-mail"
-                                     placeholder="Your e-mail address"
-                                     required email>
-                            <err-required message="The e-mail address is required"></err-required>
-                            <err-email message="Invalid e-mail address"></err-email>
+                                     placeholder="Your e-mail address">
+                            <validation-messages>
+                              <invalid-value key="required" message="The e-mail address is required"></invalid-value>
+                              <invalid-value key="email" message="Invalid e-mail address"></invalid-value>
+                            </validation-messages>
                         </input-group>
                         <input-group name="password" *ngIf="!isExternal"
                                      type="password"
-                                     [(ngModel)]="user.password"
+                                     formControlName="password"
                                      fa-icon="lock"
                                      label="Password"
-                                     placeholder="Your password"
-                                     required minlength="10">
-                            <err-required message="Password is required"></err-required>
-                            <err-minlength message="Password must have at least 10 characters"></err-minlength>
+                                     placeholder="Your password">
+                            <validation-messages>
+                              <invalid-value key="required" message="Password is required"></invalid-value>
+                              <invalid-value key="minlength" message="Password must have at least 10 characters"></invalid-value>
+                            </validation-messages>
                         </input-group>
                         <div class="row">
                             <input-simple name="firstName"
-                                          [(ngModel)]="user.firstName"
+                                          formControlName="firstName"
                                           class="col-sm-6 col-xs-12"
                                           fa-icon="users"
                                           label="First Name"
-                                          placeholder="Your first name"
-                                          required>
-                                <err-required message="First name is required"></err-required>
+                                          placeholder="Your first name">
+                                <validation-messages>
+                                  <invalid-value key="required" message="First name is required"></invalid-value>
+                                </validation-messages>
                             </input-simple>
                             <input-simple name="lastName"
-                                          [(ngModel)]="user.lastName"
+                                          formControlName="lastName"
                                           class="col-sm-6 col-xs-12"
                                           label="Last Name"
-                                          placeholder="Your last name"
-                                          required>
-                                <err-required message="Last name is required"></err-required>
+                                          placeholder="Your last name">
+                                <validation-messages>
+                                  <invalid-value key="required" message="Last name is required"></invalid-value>
+                                </validation-messages>
                             </input-simple>
                         </div>
-                        <address [address]="user.address" showCountry="false"></address>
+                        <address [addressForm]="registerForm.get('address')"></address>
                         <validation-errors [model-state]="modelState"></validation-errors>
                         <div class="row">
                             <div class="col-xs-6">
                                 <button type="submit"
-                                        [disabled]="!form.form.valid || registering"
+                                        [disabled]="registering"
                                         value="Register" class="btn btn-primary sr-button btn-xl">
                                     Register
                                 </button>

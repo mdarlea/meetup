@@ -1,3 +1,5 @@
+import { GeolocationResult } from '../../shared/sw-map/geolocation.service';
+
 export class Address {
     id: number;
     placeName: string;
@@ -14,4 +16,12 @@ export class Address {
     geolocationStreet: string;
     isMainAddress: boolean;
     addressTypeId: string;
+
+    static setGeoLocation(address: Address, result: GeolocationResult) {
+      address.geolocationStreetNumber = result.streetNumber;
+      address.geolocationStreet = result.street;
+      address.latitude = result.latitude;
+      address.longitude = result.longitude;
+      address.countryIsoCode = result.country.code;
+    }
 }

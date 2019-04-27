@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef } from '@angular/core';
 
 import { RecurringEventViewModel} from '../recurring-event-view-model';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'recurring-event',
@@ -8,17 +9,23 @@ import { RecurringEventViewModel} from '../recurring-event-view-model';
   styleUrls: ['./recurring-event.component.css']
 })
 export class RecurringEventComponent implements OnInit, OnChanges {
-  @Input() viewModel = new RecurringEventViewModel();
+  @Input() recurringEventForm: FormGroup;
+
+  static buildRecurringEvent(fb: FormBuilder, viewModel: RecurringEventViewModel): FormGroup {
+    return fb.group({
+      type: [viewModel.type, Validators.required],
+      recurring: viewModel.recurring,
+      count: viewModel.count,
+      until: viewModel.until
+    });
+  }
+
+  get f() { return this.recurringEventForm ? this.recurringEventForm.controls : null; }
 
   constructor() { }
 
   ngOnChanges(changes: any) {
-    if (changes && 'viewModel' in changes) {
-      const value = changes.viewModel.currentValue as RecurringEventViewModel;
-      if (value && !value.type) {
-        // this.viewModel.type = 'daily';
-      }
-    }
+
   }
   ngOnInit() {
   }
@@ -26,15 +33,18 @@ export class RecurringEventComponent implements OnInit, OnChanges {
   recurringSection(event: Event) {
     event.preventDefault();
 
-    this.viewModel.recurring = !this.viewModel.recurring;
+    if (! this.recurringEventForm) { return; }
+
+    const recurring = this.f.recurring.value;
+    this.recurringEventForm.patchValue({recurring: !recurring });
   }
 
   onTypeChange(type: string) {
-    this.viewModel.type = type;
+    this.recurringEventForm.patchValue({type: type });
   }
 
   isType(type: string) {
-    return (this.viewModel && this.viewModel.type === type);
+    return (this.f && this.f.type.value === type);
   }
 
   toggleTime(state: boolean) {

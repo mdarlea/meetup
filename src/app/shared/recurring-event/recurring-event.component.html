@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [formGroup]="recurringEventForm">
   <article class="card-group-item">
 		<header class="card-header">
       <a [ngClass]="{'collapsed': !viewModel.recurring}" (click)="recurringSection($event)">
@@ -6,7 +6,7 @@
 				<h6 class="title">Repeat event </h6>
 			</a>
 		</header>
-		<div class="filter-content collapse" [ngClass]="{'show': viewModel.recurring}" style="">
+		<div class="filter-content collapse" [ngClass]="{'show': f.recurring.value}" style="">
 			<div class="card-body">
 				<div class="row">
           <div class="col-sm-4">
@@ -44,14 +44,14 @@
               <input type="number" class="form-control"
                      id="occurrencesCount"
                      name="occurrencesCount"
-                     [(ngModel)]="viewModel.count"
+                     formControlName="count"
                      placeholder="Count" />
             </div>
           </div>
           <div class="col-sm-6">
              <label>Repeat until</label>
             <time-picker name="until"
-                         [(ngModel)]="viewModel.until"
+                         formControlName="until"
                          (toggle)="toggleTime($event)"
                          format="{momentFormat:'lll'}">
             </time-picker>

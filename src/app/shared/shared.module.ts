@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { FormValidationModule} from './form-validation/form-validation.module';
 import { MapModule } from './sw-map/map.module';
 import { ImageSliderModule} from './image-slider/image-slider.module';
-import { AddressModule} from './address/address.module';
 import { FormFieldsModule} from './form-fields/form-fields.module';
 import { LoaderComponent } from './loader/loader.component';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -16,14 +15,17 @@ import { PreviewEventComponent } from './preview-event/preview-event.component';
 import { RecurringEventComponent } from './recurring-event/recurring-event.component';
 import { PlaceComponent } from './place/place.component';
 import { VenueComponent } from './venue/venue.component';
+import { AddressComponent } from './address/address.component';
+import { AddressReadOnlyComponent} from './address/address-read-only.component';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     FormValidationModule,
     MapModule,
     ImageSliderModule,
-    AddressModule,
     FormFieldsModule,
     ScrollToModule,
     NgbModule
@@ -31,17 +33,19 @@ import { VenueComponent } from './venue/venue.component';
   exports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     FormValidationModule,
     NgbModule,
     MapModule,
     ImageSliderModule,
-    AddressModule,
     FormFieldsModule,
+    ScrollToModule,
     LoaderComponent,
     SpinnerComponent,
     PreviewEventComponent,
     EditEventComponent,
-    ScrollToModule
+    AddressComponent,
+    AddressReadOnlyComponent
   ],
   declarations: [
     LoaderComponent,
@@ -50,7 +54,9 @@ import { VenueComponent } from './venue/venue.component';
     PreviewEventComponent,
     EditEventComponent,
     PlaceComponent,
-    VenueComponent
+    VenueComponent,
+    AddressComponent,
+    AddressReadOnlyComponent
   ],
   providers: []
 })

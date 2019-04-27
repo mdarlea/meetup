@@ -1,8 +1,9 @@
 
-import {switchMap} from 'rxjs/operators';
-import { Component, OnInit, ViewChild, Input, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { FormGroupDirective, NgForm, NgModel } from '@angular/forms';
+import {switchMap, tap } from 'rxjs/operators';
+import { Component, OnInit, Input, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription,  Observable} from 'rxjs';
+import * as _ from 'lodash';
 
 import { EventViewModel} from '../event-view-model';
 import { AddressComponent} from '../address/address.component';
@@ -10,13 +11,39 @@ import { UserAddressService} from '../../core/services/user-address.service';
 import { EventService} from '../../core/services/event.service';
 import {SchedulerService} from '../scheduler.service';
 import { Address} from '../../core/models/address';
-import {LoaderService} from '../../core/services/loader.service';
 import { EventDto } from '../../core/models/event-dto';
 import { RecurringEventViewModel } from '../recurring-event-view-model';
 import { FoursquareVenue } from '../../core/models/foursquare-venue';
 import { FoursquareService } from '../../core/services/foursquare.service';
+import { RecurringEventComponent } from '../recurring-event/recurring-event.component';
+import { GeolocationService } from '../sw-map/geolocation.service';
 
-import * as _ from 'lodash';
+export const timeRangeValidator = (control: FormGroup): {[key: string]: boolean} => {
+  const start = control.get('start');
+  const end = control.get('end');
+  const now = new Date();
+
+  const invalidTime = {invalidTime: true};
+
+  if (!start || !end || !start.value || !end.value) {
+    return invalidTime;
+  }
+
+  if (start.value < now) {
+    start.setErrors(invalidTime);
+  }
+
+  if (end.value < now) {
+    end.setErrors(invalidTime);
+  }
+
+  if (start.value > end.value) {
+    end.setErrors(invalidTime);
+  }
+
+  return null;
+}
+
 
 @Component({
   selector: 'edit-event',
@@ -25,16 +52,15 @@ import * as _ from 'lodash';
 })
 export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     @Input() event: EventViewModel;
-    eventCopy: EventViewModel = EventViewModel.newEvent();
-    recurring = new RecurringEventViewModel();
+
+    eventForm: FormGroup;
     venue: FoursquareVenue = null;
     venuePhoto: string = null;
 
-    @ViewChild(AddressComponent) addressComponent: AddressComponent;
-    @ViewChild('form') form: NgForm;
-
     private addressSubscription: Subscription;
     private loaderSubscription: Subscription;
+
+    private initialState: any;
 
     loadingEvent = false;
     processingEvent = false;
@@ -49,6 +75,8 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     eventModelState: any = null;
 
     constructor(
+      private fb: FormBuilder,
+      private geolocationSvc: GeolocationService,
       private addressSvc: UserAddressService,
       private eventSvc: EventService,
       private schedulerSvc: SchedulerService,
@@ -57,10 +85,13 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     get isChanged(): boolean {
-      return JSON.stringify(this.event) !== JSON.stringify(this.eventCopy);
+      return JSON.stringify(this.initialState) !== JSON.stringify(this.eventForm.value);
     }
 
     private setEventAddressFromMainAddress() {
+      if (! this.eventForm) {
+        return;
+      }
                 const address = new Address();
                 address.streetAddress = this.mainAddress.streetAddress;
                 address.suiteNumber = this.mainAddress.suiteNumber;
@@ -73,8 +104,10 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
                 address.latitude = this.mainAddress.latitude;
                 address.longitude = this.mainAddress.longitude;
 
-                this.eventCopy.addressId = this.mainAddress.id;
-                this.eventCopy.address = address;
+                this.eventForm.patchValue({
+                  addressId: this.mainAddress.id,
+                  address: address
+                });
 
                 this.buttonText = this.buttonTextEnterAddress;
     }
@@ -90,26 +123,35 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
               this.setEventAddressFromMainAddress();
             }
         } else {
-            this.isAtMainAddress = false;
+          this.isAtMainAddress = false;
 
-            this.eventCopy.addressId = -1;
-            this.eventCopy.address = new Address();
+          if (this.eventForm) {
+            this.eventForm.patchValue({
+              addressId: -1,
+              address: new Address()
+            });
+          }
 
-            this.buttonText = this.buttonTextAtMainAddress;
+          this.buttonText = this.buttonTextAtMainAddress;
         }
     }
 
     private save() {
       this.eventModelState = null;
 
+      // creates the view model
+      let vm = new EventViewModel(this.eventForm.value);
+
+      // get recurring group
+      const recurring = new RecurringEventViewModel(this.eventForm.get('recurring').value);
+
       // check if this is a recurring event
-      if (this.recurring.recurring) {
-        this.eventCopy.recurrencePattern = this.recurring.toString();
+      if (recurring.recurring) {
+        vm.recurrencePattern = recurring.toString();
       } else {
-        this.eventCopy.recurrencePattern = null;
+        vm.recurrencePattern = null;
       }
-      const dto = this.eventCopy.toEventDto();
-      const isNewEvent = (dto.id <= 0);
+      const dto = vm.toEventDto();
 
       let observable: Observable<EventDto>;
       if (this.venue) {
@@ -122,14 +164,20 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
         observable = this.eventSvc.addNewEventAtVenue(dto);
       } else {
         observable = (!this.isAtMainAddress)
-          ? this.addressComponent.getGeolocation().pipe(switchMap(result => this.getSaveEventObservable(dto)))
+          ? this.geolocationSvc.geoLocationForAddress(dto.address).pipe(
+              tap(result => Address.setGeoLocation(dto.address, result)),
+              switchMap(result => this.getSaveEventObservable(dto)))
           : this.getSaveEventObservable(dto);
       }
 
       this.processingEvent = true;
       observable.subscribe(result => {
-        this.eventCopy = EventViewModel.fromEventDto(result);
-        Object.assign(this.event, _.cloneDeep(this.eventCopy));
+        vm = EventViewModel.fromEventDto(result);
+        this.eventForm.patchValue(vm);
+        this.initialState = _.cloneDeep(vm);
+
+        Object.assign(this.event, _.cloneDeep(vm));
+
         this.processingEvent = false;
         this.ref.detectChanges();
         // notify subscribers
@@ -156,34 +204,23 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
             const value = <EventViewModel> changes.event.currentValue;
             if (value) {
-              const form = this.form;
-              if (form) {
-                form.form.reset();
-              }
-              if (this.addressComponent) {
-                this.addressComponent.reset();
-              }
-
               this.venue = null;
               this.venuePhoto = null;
               if (value.id <= 0) {
-                this.eventCopy = _.cloneDeep(value);
-                this.recurring = RecurringEventViewModel.parse(value.recurrencePattern);
+                this.buildEventForm(value);
               } else if (!value.address.latitude) {
-                this.eventCopy = EventViewModel.newEvent();
                 this.loadingEvent = true;
                 this.eventSvc.findEvent(value.id).subscribe(result => {
-                  this.eventCopy = EventViewModel.fromEventDto(result);
-                  this.recurring = RecurringEventViewModel.parse(result.recurrencePattern);
+                  const vm = EventViewModel.fromEventDto(result);
+                  this.buildEventForm(vm);
                   this.loadingEvent = false;
                 });
               } else {
-                this.eventCopy = _.cloneDeep(value);
-                this.recurring = RecurringEventViewModel.parse(value.recurrencePattern);
+                this.buildEventForm(value);
               }
             } else {
-              this.eventCopy = EventViewModel.newEvent();
-              this.recurring = new RecurringEventViewModel();
+              const vm = EventViewModel.newEvent();
+              this.buildEventForm(vm);
             }
         }
     }
@@ -232,9 +269,13 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
   onVenueChange(venue: FoursquareVenue) {
     this.venue = venue;
-    this.eventCopy.venueId = (venue) ? venue.id : null;
+    this.eventForm.patchValue({
+      venueId: (venue) ? venue.id : null
+    });
+
     if (!venue) {
       this.venuePhoto = null;
+      this.ref.detectChanges();
       return;
     }
 
@@ -248,5 +289,37 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       }
       this.ref.detectChanges();
     });
+  }
+
+  buildEventForm(event: EventViewModel) {
+    const recurring = RecurringEventViewModel.parse(event.recurrencePattern);
+
+    this.eventForm = this.fb.group({
+      id: event.id,
+      subject: [event.subject, Validators.required],
+      instructor: event.instructor,
+      time: this.fb.group({
+        start: [event.time.start, Validators.required],
+        end: [event.time.end, Validators.required]
+      }),
+      description: event.description,
+      allDay: event.allDay,
+      groupId: event.groupId,
+      userId: event.userId,
+      location: event.location,
+      addressId: event.addressId,
+      address: AddressComponent.buildAddress(this.fb, event.address),
+      readOnly: event.readOnly,
+      recurring: RecurringEventComponent.buildRecurringEvent(this.fb, recurring),
+      recurrenceException: event.recurrenceException,
+      venueId: event.venueId
+    });
+
+    this.initialState = _.cloneDeep(this.eventForm.value);
+  }
+
+  get isRecurring(): boolean {
+    const recurring = this.eventForm.get('recurring').value;
+    return (recurring && recurring.recurring);
   }
 }

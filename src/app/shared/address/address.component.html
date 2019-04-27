@@ -1,49 +1,43 @@
-<div class="row">
-    <input-simple name="streetAddress"
-           #street="ngModel"
-           [(ngModel)]="address.streetAddress"
-           class="col-sm-9 col-xs-12"
-           label="Street Address"
-           placeholder="Your street address"
-           [disabled]="disabled"
-           required>
-      <err-required message="Street address is required"></err-required>
-    </input-simple>
-    <input-simple name="suiteNumber"
-           [(ngModel)]="address.suiteNumber"
-           class="col-sm-3 col-xs-6"
-           label="Apt/Suite"
-           placeholder="Apt/Suite"
-           [disabled]="disabled">
-    </input-simple>
-</div>
-<input-simple name="city"
-       #city="ngModel"
-       [(ngModel)]="address.city"
-       label="City"
-       placeholder="Your city"
-       required
-       [disabled]="disabled">
-  <err-required message="City is required"></err-required>
-</input-simple>
-<div class="row">
-    <input-simple name="state"
-           [(ngModel)]="address.state"
-           class="col-xs-8"
-           label="State or Province"
-           placeholder="State or province"
-           [disabled]="disabled">
-    </input-simple>
-    <input-simple name="zip"
-           [(ngModel)]="address.zip"
-           class="col-xs-4"
-           label="Zip"
-           placeholder="Zip code"
-           [disabled]="disabled"
-           maxlength="10">
-        <err-maxlength message="Zip code cannot be longer than 10 characters"></err-maxlength>
-    </input-simple>
-</div>
-<div class="form-group" *ngIf="showCountry">
-    <!-- <select name="countries" [(ngModel)]="address.countryIsoCode" (changecountry)="onChangeCountry($event)" ngCountries></select> -->
-</div>
+<ng-container [formGroup]="addressForm">
+  <div class="row">
+      <input-simple name="streetAddress"
+             formControlName="streetAddress"
+             class="col-sm-9 col-xs-12"
+             label="Street Address"
+             placeholder="Your street address"
+             [disabled]="disabled">
+        <err-required message="Street address is required"></err-required>
+      </input-simple>
+      <input-simple name="suiteNumber"
+             formControlName="suiteNumber"
+             class="col-sm-3 col-xs-6"
+             label="Apt/Suite"
+             placeholder="Apt/Suite"
+             [disabled]="disabled">
+      </input-simple>
+  </div>
+  <input-simple name="city"
+         formControlName="city"
+         label="City"
+         placeholder="Your city"
+         [disabled]="disabled">
+    <err-required message="City is required"></err-required>
+  </input-simple>
+  <div class="row">
+      <input-simple name="state"
+             formControlName="state"
+             class="col-xs-8"
+             label="State or Province"
+             placeholder="State or province"
+             [disabled]="disabled">
+      </input-simple>
+      <input-simple name="zip"
+             formControlName="zip"
+             class="col-xs-4"
+             label="Zip"
+             placeholder="Zip code"
+             [disabled]="disabled">
+          <err-maxlength message="Zip code cannot be longer than 10 characters"></err-maxlength>
+      </input-simple>
+  </div>
+</ng-container>
