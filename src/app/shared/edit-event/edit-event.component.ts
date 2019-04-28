@@ -255,7 +255,6 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
         return;
       }
 
-      this.eventModelState = null;
       this.save();
    }
 
@@ -304,6 +303,8 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       const timeGroup = this.eventForm.get('time') as FormGroup;
       timeGroup.removeControl('start');
       timeGroup.removeControl('end');
+
+      this.eventForm.removeControl('time');
     }
     const recurring = RecurringEventViewModel.parse(event.recurrencePattern);
 
