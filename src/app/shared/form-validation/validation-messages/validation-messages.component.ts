@@ -15,6 +15,6 @@ export class ValidationMessagesComponent {
     }
 
     get isValid(): Boolean {
-      return (!this.control.control.pristine &&  this.control.control.errors) ? false : true;
+      return (this.control.control && !this.control.control.pristine &&  this.control.control.errors) ? false : true;
   }
 }

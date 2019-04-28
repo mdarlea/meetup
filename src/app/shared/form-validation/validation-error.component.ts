@@ -73,6 +73,8 @@ export abstract class ValidationErrorComponent {
             ? (<Validator>this.validator).validate(this.control.control) : (<ValidatorFn>this.validator)(this.control.control);
           return !result;
         } else if (this.keys) {
+          if (!this.control.control) { return true; }
+
           const errors = this.control.control.errors;
           if (!errors) { return true; }
 

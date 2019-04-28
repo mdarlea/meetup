@@ -1,7 +1,7 @@
 <div class="card" [formGroup]="recurringEventForm">
   <article class="card-group-item">
 		<header class="card-header">
-      <a [ngClass]="{'collapsed': !viewModel.recurring}" (click)="recurringSection($event)">
+      <a [ngClass]="{'collapsed': !isRecurring}" (click)="recurringSection($event)">
 				<i class="icon-action fa fa-chevron-down"></i>
 				<h6 class="title">Repeat event </h6>
 			</a>

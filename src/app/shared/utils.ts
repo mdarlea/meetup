@@ -62,3 +62,14 @@ export function validateAllFormFields(formGroup: FormGroup) {
     }
   });
 }
+
+export function isInvalidControl(form: FormGroup, formControlName: string, key: string) {
+  if (!form || !formControlName || !key) {
+    return false;
+  }
+
+  // get control
+  const control = form.get(formControlName);
+
+  return control && control.errors && control.errors[key];
+}

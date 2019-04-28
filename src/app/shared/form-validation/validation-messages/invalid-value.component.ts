@@ -15,6 +15,8 @@ export class InvalidValueComponent {
     }
 
     get isValid(): Boolean {
+      if (!this.parent.control.control) { return true; }
+
       const errors = this.parent.control.control.errors;
 
       if (!errors || !this.key) { return true; }

@@ -8,6 +8,8 @@ export class EventViewModel {
     constructor(vm?: EventViewModel) {
       if (vm) {
         Object.assign(this, _.cloneDeep(vm));
+        this.start = this.time.start;
+        this.end = this.time.end;
       }
     }
 
@@ -18,6 +20,8 @@ export class EventViewModel {
       start: Date;
       end: Date;
     };
+    start: Date;
+    end: Date;
     description: string;
     allDay: boolean;
     repeatEvent: any;
@@ -47,6 +51,8 @@ export class EventViewModel {
         start: startTime,
         end: endTime
       };
+      vm.start = startTime;
+      vm.end = endTime;
       vm.addressId = -1;
       vm.address = new Address();
       vm.allDay = false;
@@ -64,6 +70,8 @@ export class EventViewModel {
           start: eventInfo.startTime,
           end: eventInfo.endTime
         };
+        newEvent.start = eventInfo.startTime;
+        newEvent.end = eventInfo.endTime;
         newEvent.addressId = -1;
         newEvent.address = new Address();
         newEvent.readOnly = null;
@@ -84,6 +92,8 @@ export class EventViewModel {
           start: startTime,
           end: endTime
         },
+        newEvent.start = startTime;
+        newEvent.end = endTime;
         newEvent.description = event.description;
         newEvent.userId = event.userId;
         newEvent.groupId = event.userId;

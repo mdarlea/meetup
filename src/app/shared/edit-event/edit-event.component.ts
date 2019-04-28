@@ -17,6 +17,7 @@ import { FoursquareVenue } from '../../core/models/foursquare-venue';
 import { FoursquareService } from '../../core/services/foursquare.service';
 import { RecurringEventComponent } from '../recurring-event/recurring-event.component';
 import { GeolocationService } from '../sw-map/geolocation.service';
+import { validateAllFormFields } from '../utils';
 
 export const timeRangeValidator = (control: FormGroup): {[key: string]: boolean} => {
   const start = control.get('start');
@@ -174,7 +175,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       observable.subscribe(result => {
         vm = EventViewModel.fromEventDto(result);
         this.eventForm.patchValue(vm);
-        this.initialState = _.cloneDeep(vm);
+        this.initialState = _.cloneDeep(this.eventForm.value);
 
         Object.assign(this.event, _.cloneDeep(vm));
 
@@ -245,8 +246,14 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       }
     }
 
-    onSave(form: any) {
-      if (!form.valid) { return; }
+    onSave() {
+      this.eventModelState = null;
+
+      if (!this.eventForm.valid) {
+        validateAllFormFields(this.eventForm);
+        return;
+      }
+
       this.eventModelState = null;
       this.save();
    }
@@ -292,6 +299,11 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   buildEventForm(event: EventViewModel) {
+    if (this.eventForm) {
+      const timeGroup = this.eventForm.get('time') as FormGroup;
+      timeGroup.removeControl('start');
+      timeGroup.removeControl('end');
+    }
     const recurring = RecurringEventViewModel.parse(event.recurrencePattern);
 
     this.eventForm = this.fb.group({
@@ -321,5 +333,15 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
   get isRecurring(): boolean {
     const recurring = this.eventForm.get('recurring').value;
     return (recurring && recurring.recurring);
+  }
+
+  get address(): Address {
+    if (! this.eventForm) { return null; }
+
+    const address = this.eventForm.get('address');
+
+    if (! address) { return null; }
+
+    return address.value;
   }
 }

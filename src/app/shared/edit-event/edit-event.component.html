@@ -2,7 +2,7 @@
   <spinner></spinner>
   <br/>
 </div>
-<form class="form-group" [formGroup]="eventForm" (ngSubmit)="onSave(form)" ngNativeValidate>
+<form class="form-group" [formGroup]="eventForm" (ngSubmit)="onSave()" ngNativeValidate>
   <ng-container *ngIf="!loadingEvent">
     <input-group name="name"
                  formControlName="subject"
@@ -12,7 +12,7 @@
                  [disabled]="disabled">
         <err-required message="The event name is required"></err-required>
     </input-group>
-    <div class="row">
+    <div class="row" formGroupName="time">
         <div class="col-sm-6 col-xs-12">
             <label>Start Time</label>
             <time-picker name="startTime"
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-sm-6">
                     <spinner *ngIf="loading"></spinner>
-                    <address-read-only *ngIf="isAtMainAddress && !loading" [address]="eventCopy.address"></address-read-only>
+                    <address-read-only *ngIf="isAtMainAddress && !loading" [address]="address"></address-read-only>
                 </div>
               </div>
               <address *ngIf="!isAtMainAddress" [addressForm]="eventForm.get('address')" class="address" [disabled]="disabled"></address>

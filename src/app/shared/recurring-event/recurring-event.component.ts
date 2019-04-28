@@ -3,6 +3,13 @@ import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef } from '@ang
 import { RecurringEventViewModel} from '../recurring-event-view-model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
+export const recurringValidator = (control: FormGroup): {[key: string]: boolean} => {
+  const recurring = control.get('recurring');
+  const type = control.get('type');
+
+  return null;
+}
+
 @Component({
   selector: 'recurring-event',
   templateUrl: './recurring-event.component.html',
@@ -13,13 +20,21 @@ export class RecurringEventComponent implements OnInit, OnChanges {
 
   static buildRecurringEvent(fb: FormBuilder, viewModel: RecurringEventViewModel): FormGroup {
     return fb.group({
-      type: [viewModel.type, Validators.required],
+      type: viewModel.type,
       recurring: viewModel.recurring,
       count: viewModel.count,
       until: viewModel.until
-    });
+    }, { validator: recurringValidator });
   }
 
+  get isRecurring(): boolean {
+    if (! this.recurringEventForm) { return false; }
+
+    const recurring = this.recurringEventForm.get('recurring');
+
+    return recurring && recurring.value;
+
+  }
   get f() { return this.recurringEventForm ? this.recurringEventForm.controls : null; }
 
   constructor() { }
