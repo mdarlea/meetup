@@ -2,52 +2,49 @@
   <spinner></spinner>
   <br/>
 </div>
-<form class="form-group" #form="ngForm" (ngSubmit)="onSave(form)" ngNativeValidate>
+<form class="form-group" [formGroup]="eventForm" (ngSubmit)="onSave()" ngNativeValidate>
   <ng-container *ngIf="!loadingEvent">
     <input-group name="name"
-                 [(ngModel)]="eventCopy.subject"
+                 formControlName="subject"
                  fa-icon="calendar"
                  label="Event Name"
                  placeholder="The event name"
-                 [disabled]="disabled"
-                 required>
+                 [attr.disabled]="disabled">
         <err-required message="The event name is required"></err-required>
     </input-group>
-    <div class="row">
+    <div class="row" formGroupName="time">
         <div class="col-sm-6 col-xs-12">
             <label>Start Time</label>
             <time-picker name="startTime"
-                         [(ngModel)]="eventCopy.start"
-                         required
-                         [showTimeOnly]="eventCopy.recurrencePattern"
-                         [format]="(eventCopy.recurrencePattern) ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
+                         formControlName="start"
+                         [showTimeOnly]="isRecurring"
+                         [format]="isRecurring ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
                 <err-required message="The start time is required"></err-required>
             </time-picker>
         </div>
         <div class="col-sm-6 col-xs-12">
             <label>End Time</label>
             <time-picker name="endTime"
-                         [(ngModel)]="eventCopy.end"
-                         required
-                         [showTimeOnly]="eventCopy.recurrencePattern"
-                         [format]="(eventCopy.recurrencePattern) ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
+                         formControlName="end"
+                         [showTimeOnly]="isRecurring"
+                         [format]="(isRecurring) ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
                 <err-required message="The end time is required"></err-required>
             </time-picker>
         </div>
     </div>
     <input-simple name="description" type="textarea"
-                  [(ngModel)]="eventCopy.description"
+                  formControlName="description"
                   label="Description"
-                  [disabled]="disabled"
+                  [attr.disabled]="disabled"
                   placeholder="The event description">
     </input-simple>
 
-    <recurring-event [viewModel]="recurring"></recurring-event>
+    <recurring-event [recurringEventForm]="eventForm.get('recurring')"></recurring-event>
 
     <div class="panel panel-info">
         <div class="panel-heading">Event Location</div>
         <div class="panel-body">
-            <place [venue]="venue" (venueChange)="onVenueChange($event)" [disabled]="disabled"></place>
+            <place [venue]="venue" (venueChange)="onVenueChange($event)" [attr.disabled]="disabled"></place>
             <venue [item]="venue" [photo]="venuePhoto" *ngIf="venue"></venue>
             <ng-container *ngIf="!venue">
               <div class="row">
@@ -58,10 +55,10 @@
                 </div>
                 <div class="col-sm-6">
                     <spinner *ngIf="loading"></spinner>
-                    <address-read-only *ngIf="isAtMainAddress && !loading" [address]="eventCopy.address"></address-read-only>
+                    <address-read-only *ngIf="isAtMainAddress && !loading" [address]="address"></address-read-only>
                 </div>
               </div>
-              <address *ngIf="!isAtMainAddress" [address]="eventCopy.address" showCountry="false" class="address" [disabled]="disabled"></address>
+              <address *ngIf="!isAtMainAddress" [addressForm]="eventForm.get('address')" class="address" [attr.disabled]="disabled"></address>
             </ng-container>
         </div>
     </div>

@@ -1,14 +1,9 @@
 
-import {tap} from 'rxjs/operators';
-import { EventEmitter, Component, OnInit, Input, Output, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Address } from '../../core/models/address';
 import { GeolocationService } from '../../shared/sw-map/geolocation.service';
-import { Observable} from 'rxjs';
-import { GeolocationResult} from '../../shared/sw-map/geolocation.service';
-
-
 
 @Component({
   selector: 'address',
@@ -16,42 +11,31 @@ import { GeolocationResult} from '../../shared/sw-map/geolocation.service';
   styleUrls: ['./address.component.css']
 })
 export class AddressComponent implements OnInit {
-    @Input() address: Address;
-    @Input() showCountry = false;
-    @Input() disabled = false;
+  @Input() addressForm: FormGroup;
+  @Input() disabled = false;
 
-    @Output() changeCountry = new EventEmitter<any>();
+  get f() { return this.addressForm ? this.addressForm.controls : null; }
 
-    @ViewChild('street') street: NgModel;
-    @ViewChild('city') city: NgModel;
+  static buildAddress(fb: FormBuilder, address: Address): FormGroup {
+    return fb.group({
+      id: address.id,
+      placeName: address.placeName,
+      streetAddress: [address.streetAddress, Validators.required],
+      suiteNumber: address.suiteNumber,
+      city: [address.city, Validators.required],
+      state: address.state,
+      zip: [address.zip, Validators.maxLength(10)],
+      isMainAddress: address.isMainAddress,
+      geolocationStreet: address.geolocationStreet,
+      geolocationStreetNumber: address.geolocationStreetNumber,
+      latitude: address.latitude,
+      longitude: address.longitude,
+      countryIsoCode: address.countryIsoCode
+    });
+  }
 
   constructor(private geolocationService: GeolocationService) { }
 
   ngOnInit() {
-  }
-
-    onChangeCountry(event: any) {
-        this.changeCountry.emit(event);
-    }
-
-    getGeolocation(): Observable<GeolocationResult> {
-        return this.geolocationService.geoLocationForAddress(this.address).pipe(tap(result => {
-            this.address.geolocationStreetNumber = result.streetNumber;
-            this.address.geolocationStreet = result.street;
-            this.address.latitude = result.latitude;
-            this.address.longitude = result.longitude;
-            if (!this.address.countryIsoCode) {
-                this.address.countryIsoCode = result.country.code;
-            }
-        }));
-    }
-
-  reset() {
-    if (this.street) {
-      this.street.reset();
-    }
-    if (this.city) {
-      this.city.reset();
-    }
   }
 }

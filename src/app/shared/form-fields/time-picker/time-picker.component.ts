@@ -216,10 +216,15 @@ onBlur() {
     this.onTouchedValue();
 }
 
-// From ControlValueAccessor interface
-    writeValue(value: any) {
-        this.model = value;
+  // From ControlValueAccessor interface
+  writeValue(value: any) {
+      if (value !== this.modelValue) {
+        this.modelValue = value;
+        if (!this.onChangeValue) {
+            this.onModelChange(value);
+        }
     }
+  }
 
 // From ControlValueAccessor interface
 registerOnChange(fn: any) {

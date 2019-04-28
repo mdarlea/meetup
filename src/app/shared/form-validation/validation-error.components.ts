@@ -1,5 +1,5 @@
-﻿import { Host, SkipSelf, Inject , Component} from '@angular/core'
-import { NgControl } from '@angular/forms';
+﻿import { Host, SkipSelf, Inject , Optional, Component} from '@angular/core'
+import { NgControl, Validators } from '@angular/forms';
 import {
     NG_VALIDATORS, Validator, ValidatorFn,
     RequiredValidator,
@@ -7,7 +7,7 @@ import {
     MaxLengthValidator,
     PatternValidator
 } from '@angular/forms';
-import { ValidationType, ValidationErrorComponent } from './validation-error.component'
+import { ValidationType, ValidationError, ValidationErrorComponent } from './validation-error.component'
 
 @Component({
     selector: 'err-required',
@@ -16,10 +16,11 @@ import { ValidationType, ValidationErrorComponent } from './validation-error.com
                   </div>`
 })
 @ValidationType(RequiredValidator)
+@ValidationError('required')
 export class RequiredValidationErrorComponent extends ValidationErrorComponent {
     constructor(
         @Host() control: NgControl,
-        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() @Optional() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }
@@ -31,10 +32,11 @@ export class RequiredValidationErrorComponent extends ValidationErrorComponent {
                   </div>`
 })
 @ValidationType(MinLengthValidator)
+@ValidationError('minlength')
 export class MinLengthValidationErrorComponent extends ValidationErrorComponent {
     constructor(
         @Host() control: NgControl,
-        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() @Optional() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }
@@ -46,10 +48,11 @@ export class MinLengthValidationErrorComponent extends ValidationErrorComponent 
                   </div>`
 })
 @ValidationType(MaxLengthValidator)
+@ValidationError('maxlength')
 export class MaxLengthValidationErrorComponent extends ValidationErrorComponent {
     constructor(
         @Host() control: NgControl,
-        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() @Optional() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }
@@ -61,10 +64,11 @@ export class MaxLengthValidationErrorComponent extends ValidationErrorComponent 
                   </div>`
 })
 @ValidationType(PatternValidator)
+@ValidationError('pattern')
 export class PatternValidationErrorComponent extends ValidationErrorComponent {
     constructor(
         @Host() control: NgControl,
-        @Host() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
+        @Host() @Optional() @Inject(NG_VALIDATORS) validators: Array<Validator | ValidatorFn>) {
         super(control, validators);
     }
 }

@@ -1,8 +1,7 @@
-﻿import { NgModule } from '@angular/core'
+﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { EmailValidator } from './validators/email.validator';
 import { TimeValidator } from './validators/time.validator';
 
 import {
@@ -14,30 +13,34 @@ import {
 import { EmailValidationErrorComponent } from './email-validation-error.component';
 import { TimeValidationErrorComponent } from './time-validation-error.component';
 import { ValidationErrorsComponent} from './validation-errors.component';
+import { ValidationMessagesComponent } from './validation-messages/validation-messages.component';
+import { InvalidValueComponent } from './validation-messages/invalid-value.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [
        ValidationErrorsComponent,
-        EmailValidator,
         TimeValidator,
         RequiredValidationErrorComponent,
         MinLengthValidationErrorComponent,
         MaxLengthValidationErrorComponent,
         PatternValidationErrorComponent,
         EmailValidationErrorComponent,
-        TimeValidationErrorComponent
+        TimeValidationErrorComponent,
+        ValidationMessagesComponent,
+        InvalidValueComponent
     ],
     exports: [
         ValidationErrorsComponent,
-        EmailValidator,
         TimeValidator,
         RequiredValidationErrorComponent,
         MinLengthValidationErrorComponent,
         MaxLengthValidationErrorComponent,
         PatternValidationErrorComponent,
         EmailValidationErrorComponent,
-        TimeValidationErrorComponent
+        TimeValidationErrorComponent,
+        ValidationMessagesComponent,
+        InvalidValueComponent
     ]
 })
 export class FormValidationModule { }

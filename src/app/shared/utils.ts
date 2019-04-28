@@ -1,3 +1,5 @@
+import { FormGroup, FormControl } from '@angular/forms';
+
 /** Coerces a data-bound value (typically a string) to a boolean. */
 export function coerceBooleanProperty(value: any): boolean {
     return value != null && `${value}` !== 'false';
@@ -47,4 +49,27 @@ export function getModelState(error: any): any {
     }
   }
   return error;
+}
+
+export function validateAllFormFields(formGroup: FormGroup) {
+  Object.keys(formGroup.controls).forEach(field => {
+    const control = formGroup.get(field);
+    if (control instanceof FormControl) {
+      control.markAsTouched({ onlySelf: true });
+      control.markAsDirty({ onlySelf: true });
+    } else if (control instanceof FormGroup) {
+      validateAllFormFields(control);
+    }
+  });
+}
+
+export function isInvalidControl(form: FormGroup, formControlName: string, key: string) {
+  if (!form || !formControlName || !key) {
+    return false;
+  }
+
+  // get control
+  const control = form.get(formControlName);
+
+  return control && control.errors && control.errors[key];
 }

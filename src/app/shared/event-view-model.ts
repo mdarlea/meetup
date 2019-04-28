@@ -5,22 +5,32 @@ import { EventGroup } from './event-group';
 import * as _ from 'lodash';
 
 export class EventViewModel {
-    constructor(public id: number|string,
-        public subject: string,
-        public instructor: string,
-        public start: Date,
-        public end: Date,
-        public description: string,
-        public allDay: boolean,
-        public repeatEvent: any,
-        public groupId: string,
-        public userId: string,
-        public location: string,
-        public addressId: number,
-        public address: Address,
-        public repeat: boolean) {
+    constructor(vm?: EventViewModel) {
+      if (vm) {
+        Object.assign(this, _.cloneDeep(vm));
+        this.start = this.time.start;
+        this.end = this.time.end;
+      }
     }
 
+    id: number|string;
+    subject: string;
+    instructor: string;
+    time: {
+      start: Date;
+      end: Date;
+    };
+    start: Date;
+    end: Date;
+    description: string;
+    allDay: boolean;
+    repeatEvent: any;
+    groupId: string;
+    userId: string;
+    location: string;
+    addressId: number;
+    address: Address;
+    repeat: boolean;
     readOnly: boolean;
     group: EventGroup;
     recurrencePattern: string;
@@ -35,27 +45,35 @@ export class EventViewModel {
       const endTime = new Date();
       endTime.setHours(endTime.getHours() + 2);
 
-      return new EventViewModel(-1, null, null, startTime, endTime, null, false, null, null, null, null, -1, new Address(), false);
+      const vm = new EventViewModel();
+      vm.id = -1;
+      vm.time = {
+        start: startTime,
+        end: endTime
+      };
+      vm.start = startTime;
+      vm.end = endTime;
+      vm.addressId = -1;
+      vm.address = new Address();
+      vm.allDay = false;
+      vm.repeat = false;
+
+      return vm;
     }
 
     static fromEventInfo(eventInfo: EventInfo): EventViewModel {
         let newEvent: EventViewModel = null;
-        newEvent = new EventViewModel(
-            eventInfo.id,
-            null,
-            null,
-            eventInfo.startTime,
-            eventInfo.endTime,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            -1,
-            new Address(),
-            null);
+        newEvent = new EventViewModel();
 
+        newEvent.id = eventInfo.id;
+        newEvent.time = {
+          start: eventInfo.startTime,
+          end: eventInfo.endTime
+        };
+        newEvent.start = eventInfo.startTime;
+        newEvent.end = eventInfo.endTime;
+        newEvent.addressId = -1;
+        newEvent.address = new Address();
         newEvent.readOnly = null;
 
         return newEvent;
@@ -65,23 +83,27 @@ export class EventViewModel {
         const startTime = new Date(event.startTime);
         const endTime = new Date(event.endTime);
 
-        const newEvent = new EventViewModel(
-            event.id,
-            event.name,
-            event.instructor,
-            startTime,
-            endTime,
-            event.description,
-            null,
-            null,
-            event.userId,
-            event.userId,
-            null,
-            event.addressId,
-            event.address || new Address(),
-            event.repeat);
+        const newEvent = new EventViewModel();
 
+        newEvent.id = event.id;
+        newEvent.subject = event.name;
+        newEvent.instructor = event.instructor;
+        newEvent.time = {
+          start: startTime,
+          end: endTime
+        },
+        newEvent.start = startTime;
+        newEvent.end = endTime;
+        newEvent.description = event.description;
+        newEvent.userId = event.userId;
+        newEvent.groupId = event.userId;
+
+        newEvent.addressId = event.addressId;
+        newEvent.address = event.address ? event.address : new Address();
         newEvent.address.id = event.addressId;
+
+        newEvent.repeat = event.repeat;
+
         newEvent.recurrencePattern = event.recurrencePattern;
         newEvent.recurrenceException = event.recurrenceException;
 
@@ -97,7 +119,7 @@ export class EventViewModel {
 
 
     get repeatDay() {
-        return (this.repeat) ? this.start.getDay() + 1 : null;
+        return (this.repeat) ? this.time.start.getDay() + 1 : null;
     }
 
     setGroup(group: EventGroup) {
@@ -111,10 +133,15 @@ export class EventViewModel {
         event.instructor = this.instructor;
         event.description = this.description;
 
-        event.startTime = this.start.toLocaleString();
-        event.endTime = this.end.toLocaleString();
+        event.startTime = this.time.start.toLocaleString();
+        event.endTime = this.time.end.toLocaleString();
+
         event.address = this.address;
         event.addressId = this.addressId;
+        if (event.address) {
+          event.address.isMainAddress = true;
+        }
+
         event.userId = this.userId;
         event.repeat = this.recurrencePattern ? true : false;
         event.recurrencePattern = this.recurrencePattern;
@@ -141,11 +168,7 @@ export class EventViewModel {
           return true;
         }
       } else {
-        return (this.start >= now) ? true : false;
+        return (this.time.start >= now) ? true : false;
       }
-    }
-
-    private _copyAddress(target: Address, source: Address) {
-        Object.assign(target, _.cloneDeep(source));
     }
 }

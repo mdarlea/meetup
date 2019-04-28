@@ -1,9 +1,17 @@
+import * as _ from 'lodash';
+
 export class RecurringEventViewModel {
   type: string;
   recurring: boolean;
   count: number;
   until: Date;
 
+  constructor(vm?: RecurringEventViewModel) {
+    if (vm) {
+      Object.assign(this, _.cloneDeep(vm));
+    }
+
+  }
   static parse(value: string): RecurringEventViewModel {
     const viewModel = new RecurringEventViewModel();
 

@@ -13,6 +13,7 @@ import { EventService} from '../../core/services/event.service';
 import { LoaderService} from '../../core/services/loader.service';
 import { SchedulerComponent } from 'sw-scheduler';
 import { TimeRangeDto} from '../../core/models/time-range-dto';
+import { getModelState } from '../../shared/utils';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -177,8 +178,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
               const newEvent = EventViewModel.newEvent();
               Object.assign(newEvent, _.cloneDeep(ev));
               newEvent.id = 0;
-              newEvent.start = event.startTime;
-              newEvent.end = event.endTime;
+              newEvent.time.start = event.startTime;
+              newEvent.time.end = event.endTime;
               newEvent.repeat = null;
               newEvent.recurrenceException = null;
               newEvent.recurrencePattern = null;
@@ -216,17 +217,17 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
 
             // saves to the database
             const copy = ev.clone();
-            copy.start = event.startTime;
-            copy.end = event.endTime;
+            copy.time.start = event.startTime;
+            copy.time.end = event.endTime;
 
             this.loading = true;
             this.eventSvc.updateEvent(copy.toEventDto()).subscribe(e => {
               // updates the event
-              ev.start = event.startTime;
-              ev.end = event.endTime;
+              ev.time.start = event.startTime;
+              ev.time.end = event.endTime;
               this.loading = false;
             }, error => {
-              this.modelState = error;
+              this.modelState = getModelState(error);
               this.scheduler.render(event.id);
               this.loading = false;
           });
@@ -300,10 +301,10 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!event.recurrencePattern) {
           if (!last) {
             last = event;
-            startTime.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+            startTime.setHours(event.time.start.getHours(), event.time.start.getMinutes(), 0);
           } else {
             const start = new Date();
-            start.setHours(event.start.getHours(), event.start.getMinutes(), 0);
+            start.setHours(event.time.start.getHours(), event.time.start.getMinutes(), 0);
 
             if (start < startTime) {
               startTime = start;
