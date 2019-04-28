@@ -212,6 +212,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
                 this.buildEventForm(value);
               } else if (!value.address.latitude) {
                 this.loadingEvent = true;
+                this.eventForm = this.fb.group({});
                 this.eventSvc.findEvent(value.id).subscribe(result => {
                   const vm = EventViewModel.fromEventDto(result);
                   this.buildEventForm(vm);
@@ -299,13 +300,6 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   buildEventForm(event: EventViewModel) {
-    if (this.eventForm) {
-      const timeGroup = this.eventForm.get('time') as FormGroup;
-      timeGroup.removeControl('start');
-      timeGroup.removeControl('end');
-
-      this.eventForm.removeControl('time');
-    }
     const recurring = RecurringEventViewModel.parse(event.recurrencePattern);
 
     this.eventForm = this.fb.group({
