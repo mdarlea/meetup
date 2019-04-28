@@ -9,7 +9,7 @@
                  fa-icon="calendar"
                  label="Event Name"
                  placeholder="The event name"
-                 [disabled]="disabled">
+                 [attr.disabled]="disabled">
         <err-required message="The event name is required"></err-required>
     </input-group>
     <div class="row" formGroupName="time">
@@ -35,7 +35,7 @@
     <input-simple name="description" type="textarea"
                   formControlName="description"
                   label="Description"
-                  [disabled]="disabled"
+                  [attr.disabled]="disabled"
                   placeholder="The event description">
     </input-simple>
 
@@ -44,12 +44,12 @@
     <div class="panel panel-info">
         <div class="panel-heading">Event Location</div>
         <div class="panel-body">
-            <place [venue]="venue" (venueChange)="onVenueChange($event)" [disabled]="disabled"></place>
+            <place [venue]="venue" (venueChange)="onVenueChange($event)" [attr.disabled]="disabled"></place>
             <venue [item]="venue" [photo]="venuePhoto" *ngIf="venue"></venue>
             <ng-container *ngIf="!venue">
               <div class="row">
                 <div class="col-sm-6">
-                    <input type="button" class="btn btn-info" [disabled]="disabled"
+                    <input type="button" class="btn btn-info" [attr.disabled]="disabled"
                            [value]="buttonText"
                            (click)="eventAtMainAddress()" />
                 </div>
@@ -58,7 +58,7 @@
                     <address-read-only *ngIf="isAtMainAddress && !loading" [address]="address"></address-read-only>
                 </div>
               </div>
-              <address *ngIf="!isAtMainAddress" [addressForm]="eventForm.get('address')" class="address" [disabled]="disabled"></address>
+              <address *ngIf="!isAtMainAddress" [addressForm]="eventForm.get('address')" class="address" [attr.disabled]="disabled"></address>
             </ng-container>
         </div>
     </div>

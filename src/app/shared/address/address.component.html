@@ -5,7 +5,7 @@
              class="col-sm-9 col-xs-12"
              label="Street Address"
              placeholder="Your street address"
-             [disabled]="disabled">
+             [attr.disabled]="disabled">
         <err-required message="Street address is required"></err-required>
       </input-simple>
       <input-simple name="suiteNumber"
@@ -13,14 +13,14 @@
              class="col-sm-3 col-xs-6"
              label="Apt/Suite"
              placeholder="Apt/Suite"
-             [disabled]="disabled">
+             [attr.disabled]="disabled">
       </input-simple>
   </div>
   <input-simple name="city"
          formControlName="city"
          label="City"
          placeholder="Your city"
-         [disabled]="disabled">
+         [attr.disabled]="disabled">
     <err-required message="City is required"></err-required>
   </input-simple>
   <div class="row">
@@ -29,14 +29,14 @@
              class="col-xs-8"
              label="State or Province"
              placeholder="State or province"
-             [disabled]="disabled">
+             [attr.disabled]="disabled">
       </input-simple>
       <input-simple name="zip"
              formControlName="zip"
              class="col-xs-4"
              label="Zip"
              placeholder="Zip code"
-             [disabled]="disabled">
+             [attr.disabled]="disabled">
           <err-maxlength message="Zip code cannot be longer than 10 characters"></err-maxlength>
       </input-simple>
   </div>
