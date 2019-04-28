@@ -25,7 +25,12 @@ export class AddressComponent implements OnInit {
       city: [address.city, Validators.required],
       state: address.state,
       zip: [address.zip, Validators.maxLength(10)],
-      isMainAddress: address.isMainAddress
+      isMainAddress: address.isMainAddress,
+      geolocationStreet: address.geolocationStreet,
+      geolocationStreetNumber: address.geolocationStreetNumber,
+      latitude: address.latitude,
+      longitude: address.longitude,
+      countryIsoCode: address.countryIsoCode
     });
   }
 

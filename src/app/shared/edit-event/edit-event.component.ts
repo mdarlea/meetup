@@ -17,7 +17,7 @@ import { FoursquareVenue } from '../../core/models/foursquare-venue';
 import { FoursquareService } from '../../core/services/foursquare.service';
 import { RecurringEventComponent } from '../recurring-event/recurring-event.component';
 import { GeolocationService } from '../sw-map/geolocation.service';
-import { validateAllFormFields } from '../utils';
+import { validateAllFormFields, getModelState } from '../utils';
 
 export const timeRangeValidator = (control: FormGroup): {[key: string]: boolean} => {
   const start = control.get('start');
@@ -94,6 +94,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
         return;
       }
                 const address = new Address();
+                address.id = this.mainAddress.id;
                 address.streetAddress = this.mainAddress.streetAddress;
                 address.suiteNumber = this.mainAddress.suiteNumber;
                 address.city = this.mainAddress.city;
@@ -184,7 +185,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
         // notify subscribers
         this.schedulerSvc.eventSaved(this.event);
       }, error => {
-        this.eventModelState = error;
+        this.eventModelState = getModelState(error);
         this.processingEvent = false;
         this.ref.detectChanges();
         this.schedulerSvc.eventSavingError(error);
@@ -269,7 +270,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
           this.schedulerSvc.deleteEvent(this.event.id);
       },
       error => {
-        this.eventModelState = error;
+        this.eventModelState = getModelState(error);
         this.processingEvent = false;
       });
    }

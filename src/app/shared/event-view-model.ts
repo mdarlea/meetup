@@ -135,8 +135,13 @@ export class EventViewModel {
 
         event.startTime = this.time.start.toLocaleString();
         event.endTime = this.time.end.toLocaleString();
+
         event.address = this.address;
         event.addressId = this.addressId;
+        if (event.address) {
+          event.address.isMainAddress = true;
+        }
+
         event.userId = this.userId;
         event.repeat = this.recurrencePattern ? true : false;
         event.recurrencePattern = this.recurrencePattern;
