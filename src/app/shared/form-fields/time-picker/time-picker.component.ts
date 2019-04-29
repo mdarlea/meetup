@@ -140,7 +140,8 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
  }
 
   setDay(date: number) {
-      this.model = moment(this.model).date(date).toDate();
+    const value = (this.model) ? this.model : new Date();
+    this.model = moment(value).date(date).toDate();
   }
 
   setState(state: boolean) {
@@ -154,11 +155,14 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
       if (this.meridian === 'AM' && hour === 12) {
           hour = hour - 12;
       }
-      this.model = moment(this.model).hour(hour).toDate();
+
+      const value = (this.model) ? this.model : new Date();
+      this.model = moment(value).hour(hour).toDate();
   }
 
   setMeridian(meridian: string) {
-      let m = moment(this.model);
+    const value = (this.model) ? this.model : new Date();
+    let m = moment(value);
 
       if (meridian === 'AM') {
           if (m.hours() >= 12) {
@@ -174,7 +178,8 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   setMinutes(minutes: number) {
-      this.model = moment(this.model).minute(minutes).toDate();
+    const value = (this.model) ? this.model : new Date();
+    this.model = moment(value).minute(minutes).toDate();
   }
 
 
@@ -202,11 +207,13 @@ getDaysInMonth(year: number, month: number) {
 }
 
 addMonth(increment: any) {
-    this.model = moment(this.model).add(increment, 'months').toDate();
+  const value = (this.model) ? this.model : new Date();
+  this.model = moment(value).add(increment, 'months').toDate();
 }
 
 addYear(increment: any) {
-    this.model = moment(this.model).add(increment, 'years').toDate();
+  const value = (this.model) ? this.model : new Date();
+  this.model = moment(value).add(increment, 'years').toDate();
 }
 
 
