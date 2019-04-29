@@ -227,9 +227,7 @@ onBlur() {
   writeValue(value: any) {
       if (value !== this.modelValue) {
         this.modelValue = value;
-        if (!this.onChangeValue) {
-            this.onModelChange(value);
-        }
+        this.onModelChange(value);
     }
   }
 
