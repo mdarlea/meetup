@@ -50,7 +50,7 @@ export const eventValidator = (control: FormGroup): {[key: string]: boolean} => 
   if (recurringGroup) {
     const recurring = recurringGroup.get('recurring');
     if (recurring && recurring.value) {
-      const until = control.get('until');
+      const until = recurringGroup.get('until');
 
       if (until && until.value) {
         const invalidDate = {invalidDate: true};
