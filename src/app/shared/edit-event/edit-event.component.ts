@@ -19,7 +19,7 @@ import { RecurringEventComponent } from '../recurring-event/recurring-event.comp
 import { GeolocationService } from '../sw-map/geolocation.service';
 import { validateAllFormFields, getModelState } from '../utils';
 
-export const timeRangeValidator = (control: FormGroup): {[key: string]: boolean} => {
+export const timeValidator = (control: FormGroup): {[key: string]: boolean} => {
   const start = control.get('start');
   const end = control.get('end');
   const now = new Date();
@@ -45,6 +45,34 @@ export const timeRangeValidator = (control: FormGroup): {[key: string]: boolean}
   return null;
 }
 
+export const eventValidator = (control: FormGroup): {[key: string]: boolean} => {
+  const recurringGroup = control.get('recurring');
+  if (recurringGroup) {
+    const recurring = recurringGroup.get('recurring');
+    if (recurring && recurring.value) {
+      const until = control.get('until');
+
+      if (until && until.value) {
+        const invalidDate = {invalidDate: true};
+
+        const timeGroup = control.get('time');
+
+        if (!timeGroup) {
+          return null;
+        }
+
+        const endTime = timeGroup.get('end');
+
+        if (endTime && endTime.value) {
+          if (until.value < endTime.value) {
+            until.setErrors(invalidDate)
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
 
 @Component({
   selector: 'edit-event',
@@ -309,7 +337,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       time: this.fb.group({
         start: [event.time.start, Validators.required],
         end: [event.time.end, Validators.required]
-      }),
+      }, {validator: timeValidator}),
       description: event.description,
       allDay: event.allDay,
       groupId: event.groupId,
@@ -321,7 +349,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
       recurring: RecurringEventComponent.buildRecurringEvent(this.fb, recurring),
       recurrenceException: event.recurrenceException,
       venueId: event.venueId
-    });
+    } , { validator: eventValidator });
 
     this.initialState = _.cloneDeep(this.eventForm.value);
   }
@@ -339,5 +367,9 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     if (! address) { return null; }
 
     return address.value;
+  }
+
+  get isNewEvent(): boolean {
+    return this.event && (!this.event.id || (!isNaN(+this.event.id) && +this.event.id < 1));
   }
 }

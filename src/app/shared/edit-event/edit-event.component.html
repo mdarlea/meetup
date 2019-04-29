@@ -17,18 +17,24 @@
             <label>Start Time</label>
             <time-picker name="startTime"
                          formControlName="start"
-                         [showTimeOnly]="isRecurring"
+                         [showTimeOnly]="!isNewEvent && isRecurring"
                          [format]="isRecurring ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
-                <err-required message="The start time is required"></err-required>
+                <validation-messages>
+                  <invalid-value key="required" message="The start time is required"></invalid-value>
+                  <invalid-value key="invalidTime" message="Start time must be in the future"></invalid-value>
+                </validation-messages>
             </time-picker>
         </div>
         <div class="col-sm-6 col-xs-12">
             <label>End Time</label>
             <time-picker name="endTime"
                          formControlName="end"
-                         [showTimeOnly]="isRecurring"
+                         [showTimeOnly]="!isNewEvent && isRecurring"
                          [format]="(isRecurring) ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
-                <err-required message="The end time is required"></err-required>
+                <validation-messages>
+                  <invalid-value key="required" message="The end time is required"></invalid-value>
+                  <invalid-value key="invalidTime" message="End time must be in the future and greater than start time"></invalid-value>
+                </validation-messages>
             </time-picker>
         </div>
     </div>

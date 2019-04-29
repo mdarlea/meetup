@@ -9,10 +9,10 @@
 		<div class="filter-content collapse" [ngClass]="{'show': expanded}" style="">
 			<div class="card-body">
         <div class="row">
-            <label for="primary" class="btn btn-primary">Primary
-              <input type="checkbox" id="primary" class="badgebox" [checked]="isRecurring" (change)="setRecurring($event)">
-              <span class="badge"></span>
-            </label>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="recurring" [checked]="isRecurring" (change)="setRecurring($event)">
+              <label class="form-check-label" for="recurring">Material unchecked</label>
+          </div>
         </div>
         <ng-container *ngIf="isRecurring">
             <div class="row">
@@ -66,6 +66,7 @@
               </div>
               <div *ngIf="!recurringEventForm.pristine && !recurringEventForm.valid" class="alert alert-danger">
                 <div *ngIf="hasErrors('type', 'noValue')">You must provide the recurrency type</div>
+                <div *ngIf="hasErrors('until', 'invalidDate')">Repeat util date must be greater than end time</div>
               </div>
         </ng-container>
 			</div> <!-- card-body.// -->

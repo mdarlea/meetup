@@ -4,7 +4,7 @@ import { RecurringEventViewModel} from '../recurring-event-view-model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { isInvalidControl } from '../utils';
 
-export const recurringValidator = (control: FormGroup): {[key: string]: boolean} => {
+export const recurringEventValidator = (control: FormGroup): {[key: string]: boolean} => {
   const recurring = control.get('recurring');
 
   if (recurring && recurring.value) {
@@ -12,8 +12,6 @@ export const recurringValidator = (control: FormGroup): {[key: string]: boolean}
     if (!type || !type.value) {
       type.setErrors({noValue: true});
     }
-
-    const until = control.get('until');
   }
   return null;
 }
@@ -33,7 +31,7 @@ export class RecurringEventComponent implements OnInit, OnChanges, OnDestroy {
       recurring: viewModel.recurring,
       count: viewModel.count,
       until: viewModel.until
-    }, { validator: recurringValidator });
+    }, { validator: recurringEventValidator });
   }
 
   get isRecurring(): boolean {
