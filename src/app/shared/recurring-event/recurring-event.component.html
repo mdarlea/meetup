@@ -1,62 +1,73 @@
 <div class="card" [formGroup]="recurringEventForm">
   <article class="card-group-item">
 		<header class="card-header">
-      <a [ngClass]="{'collapsed': !isRecurring}" (click)="recurringSection($event)">
+      <a [ngClass]="{'collapsed': !expanded}" (click)="recurringSection($event)">
 				<i class="icon-action fa fa-chevron-down"></i>
 				<h6 class="title">Repeat event </h6>
 			</a>
 		</header>
-		<div class="filter-content collapse" [ngClass]="{'show': f.recurring.value}" style="">
+		<div class="filter-content collapse" [ngClass]="{'show': expanded}" style="">
 			<div class="card-body">
-				<div class="row">
-          <div class="col-sm-4">
-            <div class="funkyradio">
-              <div class="funkyradio-primary">
-                <input type="radio" name="repeat-type" id="repeat-daily" [checked]="isType('daily')"
-                       value="daily" (change)="onTypeChange('daily')" />
-                <label for="repeat-daily">Daily</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="funkyradio">
-              <div class="funkyradio-primary">
-                <input type="radio" name="repeat-type" id="repeat-weekly" [checked]="isType('weekly')"
-                       value="weekly" (change)="onTypeChange('weekly')" />
-                <label for="repeat-weekly">Weekly</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="funkyradio">
-              <div class="funkyradio-primary">
-                <input type="radio" name="repeat-type" id="repeat-monthly" [checked]="isType('monthly')"
-                       value="monthly" (change)="onTypeChange('monthly')" />
-                <label for="repeat-monthly">Monthly</label>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="occurrencesCount">Number of occurrences</label>
-              <input type="number" class="form-control"
-                     id="occurrencesCount"
-                     name="occurrencesCount"
-                     formControlName="count"
-                     placeholder="Count" />
-            </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Repeat until</label>
-            <time-picker name="until"
-                         formControlName="until"
-                         (toggle)="toggleTime($event)"
-                         format="{momentFormat:'lll'}">
-            </time-picker>
-          </div>
+            <label for="primary" class="btn btn-primary">Primary
+              <input type="checkbox" id="primary" class="badgebox" [checked]="isRecurring" (change)="setRecurring($event)">
+              <span class="badge"></span>
+            </label>
         </div>
+        <ng-container *ngIf="isRecurring">
+            <div class="row">
+                <div class="col-sm-4">
+                  <div class="funkyradio">
+                    <div class="funkyradio-primary">
+                      <input type="radio" name="repeat-type" id="repeat-daily" [checked]="isType('daily')"
+                             value="daily" (change)="onTypeChange('daily')" />
+                      <label for="repeat-daily">Daily</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="funkyradio">
+                    <div class="funkyradio-primary">
+                      <input type="radio" name="repeat-type" id="repeat-weekly" [checked]="isType('weekly')"
+                             value="weekly" (change)="onTypeChange('weekly')" />
+                      <label for="repeat-weekly">Weekly</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="funkyradio">
+                    <div class="funkyradio-primary">
+                      <input type="radio" name="repeat-type" id="repeat-monthly" [checked]="isType('monthly')"
+                             value="monthly" (change)="onTypeChange('monthly')" />
+                      <label for="repeat-monthly">Monthly</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="occurrencesCount">Number of occurrences</label>
+                    <input type="number" class="form-control"
+                           id="occurrencesCount"
+                           name="occurrencesCount"
+                           formControlName="count"
+                           placeholder="Count" />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                   <label>Repeat until</label>
+                  <time-picker name="until"
+                               formControlName="until"
+                               (toggle)="toggleTime($event)"
+                               format="{momentFormat:'lll'}">
+                  </time-picker>
+                </div>
+              </div>
+              <div *ngIf="!recurringEventForm.pristine && !recurringEventForm.valid" class="alert alert-danger">
+                <div *ngIf="hasErrors('type', 'noValue')">You must provide the recurrency type</div>
+              </div>
+        </ng-container>
 			</div> <!-- card-body.// -->
 		</div>
 	</article>

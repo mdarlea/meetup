@@ -3,7 +3,8 @@ import {catchError, tap, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreateApplicationUserModel } from './create-application-user.model';
+import { JwtHelper } from 'angular2-jwt';
+
 import { CreateExternalApplicationUserModel } from './create-external-application-user.model';
 import { LoginViewModel } from './login-view.model';
 import { UserService } from '../../core/services/user.service';
@@ -24,7 +25,7 @@ export class AuthService  {
        this.route = `${settings.configuration.url.auth}/`;
     }
 
-    private storeUser(user: AuthUser) {
+    private storeUser(user: { token: string; }) {
         if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             this.userSvc.setUser(user);
@@ -41,7 +42,7 @@ export class AuthService  {
             tap(u => {
               this.storeUser(u);
             }),
-            catchError(this.handleError('registerExternal', new AuthUser(null, null, null, null, null))));
+            catchError(this.handleError('registerExternal', new AuthUser(null))));
     }
 
     get isLoggedIn(): boolean {
@@ -55,11 +56,11 @@ export class AuthService  {
         const url = `${this.route}login`;
         viewModel.clientId = this.settings.configuration.clientId;
 
-        return this.httpSvc.post<AuthUser>(url, viewModel).pipe(
+        return this.httpSvc.post<any>(url, viewModel).pipe(
             tap(user => {
-                this.storeUser(user);
+              this.storeUser(user);
             }),
-            catchError(this.handleError('login', new AuthUser(null, null, null, null, null), true)));
+            catchError(this.handleError('login', new AuthUser(null), true)));
     }
 
     loginExternal(externalLoginInfo): Observable<any> {

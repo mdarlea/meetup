@@ -5,24 +5,25 @@ import { AuthUser } from '../models/auth-user';
 @Injectable()
 export class UserService
 {
-    private _storageKey = 'currentUser';
+    private storageKey = 'meetupCurrentUser2019';
 
-    constructor(private _storage: Storage)
+    constructor(private storage: Storage)
     {
     }
 
     static tokenIsExpired(user: AuthUser): boolean {
-      return (user && user.token) ? false : true;
+      return (user && !user.isExpired()) ? false : true;
     }
 
     getUser(): AuthUser {
-        return this._storage.getItem<AuthUser>(this._storageKey);
+        const user = this.storage.getItem<AuthUser>(this.storageKey);
+        return (user) ? new AuthUser(user) : null;
     }
-    setUser(value: AuthUser | any) {
-        this._storage.setItem(this._storageKey, value);
+    setUser(value: any) {
+        this.storage.setItem(this.storageKey, value);
     }
 
     removeUser() {
-        this._storage.removeItem(this._storageKey);
+        this.storage.removeItem(this.storageKey);
     }
 }

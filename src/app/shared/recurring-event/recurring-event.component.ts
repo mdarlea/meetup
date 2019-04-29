@@ -1,12 +1,20 @@
-import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, OnDestroy } from '@angular/core';
 
 import { RecurringEventViewModel} from '../recurring-event-view-model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { isInvalidControl } from '../utils';
 
 export const recurringValidator = (control: FormGroup): {[key: string]: boolean} => {
   const recurring = control.get('recurring');
-  const type = control.get('type');
 
+  if (recurring && recurring.value) {
+    const type = control.get('type');
+    if (!type || !type.value) {
+      type.setErrors({noValue: true});
+    }
+
+    const until = control.get('until');
+  }
   return null;
 }
 
@@ -15,8 +23,9 @@ export const recurringValidator = (control: FormGroup): {[key: string]: boolean}
   templateUrl: './recurring-event.component.html',
   styleUrls: ['./recurring-event.component.css']
 })
-export class RecurringEventComponent implements OnInit, OnChanges {
+export class RecurringEventComponent implements OnInit, OnChanges, OnDestroy {
   @Input() recurringEventForm: FormGroup;
+  expanded = false;
 
   static buildRecurringEvent(fb: FormBuilder, viewModel: RecurringEventViewModel): FormGroup {
     return fb.group({
@@ -35,23 +44,34 @@ export class RecurringEventComponent implements OnInit, OnChanges {
     return recurring && recurring.value;
 
   }
-  get f() { return this.recurringEventForm ? this.recurringEventForm.controls : null; }
 
   constructor() { }
 
   ngOnChanges(changes: any) {
-
+    if (changes && 'recurringEventForm' in changes) {
+      this.expanded = this.isRecurring;
+    }
   }
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+  }
+
+  hasErrors(formControlName: string, key: string) {
+    return isInvalidControl(this.recurringEventForm, formControlName, key);
   }
 
   recurringSection(event: Event) {
     event.preventDefault();
 
+    this.expanded = ! this.expanded;
+  }
+
+  setRecurring(value: any) {
     if (! this.recurringEventForm) { return; }
 
-    const recurring = this.f.recurring.value;
-    this.recurringEventForm.patchValue({recurring: !recurring });
+    this.recurringEventForm.patchValue({recurring: value.target.checked });
   }
 
   onTypeChange(type: string) {
@@ -59,7 +79,8 @@ export class RecurringEventComponent implements OnInit, OnChanges {
   }
 
   isType(type: string) {
-    return (this.f && this.f.type.value === type);
+    const f = (this.recurringEventForm) ? this.recurringEventForm.controls : null;
+    return (f && f.type.value === type);
   }
 
   toggleTime(state: boolean) {
