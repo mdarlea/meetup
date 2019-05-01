@@ -1,11 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SchedulerModule } from 'sw-scheduler';
 
+
 import { JqxSchedulerComponent } from './jqx-scheduler.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CoreModule } from '../../core/core.module';
 import { EventsQueryService } from '../shared/events-query.service';
 import { ApplicationInitStatus } from '@angular/core';
+import { AuthService } from '../../account/shared/auth.service';
+import { LoginViewModel } from '../../account/shared/login-view.model';
 
 describe('JqxSchedulerComponent', () => {
   let component: JqxSchedulerComponent;
@@ -14,7 +17,7 @@ describe('JqxSchedulerComponent', () => {
 
   beforeEach(() => {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
   });
 
   beforeEach(async(() => {
@@ -26,7 +29,8 @@ describe('JqxSchedulerComponent', () => {
         CoreModule
       ],
       providers: [
-        EventsQueryService
+        EventsQueryService,
+        AuthService
       ]
     })
     .compileComponents();
@@ -34,7 +38,14 @@ describe('JqxSchedulerComponent', () => {
 
   beforeEach(async(() => {
     // until https://github.com/angular/angular/issues/24218 is fixed
+    // tslint:disable-next-line:no-unused-expression
     TestBed.get(ApplicationInitStatus).donePromise;
+  }));
+
+  beforeEach(async(() => {
+    const service = TestBed.get(AuthService);
+    const vm = new LoginViewModel('testor@testing.com', 'Mihaela@777', false);
+    service.login(vm).subscribe();
   }));
 
   beforeEach(() => {
