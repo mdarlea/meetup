@@ -12,13 +12,15 @@ const routes: Routes = [{
     path: '',
     component: DashboardComponent,
     canActivateChild: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {path: '', redirectTo: 'events-map', pathMatch: 'full'},
-      {path: 'events-map', component: EventsMapComponent },
+      {path: 'events-map', component: EventsMapComponent, canActivate: [AuthGuard] },
       {
         path: 'event/:id',
         component: EventComponent,
         canDeactivate: [EventGuard],
+        canActivate: [AuthGuard],
         resolve: { resolvedData: EventResolver }
       }
     ]
