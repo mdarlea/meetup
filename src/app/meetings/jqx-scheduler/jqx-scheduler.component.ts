@@ -78,7 +78,7 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ensureFirstEventVisible();
         this.loaderSvc.load(false);
     }, error => {
-      this.modelState = error;
+      this.modelState = getModelState(error);
       this.loading = false;
       this.loaderSvc.load(false);
     });

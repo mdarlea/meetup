@@ -13,10 +13,10 @@
     "appId": "822182081727248"
   },
   "google": {
-    "clientId": "xxx"
+    "clientId": "237634769595-ni11m1mj724d70morptgj3io4bjoemc1"
   },
   "foursquare": {
-    "clientId": "xxx",
-    "clientSecret": "xxx"
+    "clientId": "SZGKEVYTGKDLRVWLLW3VZ53S0GRU5TYKIM0SRDF32EQM0H1U",
+    "clientSecret": "RPROF1HAGBVD1D0NZZXXLZYAVOVK2VUQCSWIJRWMPJQH3WL0"
   }
 }

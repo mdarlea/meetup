@@ -5,10 +5,7 @@
     "baseUrl": "./",
     "module": "commonjs",
     "target": "es5",
-    "types": [
-      "jasmine",
-      "node"
-    ]
+    "types": ["amplifyjs", "web2cal", "moment","jquery-extensions", "jquery", "googlemaps", "metismenu", "scrollreveal", "jasmine"]
   },
   "files": [
     "test.ts",
