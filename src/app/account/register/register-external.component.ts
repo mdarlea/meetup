@@ -1,11 +1,13 @@
-
+import { FormGroup } from '@angular/forms';
 import {switchMap} from 'rxjs/operators';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CreateExternalApplicationUserModel } from '../shared/create-external-application-user.model'
 import { AuthService } from '../shared/auth.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AuthUser } from '../../core/models/auth-user';
 import { AddressComponent } from '../../shared/address/address.component';
+
 
 @Component({
     selector: 'register-external',
@@ -17,6 +19,7 @@ export class RegisterExternalComponent implements OnInit {
     modelState: any = null;
     registering = false;
     isExternal= true;
+    registerForm: FormGroup;
 
     @ViewChild(AddressComponent) addressComponent: AddressComponent;
 
