@@ -17,7 +17,7 @@ describe('JqxSchedulerComponent', () => {
 
   beforeEach(() => {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
   });
 
   beforeEach(async(() => {
@@ -48,11 +48,12 @@ describe('JqxSchedulerComponent', () => {
     service.login(vm).subscribe();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(JqxSchedulerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+    fixture.whenStable();
+  }));
 
   afterEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
@@ -62,9 +63,7 @@ describe('JqxSchedulerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('michelle test', async(() => {
-    fixture.whenStable().then(() => {
+  it('michelle test', () => {
       fixture.detectChanges();
-    });
-  }));
+  });
 });
