@@ -88,6 +88,7 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
     private addressSubscription: Subscription;
     private loaderSubscription: Subscription;
+    private currentAddress: Address;
 
     private initialState: any;
 
@@ -310,9 +311,20 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     });
 
     if (!venue) {
+      const currentAddress = (this.currentAddress) ? this.currentAddress : this.event.address;
+
+      const address = AddressComponent.buildAddress(this.fb, currentAddress);
+      this.eventForm.addControl('address', address);
+
       this.venuePhoto = null;
       this.ref.detectChanges();
       return;
+    } else {
+      const address = this.eventForm.get('address');
+
+      this.currentAddress = (address) ? address.value : null;
+
+      this.eventForm.removeControl('address');
     }
 
     // get the venue photo
