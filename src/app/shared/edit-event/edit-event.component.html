@@ -18,7 +18,7 @@
             <time-picker name="startTime"
                          formControlName="start"
                          [showTimeOnly]="!isNewEvent && isRecurring"
-                         [format]="isRecurring ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
+                         [format]="!isNewEvent && isRecurring ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
                 <validation-messages>
                   <invalid-value key="required" message="The start time is required"></invalid-value>
                   <invalid-value key="invalidTime" message="Start time must be in the future"></invalid-value>
@@ -30,7 +30,7 @@
             <time-picker name="endTime"
                          formControlName="end"
                          [showTimeOnly]="!isNewEvent && isRecurring"
-                         [format]="(isRecurring) ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
+                         [format]="!isNewEvent && isRecurring ? {momentFormat:'hh:mm a'} : {momentFormat:'lll'}">
                 <validation-messages>
                   <invalid-value key="required" message="The end time is required"></invalid-value>
                   <invalid-value key="invalidTime" message="End time must be in the future and greater than start time"></invalid-value>
@@ -76,7 +76,7 @@
         <button type="submit" class="btn btn-success">
           <span class="glyphicon glyphicon-ok"></span>Save
         </button>
-        <button *ngIf="event.id > 0" type="button" (click)="delete()" class="btn btn-danger">
+        <button *ngIf="canDeleteEvent" type="button" (click)="delete()" class="btn btn-danger">
           <span class="glyphicon glyphicon-remove"></span>Delete
         </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">

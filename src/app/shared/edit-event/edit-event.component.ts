@@ -355,8 +355,8 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   get isRecurring(): boolean {
-    const recurring = this.eventForm.get('recurring').value;
-    return (recurring && recurring.recurring);
+    const recurring = this.eventForm.get('recurring');
+    return (recurring && recurring.value && recurring.value.recurring);
   }
 
   get address(): Address {
@@ -371,5 +371,13 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
 
   get isNewEvent(): boolean {
     return this.event && (!this.event.id || (!isNaN(+this.event.id) && +this.event.id < 1));
+  }
+
+  get canDeleteEvent(): boolean {
+    if (isNaN(+this.event.id)) {
+      return (this.event.id) ? true : false;
+    } else {
+      return +this.event.id > 0;
+    }
   }
 }

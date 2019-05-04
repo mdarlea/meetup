@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, forwardRef, EventEmitter } from '@angular/core';
+import { Component, OnChanges, OnInit, Input, Output, forwardRef, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export class DateFormat {
@@ -15,7 +15,7 @@ export class DateFormat {
       multi: true
   }]
 })
-export class TimePickerComponent implements OnInit, ControlValueAccessor {
+export class TimePickerComponent implements OnChanges, OnInit, ControlValueAccessor {
    @Input() format: DateFormat;
    @Input() name: string;
    @Input() showTimeOnly = false;
@@ -65,6 +65,7 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
    private modelValue: Date;
    private onTouchedValue: Function;
    private onChangeValue: Function;
+   private initialized = false;
 
    get model(): any {
        return this.modelValue;
@@ -89,6 +90,23 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
         this.state = !this.state;
         this.toggle.emit(this.state);
     }
+
+    ngOnChanges(changes: any) {
+      if (!this.initialized) {
+        return;
+      }
+
+      if (changes && 'format' in changes) {
+        let m: any;
+        if (this.model) {
+            m = moment(this.model);
+        } else {
+            m = moment();
+        }
+
+        this.display = m.format(this.displayFormat);
+      }
+    }
   ngOnInit() {
       this.minutesList = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 0];
       this.hoursList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -101,6 +119,8 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
       for (let i = 1; i <= 31; i++) {
           this.days.push(i);
       }
+
+      this.initialized = true;
   }
 
   setTab(tab: string) {
