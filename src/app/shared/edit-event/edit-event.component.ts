@@ -159,7 +159,9 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
           if (this.eventForm) {
             this.eventForm.patchValue({
               addressId: -1,
-              address: new Address()
+              address: {
+                id: -1
+              }
             });
           }
 
