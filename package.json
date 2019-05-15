@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
     "build": "ng build --prod",
-    "test": "ng test --single-run --reporters=progress,junit",
+    "test": "ng test --reporters=progress,junit",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "compodoc": "npx compodoc -p src/tsconfig.app.json"
@@ -69,6 +69,7 @@
     "karma-junit-reporter": "^1.2.0",
     "ng-packagr": "^4.2.0",
     "protractor": "5.1.2",
+    "puppeteer": "^1.16.0",
     "ts-node": "3.0.4",
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.0",
