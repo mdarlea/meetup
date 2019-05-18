@@ -368,6 +368,10 @@ export class EditEventComponent implements OnChanges, OnInit, OnDestroy {
     this.initialState = _.cloneDeep(this.eventForm.value);
   }
 
+  close() {
+    this.schedulerSvc.eventFormClose(true);
+  }
+
   get isRecurring(): boolean {
     const recurring = this.eventForm.get('recurring');
     return (recurring && recurring.value && recurring.value.recurring);

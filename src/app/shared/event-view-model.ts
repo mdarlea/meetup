@@ -155,7 +155,7 @@ export class EventViewModel {
     }
 
     userCanEditThisEvent(userId: string) {
-      const canEdit = (this.userId === userId);
+      const canEdit = this.isNewEvent() || (this.userId === userId);
 
       if (!canEdit) { return false; }
 
@@ -170,5 +170,10 @@ export class EventViewModel {
       } else {
         return (this.time.start >= now) ? true : false;
       }
+    }
+
+    isNewEvent() {
+      const isNew = isNaN(+this.id) ? !this.id : +this.id < 1 ;
+      return isNew;
     }
 }

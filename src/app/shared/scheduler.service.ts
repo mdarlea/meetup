@@ -8,11 +8,13 @@ export class SchedulerService {
   private cancelAddEventSource: Subject<any> = new Subject<any>();
   private eventSavedSource: Subject<EventViewModel> = new Subject<EventViewModel>();
   private eventSavingErrorSource: Subject<any> = new Subject<any>();
+  private eventFormCloseSource: Subject<boolean> = new Subject<boolean>();
 
   deleteEvent$ = this.deleteEventSource.asObservable();
   cancelAddEvent$ = this.cancelAddEventSource.asObservable();
   eventSaved$ = this.eventSavedSource.asObservable();
   eventSavingError$ = this.eventSavingErrorSource.asObservable();
+  eventFormClose$ = this.eventFormCloseSource.asObservable();
 
   deleteEvent(eventId: number|string) {
     this.deleteEventSource.next(eventId);
@@ -28,5 +30,9 @@ export class SchedulerService {
 
   eventSavingError(error: any) {
     this.eventSavingErrorSource.next(error);
+  }
+
+  eventFormClose(close: boolean) {
+    this.eventFormCloseSource.next(close);
   }
 }

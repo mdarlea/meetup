@@ -8,6 +8,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { JqxSchedulerComponent } from './jqx-scheduler/jqx-scheduler.component';
 import { SchedulerModule } from 'sw-scheduler';
 import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-test.component';
+import { EventComponent } from './event/event.component';
+import { EventResolver } from './event/event-resolver.service';
+import { EventGuard } from './event/event.guard';
 
 @NgModule({
   imports: [
@@ -19,10 +22,13 @@ import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-tes
     MeetingsComponent,
     NavbarComponent,
     JqxSchedulerComponent,
-    JqxSchedulerTestComponent
+    JqxSchedulerTestComponent,
+    EventComponent
   ],
   providers: [
-    EventsQueryService
+    EventsQueryService,
+    EventGuard,
+    EventResolver
   ]
 })
 export class MeetingsModule { }

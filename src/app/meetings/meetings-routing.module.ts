@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { JqxSchedulerComponent} from './jqx-scheduler/jqx-scheduler.component';
 import {MeetingsComponent} from './meetings-root/meetings.component';
-import { JqxSchedulerTestComponent} from './jqx-scheduler-test/jqx-scheduler-test.component';
 import { AuthGuard } from '../auth.guard';
-// import { TestTimeComponent} from './test-time/test-time.component';
+import { EventComponent } from './event/event.component';
+import { EventGuard } from './event/event.guard';
+import { EventResolver } from './event/event-resolver.service';
+
 
 const routes: Routes = [
   {
@@ -13,7 +15,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: '', redirectTo: 'jqx-scheduler', pathMatch: 'full'},
-      {path: 'jqx-scheduler', component: JqxSchedulerComponent}
+      {path: 'jqx-scheduler', component: JqxSchedulerComponent},
+      {
+        path: 'event/:id',
+        component: EventComponent,
+        canDeactivate: [EventGuard],
+        canActivate: [AuthGuard],
+        resolve: { resolvedData: EventResolver }
+      }
     ]
   }
 ];

@@ -79,7 +79,7 @@
         <button *ngIf="canDeleteEvent" type="button" (click)="delete()" class="btn btn-danger">
           <span class="glyphicon glyphicon-remove"></span>Delete
         </button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="close()">
           <span class="glyphicon glyphicon-log-out"></span>Close
         </button>
       </ng-container>
