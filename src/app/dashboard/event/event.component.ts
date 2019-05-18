@@ -81,7 +81,9 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    if (this.deleteEventSubscription) {
+      this.deleteEventSubscription.unsubscribe();
+    }
   }
 
   edit() {
