@@ -77,7 +77,7 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    $('body').css('overflow-x', 'hidden');
+
   }
 
   ngOnDestroy() {
