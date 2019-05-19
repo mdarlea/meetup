@@ -23,6 +23,7 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteEventSubscription: Subscription;
   closeFormSubscription: Subscription;
+  eventSavedSubscription: Subscription;
 
   @ViewChild(EditEventComponent) editEventComponent: EditEventComponent;
 
@@ -54,6 +55,9 @@ export class EventComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loading = true;
     });
 
+    this.eventSavedSubscription = this.schedulerSvc.eventSaved$.subscribe(event => {
+      this.router.navigate(['/meetings/event', this.event.id]);
+    });
     this.deleteEventSubscription = this.schedulerSvc.deleteEvent$.subscribe(id => {
       this.router.navigate(['/meetings/']);
     });
