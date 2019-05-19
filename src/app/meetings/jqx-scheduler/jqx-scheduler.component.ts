@@ -351,4 +351,8 @@ export class JqxSchedulerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.scheduler.closeSelectedEvent();
       }
    }
+
+   getHeight() {
+    return (window.innerHeight >= 755) ? 630 : 540;
+   }
 }

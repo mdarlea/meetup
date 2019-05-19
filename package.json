@@ -39,7 +39,7 @@
     "rxjs": "6.3.3",
     "rxjs-compat": "^6.0.0-rc.0",
     "scrollreveal": "3.3.6",
-    "sw-scheduler": "^0.3.3",
+    "sw-scheduler": "^0.3.4",
     "tslib": "^1.9.0",
     "zone.js": "0.8.29"
   },
