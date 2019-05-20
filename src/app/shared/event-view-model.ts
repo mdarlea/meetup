@@ -74,6 +74,8 @@ export class EventViewModel {
         newEvent.end = eventInfo.endTime;
         newEvent.addressId = -1;
         newEvent.address = new Address();
+        newEvent.address.id = -1;
+        newEvent.address.isMainAddress = true;
         newEvent.readOnly = null;
 
         return newEvent;
