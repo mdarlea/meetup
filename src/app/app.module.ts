@@ -20,7 +20,7 @@ import { MapModule } from './shared/sw-map/map.module';
     CoreModule,
     ScrollToModule.forRoot(),
     MapModule.forRoot({
-      mapsApiKey: 'xxx'
+      mapsApiKey: 'AIzaSyCC3jsdWbu3UIPuBhQt19qkTUyvE87sDaU'
     }),
     SharedModule
   ],
