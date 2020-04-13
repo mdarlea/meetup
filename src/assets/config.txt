@@ -1,6 +1,6 @@
 {
-  "apiBaseUrl" : "https://localhost:44370",
-  "baseUrl" : "https://localhost:4200",
+  "apiBaseUrl" : "",
+  "baseUrl" : "http://localhost:4200",
   "clientId": "SocialMediaApp",
   "url": {
     "address": "api/address",
