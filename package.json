@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
-    "build-prod": "ng build --prod --outputPath=dist",
+    "build-prod": "ng build --prod --outputPath=dist-prod",
     "build": "ng build --outputPath=dist",
     "test": "ng test --watch=false --reporters=progress,junit",
     "lint": "ng lint",
