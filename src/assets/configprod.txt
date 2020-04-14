@@ -1,4 +1,4 @@
 {
-  "apiBaseUrl" : "",
-  "baseUrl" : "http://www.swaksoft.com"
+  "apiBaseUrl" : "https://api-meetup.azurewebsites.net",
+  "baseUrl" : "https://angular-meetup.azurewebsites.net"
 }
